@@ -1,0 +1,2850 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nexora</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+
+    <!-- Bootstrap JS Bundle -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+
+    <style>
+      :root {
+        --primary: #7c3aed; /* Purple primary color */
+        --primary-light: #a78bfa; /* Lighter purple */
+        --primary-dark: #6d28d9; /* Darker purple */
+        --background-light: #ffffff;
+        --background-gray: #f4f4ff;
+        --text-dark: #1f1f1f;
+        --text-muted: #6c757d;
+        --border-light: #e9ecef;
+      }
+
+      body {
+        background-color: var(--background-gray);
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .hero h1 {
+        font-weight: 700;
+        font-size: 2.5rem;
+        color: var(--text-dark);
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        transition: 0.3s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-purple {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+      }
+
+      .btn-purple:hover {
+        background-color: var(--primary-dark);
+      }
+
+      input::placeholder {
+        color: #999 !important;
+      }
+
+      .form-control-light {
+        background-color: #f5f3ff;
+        border: 1px solid #dcd6f7;
+        color: var(--text-dark);
+      }
+
+      .form-control-light:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.1rem rgba(124, 58, 237, 0.25);
+      }
+
+      .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        position: relative;
+        margin-bottom: 15px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .warning-icon {
+        color: #f59e0b;
+      }
+
+      .active-step .icon-wrapper {
+        background-color: var(--primary);
+        color: white;
+        border-radius: 50%;
+        font-weight: bold;
+      }
+
+      .step-line {
+        height: 2px;
+        background-color: #d4d4d4;
+        width: 20px;
+        align-self: center;
+      }
+
+      .step-label {
+        font-size: 13px;
+        margin-top: 5px;
+      }
+
+      .text-purple {
+        color: var(--primary) !important;
+      }
+      .bg-purple {
+        background-color: var(--primary) !important;
+      }
+      .border-purple {
+        border: 1px solid var(--primary) !important;
+      }
+
+      /* Checkbox (checked) color override */
+      .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      /* Focus border on inputs and textarea */
+      .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25);
+      }
+
+      /* Optional: hover color of checkboxes (for consistency) */
+      .form-check-input:hover {
+        border-color: var(--primary);
+      }
+
+      /* CSS-only Icons for Nexora Features */
+      .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        position: relative;
+        margin-bottom: 15px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* 1. Trustless Collaboration Icon - Handshake */
+      .icon-trustless {
+        position: relative;
+        width: 60px;
+        height: 40px;
+      }
+
+      .icon-trustless::before,
+      .icon-trustless::after {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 12px;
+        background-color: var(--primary);
+        border-radius: 6px 10px 4px 4px;
+      }
+
+      .icon-trustless::before {
+        top: 14px;
+        left: 4px;
+        transform: rotate(-15deg);
+      }
+
+      .icon-trustless::after {
+        top: 14px;
+        right: 4px;
+        transform: rotate(15deg);
+      }
+
+      .icon-trustless .hand-left {
+        position: absolute;
+        width: 16px;
+        height: 10px;
+        background-color: var(--primary-light);
+        border-radius: 3px;
+        transform: rotate(-15deg);
+        top: 8px;
+        left: 12px;
+      }
+
+      .icon-trustless .hand-right {
+        position: absolute;
+        width: 16px;
+        height: 10px;
+        background-color: var(--primary-light);
+        border-radius: 3px;
+        transform: rotate(15deg);
+        top: 8px;
+        right: 12px;
+      }
+
+      /* 2. Transparent Reputation Icon - Medal/Badge with Checkmark */
+      .icon-reputation {
+        position: relative;
+        width: 40px;
+        height: 50px;
+      }
+
+      .icon-reputation::before {
+        content: "";
+        position: absolute;
+        width: 30px;
+        height: 36px;
+        background-color: var(--primary);
+        border-radius: 50% 50% 5px 5px;
+        top: 0;
+        left: 5px;
+      }
+
+      .icon-reputation::after {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 30px;
+        background-color: var(--background-light);
+        border-radius: 50% 50% 5px 5px;
+        top: 3px;
+        left: 8px;
+      }
+
+      .icon-reputation .checkmark {
+        position: absolute;
+        top: 12px;
+        left: 13px;
+        width: 14px;
+        height: 8px;
+        border-left: 3px solid var(--primary);
+        border-bottom: 3px solid var(--primary);
+        transform: rotate(-45deg);
+        z-index: 1;
+      }
+
+      .icon-reputation .ribbon-left {
+        position: absolute;
+        bottom: 0;
+        left: 10px;
+        width: 8px;
+        height: 15px;
+        background-color: var(--primary-light);
+        transform: skewX(-20deg);
+      }
+
+      .icon-reputation .ribbon-right {
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+        width: 8px;
+        height: 15px;
+        background-color: var(--primary-light);
+        transform: skewX(20deg);
+      }
+
+      /* 3. Instant Microfunding Icon - Money/Lightning */
+      .icon-funding {
+        position: relative;
+        width: 50px;
+        height: 50px;
+      }
+
+      .icon-funding .coin {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background-color: var(--primary);
+        border-radius: 50%;
+        bottom: 0;
+        left: 10px;
+        overflow: hidden;
+      }
+
+      .icon-funding .coin::after {
+        content: "$";
+        position: absolute;
+        font-size: 20px;
+        font-weight: bold;
+        color: var(--background-light);
+        top: 2px;
+        left: 10px;
+      }
+
+      .icon-funding .lightning {
+        position: absolute;
+        top: 0;
+        left: 22px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 22px solid var(--primary);
+      }
+
+      .icon-funding .lightning::before {
+        content: "";
+        position: absolute;
+        top: -24px;
+        left: -12px;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 14px solid var(--primary);
+        transform: rotate(30deg);
+      }
+
+      /* 4. Global Mentorship Icon - Globe with Person */
+      .icon-mentorship {
+        position: relative;
+        width: 50px;
+        height: 50px;
+      }
+
+      .icon-mentorship .globe {
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        bottom: 0;
+        left: 7px;
+        overflow: hidden;
+      }
+
+      .icon-mentorship .globe::before,
+      .icon-mentorship .globe::after {
+        content: "";
+        position: absolute;
+        background-color: var(--primary);
+      }
+
+      .icon-mentorship .globe::before {
+        width: 36px;
+        height: 3px;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+      }
+
+      .icon-mentorship .globe::after {
+        width: 3px;
+        height: 36px;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+      }
+
+      .icon-mentorship .person {
+        position: absolute;
+        top: 0;
+        left: 19px;
+        width: 12px;
+        height: 12px;
+        background-color: var(--primary);
+        border-radius: 50%;
+      }
+
+      .icon-mentorship .person::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 15px;
+        background-color: var(--primary);
+        border-radius: 5px 5px 0 0;
+        bottom: -10px;
+        left: 1px;
+      }
+
+      /* 5. Secure & Decentralized - Lock with Network */
+      .icon-secure {
+        position: relative;
+        width: 50px;
+        height: 50px;
+      }
+
+      .icon-secure .lock-body {
+        position: absolute;
+        width: 30px;
+        height: 22px;
+        background-color: var(--primary);
+        border-radius: 4px;
+        bottom: 6px;
+        left: 10px;
+      }
+
+      .icon-secure .lock-shackle {
+        position: absolute;
+        width: 20px;
+        height: 16px;
+        border: 4px solid var(--primary);
+        border-bottom: none;
+        border-radius: 10px 10px 0 0;
+        bottom: 28px;
+        left: 11px;
+      }
+
+      .icon-secure .node-1 {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        top: 5px;
+        left: 5px;
+      }
+
+      .icon-secure .node-2 {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        top: 5px;
+        right: 5px;
+      }
+
+      .icon-secure .node-3 {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: var(--primary-light);
+        border-radius: 50%;
+        bottom: 0;
+        left: 22px;
+      }
+
+      .icon-secure .connection-1 {
+        position: absolute;
+        width: 20px;
+        height: 1px;
+        background-color: var(--primary-light);
+        transform: rotate(30deg);
+        top: 8px;
+        left: 10px;
+      }
+
+      .icon-secure .connection-2 {
+        position: absolute;
+        width: 20px;
+        height: 1px;
+        background-color: var(--primary-light);
+        transform: rotate(-30deg);
+        top: 8px;
+        right: 10px;
+      }
+
+      .icon-secure .connection-3 {
+        position: absolute;
+        width: 1px;
+        height: 15px;
+        background-color: var(--primary-light);
+        bottom: 6px;
+        left: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Login Modal -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-hidden="true"
+      style="padding-top: 120px"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content p-3">
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <h4 class="text-center fw-bold">Login</h4>
+            <hr />
+            {% if messages %}
+            <div class="alert alert-danger">
+              {% for message in messages %}{{ message }}{% endfor %}
+            </div>
+            {% endif %}
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input
+                type="text"
+                name="username"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3 position-relative">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="LoginPasswordInput"
+                class="form-control"
+                required
+              />
+              <i
+                class="bi bi-eye-slash position-absolute"
+                style="top: 55%; right: 15px; cursor: pointer"
+                onclick="togglePassword('LoginPasswordInput', this)"
+              ></i>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              style="background-color: #4c1d95"
+            >
+              Login
+            </button>
+          </form>
+          <div class="text-center mt-2">
+            <a
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#registerModal"
+              data-bs-dismiss="modal"
+              >New user? Register</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div
+      class="modal fade"
+      id="registerModal"
+      tabindex="-1"
+      aria-hidden="true"
+      style="padding-top: 50px"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content p-3">
+          <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <h4 class="text-center fw-bold">Register</h4>
+            <hr />
+            {% if messages %}
+            <div class="alert alert-danger">
+              {% for message in messages %}{{ message }}{% endfor %}
+            </div>
+            {% endif %}
+            <div class="mb-2">
+              <label class="form-label">First Name</label>
+              <input
+                type="text"
+                name="first_name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Last Name</label>
+              <input
+                type="text"
+                name="last_name"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Username</label>
+              <input
+                type="text"
+                name="username"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="mb-3 position-relative">
+              <label class="form-label">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="RegisterPasswordInput"
+                class="form-control"
+                required
+              />
+              <i
+                class="bi bi-eye-slash position-absolute"
+                style="top: 55%; right: 15px; cursor: pointer"
+                onclick="togglePassword('RegisterPasswordInput', this)"
+              ></i>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-success w-100"
+              style="background-color: #4c1d95"
+            >
+              Register
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    {% if user.is_authenticated %}
+    <div
+      style="
+        background-color: #ffffff;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+      "
+    >
+      <div style="font-size: 24px; font-weight: bold; color: #7c3aed">
+        Nexora
+      </div>
+      <div>
+        <a
+          href="{% url 'blog' %}"
+          style="margin-right: 20px; text-decoration: none; color: #333"
+          >Features</a
+        >
+
+        <!-- Bell Icon -->
+        <a
+          href="{% url 'notifications' %}"
+          class="btn btn-light position-relative me-3"
+        >
+          🔔 {% if unread_messages_count > 0 %}
+          <span
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+          >
+            {{ unread_messages_count }}
+          </span>
+          {% endif %}
+        </a>
+        <form action="{% url 'logout' %}" method="post" class="d-inline">
+          {% csrf_token %}
+          <button class="btn btn-outline-dark">Logout</button>
+        </form>
+      </div>
+    </div>
+    <div class="container text-center my-5 hero position-relative">
+      <h1>Invest in Tomorrow's Unicorns, Today</h1>
+      <p class="text-muted">
+        Explore early-stage startups and invest securely using crypto — powered
+        by AI mentorship and blockchain trust.
+      </p>
+    </div>
+
+    <!-- Search & Filter Section -->
+    <div class="container my-5">
+      <form method="get" class="w-100">
+        <div
+          class="d-flex flex-wrap gap-3 justify-content-between align-items-center"
+        >
+          <!-- Search Input -->
+          <div class="flex-grow-1 position-relative">
+            <input
+              type="text"
+              name="q"
+              value="{{ query }}"
+              class="form-control bg-white ps-5 pe-4 border rounded-3 shadow-sm"
+              placeholder="Search for a specific project..."
+              style="height: 48px"
+            />
+            <span
+              class="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+            >
+              <i class="fas fa-search"></i>
+            </span>
+            {% if query %}
+            <a
+              href="{% url 'home' %}"
+              class="position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+              style="cursor: pointer"
+            >
+              <i class="fas fa-times-circle"></i>
+            </a>
+            {% endif %}
+          </div>
+
+          <!-- Create Project Button -->
+          <button
+            type="button"
+            class="btn btn-purple px-4 py-2 rounded-3"
+            data-bs-toggle="modal"
+            data-bs-target="#createProjectModal"
+          >
+            <i class="bi bi-plus-circle me-2"></i> Create Project
+          </button>
+        </div>
+      </form>
+
+      <!-- Filters -->
+      <div class="d-flex flex-wrap align-items-center mt-3 gap-2">
+        <span class="fw-semibold text-dark">Filter by:</span>
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary"
+          >ALL PROJECTS</a
+        >
+        <a
+          href="?mine=1{% if query %}&q={{ query }}{% endif %}"
+          class="btn btn-outline-secondary"
+          >MY PROJECTS</a
+        >
+        <div class="dropdown">
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            data-bs-toggle="dropdown"
+          >
+            CATEGORY
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                href="?category=AI{% if query %}&q={{ query }}{% endif %}"
+                >AI</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="?category=Fintech{% if query %}&q={{ query }}{% endif %}"
+                >Fintech</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="?category=Health{% if query %}&q={{ query }}{% endif %}"
+                >Health</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button
+            class="btn btn-outline-secondary dropdown-toggle"
+            data-bs-toggle="dropdown"
+          >
+            STAGE
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a
+                class="dropdown-item"
+                href="?stage=Idea{% if query %}&q={{ query }}{% endif %}"
+                >Idea</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="?stage=MVP{% if query %}&q={{ query }}{% endif %}"
+                >MVP</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="?stage=Growth{% if query %}&q={{ query }}{% endif %}"
+                >Growth</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {% else %}
+    <body
+      style="
+        margin: 0;
+        font-family: sans-serif;
+        background-color: #f4f6ff;
+        color: #1a1a1a;
+      "
+    >
+      <!-- Header -->
+      <div
+        style="
+          background-color: #ffffff;
+          padding: 20px 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid #ddd;
+        "
+      >
+        <div style="font-size: 24px; font-weight: bold; color: #7c3aed">
+          Nexora
+        </div>
+        <div>
+          <a
+            href="#"
+            style="margin-right: 20px; text-decoration: none; color: #333"
+            >About</a
+          >
+          <a
+            href="#"
+            style="margin-right: 20px; text-decoration: none; color: #333"
+            >Features</a
+          >
+          <a
+            href="#"
+            style="margin-right: 20px; text-decoration: none; color: #333"
+            >Contact</a
+          >
+          <a
+            href="#"
+            style="
+              padding: 10px 20px;
+              background-color: #7c3aed;
+              color: #fff;
+              border-radius: 5px;
+              text-decoration: none;
+            "
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal"
+            title="Login"
+            >Get Started</a
+          >
+        </div>
+      </div>
+      <div
+        style="
+          text-align: center;
+          padding: 60px 20px;
+          background-color: #f4f4ff;
+        "
+      >
+        <h1
+          style="
+            font-size: 42px;
+            max-width: 600px;
+            margin: auto;
+            color: #1f1f1f;
+          "
+        >
+          Empowering Early-Stage Founders with AI, Blockchain, and Crypto
+          Microfunding
+        </h1>
+        <p
+          style="
+            margin-left: 20px;
+            font-size: 20px;
+            margin-top: 20px;
+            color: #6c757d;
+          "
+        >
+          Trustless collaboration, instant mentorship, and secure decentralized
+          funding — all in one seamless platform.
+        </p>
+        <div style="margin-bottom: 30px; margin-top: 50px">
+          <a
+            href="#"
+            style="
+              margin: 0 10px;
+              padding: 10px 20px;
+              background-color: #7c3aed;
+              color: #fff;
+              border-radius: 5px;
+              text-decoration: none;
+            "
+            >Get Started</a
+          >
+          <a
+            href="#"
+            style="
+              margin: 0 10px;
+              padding: 10px 20px;
+              border: 1px solid #7c3aed;
+              color: #7c3aed;
+              border-radius: 5px;
+              text-decoration: none;
+            "
+            >Learn More</a
+          >
+        </div>
+        <img
+          src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
+          style="max-width: 50%; margin-top: 20px"
+        />
+      </div>
+
+      <!-- How Nexora Helps Section -->
+      <div
+        style="
+          background-color: #7c3aed;
+          padding: 80px 20px;
+          text-align: center;
+        "
+      >
+        <h2
+          style="
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 50px;
+          "
+        >
+          How Nexora Helps
+        </h2>
+
+        <div
+          class="nexora-helps-container"
+          style="
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+          "
+        >
+          <!-- AI Mentorship Card -->
+          <div
+            class="nexora-card"
+            style="
+              background-color: white;
+              border-radius: 16px;
+              padding: 30px;
+              width: 300px;
+              text-align: left;
+              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <h3
+              style="
+                color: #7c3aed;
+                font-size: 24px;
+                font-weight: 600;
+                margin-bottom: 20px;
+              "
+            >
+              AI Mentorship
+            </h3>
+            <p style="color: #6c757d; font-size: 16px; line-height: 1.5">
+              Get personalized guidance and insights powered by advanced AI.
+            </p>
+          </div>
+
+          <!-- Blockchain Trust Card -->
+          <div
+            class="nexora-card"
+            style="
+              background-color: white;
+              border-radius: 16px;
+              padding: 30px;
+              width: 300px;
+              text-align: left;
+              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <h3
+              style="
+                color: #7c3aed;
+                font-size: 24px;
+                font-weight: 600;
+                margin-bottom: 20px;
+              "
+            >
+              Blockchain Trust
+            </h3>
+            <p style="color: #6c757d; font-size: 16px; line-height: 1.5">
+              Build verifiable reputation and track record on the blockchain.
+            </p>
+          </div>
+        </div>
+
+        <!-- Centered bottom card -->
+        <div style="display: flex; justify-content: center; margin-top: 30px">
+          <div
+            class="nexora-card"
+            style="
+              background-color: white;
+              border-radius: 16px;
+              padding: 30px;
+              width: 300px;
+              text-align: left;
+              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <h3
+              style="
+                color: #7c3aed;
+                font-size: 24px;
+                font-weight: 600;
+                margin-bottom: 20px;
+              "
+            >
+              Crypto Microfunding
+            </h3>
+            <p style="color: #6c757d; font-size: 16px; line-height: 1.5">
+              Access or provide funding through decentralized mechanisms.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why Nexora -->
+      <div
+        style="
+          padding: 40px 20px;
+          background: #f5f3ff;
+          margin-left: 40px;
+          margin-right: 40px;
+          border-radius: 10px;
+          margin-top: 100px;
+        "
+      >
+        <div
+          style="
+            text-align: center;
+            margin-bottom: 50px;
+            margin-top: 20px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #7c3aed;
+          "
+        >
+          Why Nexora?
+        </div>
+        <div style="display: flex; flex-direction: row">
+          <div
+            style="
+              display: flex;
+              gap: 40px;
+              flex-direction: column;
+              margin-left: 200px;
+            "
+          >
+            <div
+              class="nexora-feature-card"
+              style="
+                width: 400px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+              "
+            >
+              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
+                <div class="icon-wrapper">
+                  <div class="icon-trustless">
+                    <div class="hand-left"></div>
+                    <div class="hand-right"></div>
+                  </div>
+                </div>
+                Trustless Collaboration
+              </div>
+              <div style="color: #6c757d">
+                Work together without intermediaries
+              </div>
+            </div>
+
+            <div
+              class="nexora-feature-card"
+              style="
+                width: 400px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+              "
+            >
+              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
+                <div class="icon-wrapper">
+                  <div class="icon-funding">
+                    <div class="coin"></div>
+                    <div class="lightning"></div>
+                  </div>
+                </div>
+                Instant Microfunding
+              </div>
+              <div style="color: #6c757d">Quick access to startup capital</div>
+            </div>
+
+            <div
+              class="nexora-feature-card"
+              style="
+                width: 400px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+              "
+            >
+              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
+                <div class="icon-wrapper">
+                  <div class="icon-secure">
+                    <div class="lock-body"></div>
+                    <div class="lock-shackle"></div>
+                    <div class="node-1"></div>
+                    <div class="node-2"></div>
+                    <div class="node-3"></div>
+                    <div class="connection-1"></div>
+                    <div class="connection-2"></div>
+                    <div class="connection-3"></div>
+                  </div>
+                </div>
+                Secure & Decentralized
+              </div>
+              <div style="color: #6c757d">Your data, your control</div>
+            </div>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              gap: 40px;
+              flex-direction: column;
+              margin-left: 200px;
+            "
+          >
+            <div
+              class="nexora-feature-card"
+              style="
+                width: 400px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+              "
+            >
+              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
+                <div class="icon-wrapper">
+                  <div class="icon-reputation">
+                    <div class="checkmark"></div>
+                    <div class="ribbon-left"></div>
+                    <div class="ribbon-right"></div>
+                  </div>
+                </div>
+                Transparent Reputation
+              </div>
+              <div style="color: #6c757d">Build credibility on-chain</div>
+            </div>
+
+            <div
+              class="nexora-feature-card"
+              style="
+                width: 400px;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+              "
+            >
+              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
+                <div class="icon-wrapper">
+                  <div class="icon-mentorship">
+                    <div class="globe"></div>
+                    <div class="person"></div>
+                  </div>
+                </div>
+                Global Mentorship
+              </div>
+              <div style="color: #6c757d">Access worldwide expertise</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style>
+        /* Add hover effect for Why Nexora cards */
+        .nexora-feature-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 15px 30px rgba(124, 58, 237, 0.15);
+          cursor: pointer;
+        }
+
+        /* Add hover effect for How Nexora Helps cards */
+        .nexora-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+          cursor: pointer;
+        }
+
+        /* Add responsive styles for the How Nexora Helps section */
+        @media (max-width: 768px) {
+          .nexora-helps-container {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .nexora-card {
+            width: 90% !important;
+            max-width: 350px;
+            margin-top: 20px !important;
+          }
+
+          .nexora-card:last-child {
+            margin-top: 20px !important;
+          }
+        }
+
+        /* Funding goal reached animation */
+        @keyframes goalReached {
+          0% {
+            background-color: #198754;
+          }
+          50% {
+            background-color: #7c3aed;
+          }
+          100% {
+            background-color: #198754;
+          }
+        }
+
+        .goal-reached {
+          animation: goalReached 2s ease infinite;
+        }
+      </style>
+
+      <!-- Add CSS variables for the icons -->
+      <style>
+        :root {
+          --primary: #6c3fd6;
+          --primary-light: #9a7ae6;
+          --background-light: #ffffff;
+        }
+
+        /* CSS-only Icons for Nexora Features */
+        .icon-wrapper {
+          width: 60px;
+          height: 60px;
+          position: relative;
+          margin-bottom: 15px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        /* 1. Trustless Collaboration Icon - Handshake */
+        .icon-trustless {
+          position: relative;
+          width: 60px;
+          height: 40px;
+        }
+
+        .icon-trustless::before,
+        .icon-trustless::after {
+          content: "";
+          position: absolute;
+          width: 30px;
+          height: 12px;
+          background-color: var(--primary);
+          border-radius: 6px 10px 4px 4px;
+        }
+
+        .icon-trustless::before {
+          top: 14px;
+          left: 4px;
+          transform: rotate(-15deg);
+        }
+
+        .icon-trustless::after {
+          top: 14px;
+          right: 4px;
+          transform: rotate(15deg);
+        }
+
+        .icon-trustless .hand-left {
+          position: absolute;
+          width: 16px;
+          height: 10px;
+          background-color: var(--primary-light);
+          border-radius: 3px;
+          transform: rotate(-15deg);
+          top: 8px;
+          left: 12px;
+        }
+
+        .icon-trustless .hand-right {
+          position: absolute;
+          width: 16px;
+          height: 10px;
+          background-color: var(--primary-light);
+          border-radius: 3px;
+          transform: rotate(15deg);
+          top: 8px;
+          right: 12px;
+        }
+
+        /* 2. Transparent Reputation Icon - Medal/Badge with Checkmark */
+        .icon-reputation {
+          position: relative;
+          width: 40px;
+          height: 50px;
+        }
+
+        .icon-reputation::before {
+          content: "";
+          position: absolute;
+          width: 30px;
+          height: 36px;
+          background-color: var(--primary);
+          border-radius: 50% 50% 5px 5px;
+          top: 0;
+          left: 5px;
+        }
+
+        .icon-reputation::after {
+          content: "";
+          position: absolute;
+          width: 24px;
+          height: 30px;
+          background-color: var(--background-light);
+          border-radius: 50% 50% 5px 5px;
+          top: 3px;
+          left: 8px;
+        }
+
+        .icon-reputation .checkmark {
+          position: absolute;
+          top: 12px;
+          left: 13px;
+          width: 14px;
+          height: 8px;
+          border-left: 3px solid var(--primary);
+          border-bottom: 3px solid var(--primary);
+          transform: rotate(-45deg);
+          z-index: 1;
+        }
+
+        .icon-reputation .ribbon-left {
+          position: absolute;
+          bottom: 0;
+          left: 10px;
+          width: 8px;
+          height: 15px;
+          background-color: var(--primary-light);
+          transform: skewX(-20deg);
+        }
+
+        .icon-reputation .ribbon-right {
+          position: absolute;
+          bottom: 0;
+          right: 10px;
+          width: 8px;
+          height: 15px;
+          background-color: var(--primary-light);
+          transform: skewX(20deg);
+        }
+
+        /* 3. Instant Microfunding Icon - Money/Lightning */
+        .icon-funding {
+          position: relative;
+          width: 50px;
+          height: 50px;
+        }
+
+        .icon-funding .coin {
+          position: absolute;
+          width: 30px;
+          height: 30px;
+          background-color: var(--primary);
+          border-radius: 50%;
+          bottom: 0;
+          left: 10px;
+          overflow: hidden;
+        }
+
+        .icon-funding .coin::after {
+          content: "$";
+          position: absolute;
+          font-size: 20px;
+          font-weight: bold;
+          color: var(--background-light);
+          top: 2px;
+          left: 10px;
+        }
+
+        .icon-funding .lightning {
+          position: absolute;
+          top: 0;
+          left: 22px;
+          width: 0;
+          height: 0;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 22px solid var(--primary);
+        }
+
+        .icon-funding .lightning::before {
+          content: "";
+          position: absolute;
+          top: -24px;
+          left: -12px;
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-bottom: 14px solid var(--primary);
+          transform: rotate(30deg);
+        }
+
+        /* 4. Global Mentorship Icon - Globe with Person */
+        .icon-mentorship {
+          position: relative;
+          width: 50px;
+          height: 50px;
+        }
+
+        .icon-mentorship .globe {
+          position: absolute;
+          width: 36px;
+          height: 36px;
+          background-color: var(--primary-light);
+          border-radius: 50%;
+          bottom: 0;
+          left: 7px;
+          overflow: hidden;
+        }
+
+        .icon-mentorship .globe::before,
+        .icon-mentorship .globe::after {
+          content: "";
+          position: absolute;
+          background-color: var(--primary);
+        }
+
+        .icon-mentorship .globe::before {
+          width: 36px;
+          height: 3px;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+        }
+
+        .icon-mentorship .globe::after {
+          width: 3px;
+          height: 36px;
+          left: 50%;
+          top: 0;
+          transform: translateX(-50%);
+        }
+
+        .icon-mentorship .person {
+          position: absolute;
+          top: 0;
+          left: 19px;
+          width: 12px;
+          height: 12px;
+          background-color: var(--primary);
+          border-radius: 50%;
+        }
+
+        .icon-mentorship .person::after {
+          content: "";
+          position: absolute;
+          width: 10px;
+          height: 15px;
+          background-color: var(--primary);
+          border-radius: 5px 5px 0 0;
+          bottom: -10px;
+          left: 1px;
+        }
+
+        /* 5. Secure & Decentralized - Lock with Network */
+        .icon-secure {
+          position: relative;
+          width: 50px;
+          height: 50px;
+        }
+
+        .icon-secure .lock-body {
+          position: absolute;
+          width: 30px;
+          height: 22px;
+          background-color: var(--primary);
+          border-radius: 4px;
+          bottom: 6px;
+          left: 10px;
+        }
+
+        .icon-secure .lock-shackle {
+          position: absolute;
+          width: 20px;
+          height: 16px;
+          border: 4px solid var(--primary);
+          border-bottom: none;
+          border-radius: 10px 10px 0 0;
+          bottom: 28px;
+          left: 11px;
+        }
+
+        .icon-secure .node-1 {
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          background-color: var(--primary-light);
+          border-radius: 50%;
+          top: 5px;
+          left: 5px;
+        }
+
+        .icon-secure .node-2 {
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          background-color: var(--primary-light);
+          border-radius: 50%;
+          top: 5px;
+          right: 5px;
+        }
+
+        .icon-secure .node-3 {
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          background-color: var(--primary-light);
+          border-radius: 50%;
+          bottom: 0;
+          left: 22px;
+        }
+
+        .icon-secure .connection-1 {
+          position: absolute;
+          width: 20px;
+          height: 1px;
+          background-color: var(--primary-light);
+          transform: rotate(30deg);
+          top: 8px;
+          left: 10px;
+        }
+
+        .icon-secure .connection-2 {
+          position: absolute;
+          width: 20px;
+          height: 1px;
+          background-color: var(--primary-light);
+          transform: rotate(-30deg);
+          top: 8px;
+          right: 10px;
+        }
+
+        .icon-secure .connection-3 {
+          position: absolute;
+          width: 1px;
+          height: 15px;
+          background-color: var(--primary-light);
+          bottom: 6px;
+          left: 25px;
+        }
+      </style>
+
+      <!-- Footer -->
+      <div
+        style="
+          padding: 20px;
+          background: #f4f4f4;
+          font-size: 14px;
+          margin-top: 50px;
+        "
+      >
+        <a href="#" style="margin: 0 10px; text-decoration: none; color: #555"
+          >About</a
+        >
+        <a href="#" style="margin: 0 10px; text-decoration: none; color: #555"
+          >Contact</a
+        >
+        <a href="#" style="margin: 0 10px; text-decoration: none; color: #555"
+          >Terms of Service</a
+        >
+      </div>
+
+      {% endif %}
+
+      <!--Create Projects Modal -->
+      <div
+        class="modal fade"
+        id="createProjectModal"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div
+            class="modal-content p-4 rounded-4 shadow-lg"
+            style="background-color: #ffffff; color: #1f1f1f"
+          >
+            <!-- Header -->
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <h5 class="modal-title fw-bold">Create New Project</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <!-- Project Name -->
+              <div class="mb-3">
+                <label class="form-label">Project Name</label>
+                <input
+                  type="text"
+                  class="form-control form-control-light"
+                  name="name"
+                />
+              </div>
+
+              <!-- Banner Image -->
+              <div class="mb-3">
+                <label class="form-label">Banner Image</label>
+                <input
+                  type="file"
+                  class="form-control form-control-light"
+                  name="banner"
+                />
+              </div>
+
+              <!-- Stepper -->
+              <div
+                class="d-flex justify-content-between align-items-center text-center mb-3"
+              >
+                <div class="step-icon" onclick="setStep(0)">
+                  <div class="icon-wrapper warning-icon" id="icon-0">⚠️</div>
+                  <div class="step-label fw-semibold">Description</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-icon" onclick="setStep(1)">
+                  <div class="icon-wrapper warning-icon" id="icon-1">⚠️</div>
+                  <div class="step-label fw-semibold">Problem</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-icon" onclick="setStep(2)">
+                  <div class="icon-wrapper warning-icon" id="icon-2">⚠️</div>
+                  <div class="step-label fw-semibold">Market</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-icon" onclick="setStep(3)">
+                  <div class="icon-wrapper warning-icon" id="icon-3">⚠️</div>
+                  <div class="step-label fw-semibold">Competition</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-icon" onclick="setStep(4)">
+                  <div class="icon-wrapper warning-icon" id="icon-4">⚠️</div>
+                  <div class="step-label fw-semibold">Details</div>
+                </div>
+              </div>
+
+              <!-- Step Content Area -->
+              <div class="mb-3">
+                <label id="step-label" class="form-label">Description</label>
+                <textarea
+                  id="step-textarea"
+                  class="form-control form-control-light"
+                  rows="3"
+                  placeholder="Enter description..."
+                ></textarea>
+              </div>
+
+              <!-- Hidden Inputs for Submission -->
+              <input type="hidden" name="description" id="hidden-description" />
+              <input type="hidden" name="problem" id="hidden-problem" />
+              <input type="hidden" name="market" id="hidden-market" />
+              <input type="hidden" name="competition" id="hidden-competition" />
+              <input type="hidden" name="details" id="hidden-details" />
+
+              <!-- Additional Fields -->
+              <div class="mb-3">
+                <label class="form-label">Stage</label>
+                <select name="stage" class="form-control form-control-light">
+                  <option value="">Select Stage</option>
+                  <option value="Idea">Idea</option>
+                  <option value="MVP">MVP</option>
+                  <option value="Growth">Growth</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select name="category" class="form-select" required>
+                  <option value="">Select Category</option>
+                  <option value="AI">AI</option>
+                  <option value="Fintech">Fintech</option>
+                  <option value="Health">Health</option>
+                </select>
+              </div>
+
+              <!-- Add Funding Goal field -->
+              <div class="mb-3">
+                <label class="form-label">Funding Goal (ETH)</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    name="funding_goal"
+                    class="form-control"
+                    step="0.01"
+                    min="0"
+                    placeholder="e.g., 2.5"
+                    required
+                  />
+                  <span class="input-group-text">ETH</span>
+                </div>
+                <small class="text-muted"
+                  >Set your project's funding target in Ethereum</small
+                >
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Website URL</label>
+                <input
+                  type="url"
+                  name="url"
+                  class="form-control form-control-light"
+                />
+              </div>
+
+              <!-- Add Positions Button -->
+              <div
+                class="border border-purple rounded p-3 my-3"
+                style="cursor: pointer"
+                data-bs-toggle="modal"
+                data-bs-target="#positionsModal"
+              >
+                <div class="d-flex align-items-center text-purple">
+                  <div
+                    class="bg-purple text-white rounded-circle d-flex justify-content-center align-items-center me-2"
+                    style="width: 30px; height: 30px"
+                  >
+                    <strong>+</strong>
+                  </div>
+                  <strong>Add open positions on your team</strong>
+                </div>
+              </div>
+              <!-- Hidden input to store all positions -->
+              <input
+                type="hidden"
+                name="positions_json"
+                id="positionsJsonInput"
+              />
+
+              <div class="mb-3">
+                <label class="form-label">Open positions:</label>
+                <div id="positionPreview" class="d-flex flex-wrap gap-2">
+                  <!-- Tags will appear here -->
+                </div>
+              </div>
+
+              <!-- Footer -->
+              <div class="text-end">
+                <button
+                  class="btn"
+                  type="submit"
+                  id="publishProjectBtn"
+                  style="background-color: #7c3aed; color: white"
+                >
+                  Publish
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modify Positions Modal -->
+      <div
+        class="modal fade"
+        id="positionsModal"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div
+            class="modal-content p-4 rounded-4 shadow-lg"
+            style="
+              background-color: #ffffff;
+              color: #1f1f1f;
+              border: 2px solid #7c3aed;
+            "
+          >
+            <!-- Modal Header -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="modal-title fw-bold">Modify Positions</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <!-- Modal Body -->
+            <form id="positionForm">
+              <div class="mb-3">
+                <label class="form-label">Role title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="position-title"
+                  maxlength="25"
+                  placeholder="e.g., Backend Developer"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Details</label>
+                <textarea
+                  class="form-control"
+                  id="position-description"
+                  rows="4"
+                  placeholder="Responsibilities, expectations, etc."
+                ></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label d-block">Compensation</label>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="comp-paid"
+                  />
+                  <label class="form-check-label" for="comp-paid">PAID</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="comp-unpaid"
+                  />
+                  <label class="form-check-label" for="comp-unpaid"
+                    >UNPAID</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="comp-equity"
+                  />
+                  <label class="form-check-label" for="comp-equity"
+                    >EQUITY SPLIT</label
+                  >
+                </div>
+              </div>
+
+              <!-- Tag display -->
+              <div id="position-list" class="d-flex flex-wrap mb-3"></div>
+              <div id="position-count" class="text-muted mb-2">Added 0/5</div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex justify-content-end gap-2">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="btn"
+                  style="background-color: #7c3aed; color: white"
+                >
+                  ADD
+                </button>
+              </div>
+
+              <!-- Update and continue button -->
+              <div class="d-flex justify-content-end mt-2">
+                <button
+                  type="button"
+                  class="btn w-100"
+                  style="background-color: #7c3aed; color: white"
+                  id="updateAndContinue"
+                >
+                  UPDATE & CONTINUE
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hidden input in create project form -->
+      <input type="hidden" name="positions_json" id="positionsJsonInput" />
+
+      <!-- Project Cards -->
+      <div class="container mt-4">
+        <div class="row">
+          {% for project in projects %}
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 p-3">
+              <div class="d-flex align-items-center mb-2">
+                <div
+                  class="me-3"
+                  style="
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    background-color: #eee;
+                  "
+                >
+                  {% if project.banner %}
+                  <img
+                    src="{{ project.banner.url }}"
+                    alt="{{ project.name }}"
+                    style="width: 100%; height: 100%; object-fit: cover"
+                  />
+                  {% else %}
+                  <div
+                    style="
+                      width: 100%;
+                      height: 100%;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      background-color: #e9ecef;
+                    "
+                  >
+                    <span style="color: #6c757d; font-size: 18px"
+                      >{{ project.name|first|upper }}</span
+                    >
+                  </div>
+                  {% endif %}
+                </div>
+                <h5 class="mb-0">{{ project.name }}</h5>
+              </div>
+              <p class="text-muted mb-2" style="min-height: 40px">
+                {{ project.description|truncatechars:80 }}
+              </p>
+              <div class="mb-2">
+                <span class="tag">{{ project.stage }}</span>
+                <span class="tag">{{ project.category }}</span>
+                <span class="tag">AI</span>
+              </div>
+              <div class="mb-1">
+                <label class="small text-muted">Funding Progress</label>
+                <div class="progress mb-1" style="height: 6px">
+                  <div
+                    class="progress-bar bg-success"
+                    style="width: {{ project.funding_percentage }}%;"
+                    id="progress-bar-{{ project.id }}"
+                  ></div>
+                </div>
+                <small class="text-muted" id="funding-text-{{ project.id }}">
+                  {{ project.current_funding }} / {{ project.funding_goal }} ETH
+                </small>
+              </div>
+              <div class="d-flex justify-content-between">
+                <a
+                  href="#"
+                  class="btn btn-outline-secondary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#projectModal{{ project.id }}"
+                >
+                  View Details
+                </a>
+                <a
+                  href="#"
+                  class="btn btn-purple btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#investModal"
+                  data-project-id="{{ project.id }}"
+                  >Invest Now</a
+                >
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% for project in projects %}
+      <div
+        class="modal fade"
+        id="projectModal{{ project.id }}"
+        tabindex="-1"
+        aria-labelledby="projectModalLabel{{ project.id }}"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-custom">
+          <div class="modal-content border-0 shadow rounded-4">
+            <div class="modal-body p-4">
+              <!-- Header -->
+              <div
+                class="d-flex justify-content-between align-items-start mb-4"
+              >
+                <div>
+                  <h2 class="fw-bold mb-1">{{ project.name }}</h2>
+                  <p class="text-muted">
+                    {{ project.description|truncatechars:100 }}
+                  </p>
+                  <div class="d-flex gap-2 mb-2">
+                    <span class="badge bg-light text-dark border"
+                      >{{ project.category }}</span
+                    >
+                    <span class="badge bg-light text-dark border"
+                      >{{ project.stage }}</span
+                    >
+                    <!-- Removed the banner image from here -->
+                  </div>
+                  <div class="mt-2">
+                    <label class="small text-muted">Funding Progress</label>
+                    <div class="progress" style="height: 8px">
+                      <div
+                        class="progress-bar bg-purple"
+                        style="width: {{ project.funding_percentage }}%;"
+                        id="modal-progress-bar-{{ project.id }}"
+                      ></div>
+                    </div>
+                    <small
+                      class="text-muted"
+                      id="modal-funding-text-{{ project.id }}"
+                    >
+                      {{ project.current_funding }} / {{ project.funding_goal }}
+                      ETH
+                    </small>
+                  </div>
+                </div>
+                <div class="text-end">
+                  {% if project.url %}
+                  <a
+                    href="{{ project.url }}"
+                    target="_blank"
+                    class="btn btn-outline-purple mb-2"
+                    >View Website</a
+                  ><br />
+                  {% endif %}
+                  <a
+                    href="#"
+                    class="btn btn-purple"
+                    data-bs-toggle="modal"
+                    data-bs-target="#investModal"
+                    data-project-id="{{ project.id }}"
+                    data-project-name="{{ project.name }}"
+                    >Invest Now</a
+                  >
+                </div>
+              </div>
+
+              <!-- Tabs -->
+              <ul
+                class="nav nav-tabs mb-4"
+                id="projectTab{{ project.id }}"
+                role="tablist"
+              >
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    data-bs-toggle="tab"
+                    data-bs-target="#desc{{ project.id }}"
+                    type="button"
+                  >
+                    Description
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    data-bs-toggle="tab"
+                    data-bs-target="#problem{{ project.id }}"
+                    type="button"
+                  >
+                    Problem
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    data-bs-toggle="tab"
+                    data-bs-target="#market{{ project.id }}"
+                    type="button"
+                  >
+                    Market
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    data-bs-toggle="tab"
+                    data-bs-target="#competition{{ project.id }}"
+                    type="button"
+                  >
+                    Competition
+                  </button>
+                </li>
+              </ul>
+              <style>
+                .nav-tabs .nav-link {
+                  color: #6b21a8; /* purple color for inactive tabs */
+                }
+                .nav-tabs .nav-link:hover {
+                  color: #4c1d95; /* darker purple on hover */
+                }
+              </style>
+              <!-- Tab Content -->
+              <div class="tab-content mb-4">
+                <div
+                  class="tab-pane fade show active"
+                  id="desc{{ project.id }}"
+                >
+                  <div class="p-3 bg-light rounded">
+                    {{ project.description }}
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="problem{{ project.id }}">
+                  <div class="p-3 bg-light rounded">{{ project.problem }}</div>
+                </div>
+                <div class="tab-pane fade" id="market{{ project.id }}">
+                  <div class="p-3 bg-light rounded">{{ project.market }}</div>
+                </div>
+                <div class="tab-pane fade" id="competition{{ project.id }}">
+                  <div class="p-3 bg-light rounded">
+                    {{ project.competition }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Info -->
+              <div class="p-3 bg-light rounded mb-4">
+                <div class="row">
+                  <div class="col-md-3">
+                    <strong>Stage:</strong><br />{{ project.stage }}
+                  </div>
+                  <div class="col-md-3">
+                    <strong>Category:</strong><br />{{ project.category }}
+                  </div>
+                  <div class="col-md-3">
+                    <strong>Founded:</strong><br />2024
+                  </div>
+                  <div class="col-md-3">
+                    <strong>Team Size:</strong><br />12
+                  </div>
+                </div>
+              </div>
+
+              <!-- Join the Team Section -->
+              <h5 class="mt-5 mb-3">Join the Team</h5>
+              <div class="row g-3">
+                {% for position in project.positions.all %}
+                <div class="col-md-6">
+                  <div class="p-3 border rounded bg-white shadow-sm">
+                    <h6 class="mb-1">{{ position.title }}</h6>
+                    <p class="text-muted small mb-1">
+                      {{ position.description|truncatewords:20 }}
+                    </p>
+                    <span class="badge bg-light text-dark border"
+                      >{{ position.type }}</span
+                    >
+                    <span class="badge bg-light text-dark border"
+                      >{{ position.commitment }}</span
+                    >
+                    <div class="mt-2 text-end">
+                      <a
+                        href="#"
+                        class="btn btn-sm btn-outline-purple"
+                        data-bs-toggle="modal"
+                        data-bs-target="#applyModal"
+                        data-position-id="{{ position.id }}"
+                        data-position-title="{{ position.title }}"
+                        >>Apply Now</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                  <p class="text-muted">
+                    No open positions available right now.
+                  </p>
+                </div>
+                {% endfor %}
+              </div>
+              <!-- Footer -->
+              <div class="text-end mt-4">
+                <button
+                  class="btn btn-outline-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="applyModal"
+        tabindex="-1"
+        aria-labelledby="applyModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <form method="POST" action="{% url 'submit_application' %}">
+            {% csrf_token %}
+            <input type="hidden" name="position_id" id="modalPositionId" />
+
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">
+                  Apply for <span id="modalPositionTitle"></span>
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="reason" class="form-label"
+                    >Why do you want to join this team?</label
+                  >
+                  <textarea
+                    name="reason"
+                    class="form-control"
+                    required
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="experience" class="form-label"
+                    >Your previous experience/proof of skill</label
+                  >
+                  <textarea
+                    name="experience"
+                    class="form-control"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  style="background-color: #4c1d95"
+                >
+                  Submit Application
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <script>
+        var applyModal = document.getElementById("applyModal");
+        applyModal.addEventListener("show.bs.modal", function (event) {
+          var button = event.relatedTarget;
+          var positionId = button.getAttribute("data-position-id");
+          var positionTitle = button.getAttribute("data-position-title");
+
+          document.getElementById("modalPositionId").value = positionId;
+          document.getElementById("modalPositionTitle").innerText =
+            positionTitle;
+        });
+      </script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      <script>
+        function togglePassword(id, icon) {
+        const input = document.getElementById(id);
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+        icon.classList.toggle('bi-eye');
+        icon.classList.toggle('bi-eye-slash');
+        }
+
+        function nextStep(step) {
+        document.querySelectorAll('.step').forEach(s => s.classList.add('d-none'));
+        document.getElementById('step-' + step).classList.remove('d-none');
+        }
+
+        {% if show_login %}
+        // Only show login modal if explicitly requested
+        new bootstrap.Modal(document.getElementById('loginModal')).show();
+        {% endif %}
+        {% if show_register %}
+        // Only show register modal if explicitly requested
+        new bootstrap.Modal(document.getElementById('registerModal')).show();
+        {% endif %}
+      </script>
+
+      <script>
+        const stepLabels = [
+          "Description",
+          "Problem",
+          "Market",
+          "Competition",
+          "Additional Details",
+        ];
+        const stepNames = [
+          "description",
+          "problem",
+          "market",
+          "competition",
+          "details",
+        ];
+        let stepData = {
+          description: "",
+          problem: "",
+          market: "",
+          competition: "",
+          details: "",
+        };
+        let currentStep = 0;
+
+        function setStep(index) {
+          // Save current textarea to the right hidden input and stepData
+          const currentField = stepNames[currentStep];
+          const currentValue = document.getElementById("step-textarea").value;
+          stepData[currentField] = currentValue;
+          document.getElementById(`hidden-${currentField}`).value =
+            currentValue;
+
+          // Set new step
+          currentStep = index;
+
+          // Update stepper UI
+          for (let i = 0; i < 5; i++) {
+            const icon = document.getElementById("icon-" + i);
+            icon.className = "icon-wrapper warning-icon";
+            icon.innerHTML = "⚠️";
+          }
+
+          const activeIcon = document.getElementById("icon-" + index);
+          activeIcon.className = "icon-wrapper active-step";
+          activeIcon.innerHTML = index + 1;
+
+          // Update textarea and label for the new step
+          const label = document.getElementById("step-label");
+          const textarea = document.getElementById("step-textarea");
+          const newField = stepNames[index];
+
+          label.innerText = stepLabels[index];
+          textarea.placeholder = `Enter ${stepLabels[index].toLowerCase()}...`;
+          textarea.value = stepData[newField];
+        }
+
+        
+      </script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Invest Modal -->
+      <div
+        class="modal fade"
+        id="investModal"
+        tabindex="-1"
+        aria-labelledby="investModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="investModalLabel">
+                Invest in <span id="projectNameSpan"></span>
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" id="projectId" />
+              <div class="mb-3">
+                <label class="form-label">Investment Amount (ETH)</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    id="investAmount"
+                    class="form-control"
+                    step="0.01"
+                    min="0.01"
+                    placeholder="e.g., 0.5"
+                    required
+                  />
+                  <span class="input-group-text">ETH</span>
+                </div>
+              </div>
+              <div id="spinner" class="text-center mt-3" style="display: none">
+                <div class="spinner-border text-success" role="status"></div>
+                <p>Processing transaction...</p>
+              </div>
+              <div id="txResult" class="mt-3"></div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="confirmInvestment"
+              >
+                Confirm Investment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Bootstrap JS Bundle -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+      <!-- Web3 -->
+      <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+      <script>
+        function updateFundingProgress(projectId, fundingData) {
+          const progressBar = document.getElementById(
+            `progress-bar-${projectId}`
+          );
+          const fundingText = document.getElementById(
+            `funding-text-${projectId}`
+          );
+          const modalProgressBar = document.getElementById(
+            `modal-progress-bar-${projectId}`
+          );
+          const modalFundingText = document.getElementById(
+            `modal-funding-text-${projectId}`
+          );
+          const resultBox = document.getElementById("txResult");
+          const projectCard = document
+            .querySelector(`[data-project-id="${projectId}"]`)
+            ?.closest(".card");
+          const existingBadge = projectCard?.querySelector(
+            `#funded-badge-${projectId}`
+          );
+          const alreadyFunded =
+            projectCard?.classList.contains("border-success");
+
+          if (progressBar && fundingText) {
+            progressBar.style.width = `${fundingData.percentage}%`;
+            fundingText.textContent = `${fundingData.current_funding} / ${fundingData.funding_goal} ETH`;
+            if (fundingData.percentage >= 100) {
+              progressBar.classList.add("goal-reached");
+            }
+          }
+
+          if (modalProgressBar && modalFundingText) {
+            modalProgressBar.style.width = `${fundingData.percentage}%`;
+            modalFundingText.textContent = `${fundingData.current_funding} / ${fundingData.funding_goal} ETH`;
+            if (fundingData.percentage >= 100) {
+              modalProgressBar.classList.add("goal-reached");
+            }
+          }
+
+          if (fundingData.percentage >= 100) {
+            if (!alreadyFunded && !existingBadge) {
+              projectCard?.classList.add("border-success");
+              showFundingSuccessConfetti();
+
+              if (resultBox) {
+                resultBox.innerHTML = `<div class="alert alert-success">
+          <strong>🎉 Congratulations!</strong> This project has reached its funding goal!
+        </div>`;
+              }
+
+              const badge = document.createElement("span");
+              badge.id = `funded-badge-${projectId}`;
+              badge.className =
+                "position-absolute top-0 end-0 m-2 badge bg-success text-white shadow";
+              badge.textContent = "FUNDED";
+              projectCard?.appendChild(badge);
+            } else if (
+              resultBox &&
+              !resultBox.innerHTML.includes("Congratulations")
+            ) {
+              resultBox.innerHTML = `<div class="alert alert-success">Investment successful!</div>`;
+            }
+          } else if (resultBox) {
+            resultBox.innerHTML = `<div class="alert alert-success">Investment successful!</div>`;
+          }
+        }
+
+        function showFundingSuccessConfetti() {
+          let canvas = document.getElementById("confetti-canvas");
+          if (!canvas) {
+            canvas = document.createElement("canvas");
+            canvas.id = "confetti-canvas";
+            canvas.style.position = "fixed";
+            canvas.style.top = "0";
+            canvas.style.left = "0";
+            canvas.style.width = "100%";
+            canvas.style.height = "100%";
+            canvas.style.pointerEvents = "none";
+            canvas.style.zIndex = "9999";
+            document.body.appendChild(canvas);
+          }
+
+          const myConfetti = confetti.create(canvas, {
+            resize: true,
+            useWorker: true,
+          });
+          myConfetti({
+            particleCount: 200,
+            spread: 160,
+            origin: { y: 0.6 },
+            colors: ["#7c3aed", "#a78bfa", "#4c1d95", "#8b5cf6", "#c4b5fd"],
+            startVelocity: 30,
+            gravity: 0.5,
+            shapes: ["square", "circle"],
+            ticks: 200,
+          });
+
+          setTimeout(() => {
+            myConfetti({
+              particleCount: 100,
+              spread: 100,
+              origin: { y: 0.7 },
+              colors: ["#7c3aed", "#a78bfa", "#4c1d95", "#8b5cf6", "#c4b5fd"],
+              startVelocity: 25,
+              gravity: 0.7,
+              shapes: ["square", "circle"],
+              ticks: 150,
+            });
+          }, 500);
+
+          setTimeout(() => {
+            canvas.remove();
+          }, 5000);
+        }
+
+        const contractAddress = "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21";
+        const contractABI = [
+          {
+            inputs: [],
+            name: "invest",
+            outputs: [],
+            stateMutability: "payable",
+            type: "function",
+          },
+        ];
+
+        function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let cookie of cookies) {
+              cookie = cookie.trim();
+              if (cookie.substring(0, name.length + 1) === name + "=") {
+                cookieValue = decodeURIComponent(
+                  cookie.substring(name.length + 1)
+                );
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+
+        async function recordTransaction(
+          userAddress,
+          txHash,
+          amountEth,
+          projectId
+        ) {
+          try {
+            const response = await fetch("/save-transaction/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken"),
+              },
+              body: JSON.stringify({
+                user_address: userAddress,
+                tx_hash: txHash,
+                amount_eth: amountEth,
+                project_id: projectId,
+              }),
+            });
+            if (!response.ok) throw new Error("Failed to record transaction");
+            return await response.json();
+          } catch (error) {
+            console.error("Error recording transaction:", error);
+            return null;
+          }
+        }
+
+        async function handleInvestment() {
+          const amount = document.getElementById("investAmount").value;
+          const projectId = document.getElementById("projectId").value;
+          const spinner = document.getElementById("spinner");
+          const resultBox = document.getElementById("txResult");
+          const confirmBtn = document.getElementById("confirmInvestment");
+          resultBox.innerHTML = "";
+
+          if (!amount || isNaN(amount) || Number(amount) <= 0) {
+            resultBox.innerHTML =
+              '<div class="alert alert-danger">Enter a valid ETH amount</div>';
+            return;
+          }
+
+          if (typeof window.ethereum === "undefined") {
+            resultBox.innerHTML =
+              '<div class="alert alert-danger">MetaMask not found. Please install it from https://metamask.io</div>';
+            return;
+          }
+
+          try {
+            confirmBtn.disabled = true;
+            spinner.style.display = "block";
+
+            const web3 = new Web3(window.ethereum);
+            const accounts = await window.ethereum.request({
+              method: "eth_requestAccounts",
+            });
+            const sender = accounts[0];
+            const weiAmount = web3.utils.toWei(amount, "ether");
+
+            try {
+              const contract = new web3.eth.Contract(
+                contractABI,
+                contractAddress
+              );
+              const tx = await contract.methods
+                .invest()
+                .send({ from: sender, value: weiAmount, gas: 200000 });
+              const fundingData = await recordTransaction(
+                sender,
+                tx.transactionHash,
+                amount,
+                projectId
+              );
+              if (fundingData) {
+                updateFundingProgress(projectId, fundingData);
+              } else {
+                resultBox.innerHTML = `<div class="alert alert-success">Investment successful!</div>`;
+              }
+            } catch (contractError) {
+              console.warn(
+                "Contract call failed. Trying direct transfer...",
+                contractError
+              );
+              const tx = await web3.eth.sendTransaction({
+                from: sender,
+                to: contractAddress,
+                value: weiAmount,
+                gas: 21000,
+              });
+              const fundingData = await recordTransaction(
+                sender,
+                tx.transactionHash,
+                amount,
+                projectId
+              );
+              if (fundingData) {
+                updateFundingProgress(projectId, fundingData);
+              } else {
+                resultBox.innerHTML = `<div class="alert alert-success">Direct investment successful!</div>`;
+              }
+            }
+          } catch (error) {
+            console.error("Investment error:", error);
+            resultBox.innerHTML = `<div class="alert alert-danger">Transaction failed: ${
+              error.message || "Unknown error"
+            }</div>`;
+          } finally {
+            spinner.style.display = "none";
+            confirmBtn.disabled = false;
+          }
+        }
+
+        function initInvestmentModal() {
+          const investModal = document.getElementById("investModal");
+          if (investModal) {
+            investModal.addEventListener("show.bs.modal", function (event) {
+              document.getElementById("investAmount").value = "";
+              document.getElementById("txResult").innerHTML = "";
+              document.getElementById("spinner").style.display = "none";
+
+              const button = event.relatedTarget;
+              const projectId = button.getAttribute("data-project-id");
+              const projectName = button.getAttribute("data-project-name");
+              document.getElementById("projectId").value = projectId;
+              document.getElementById("projectNameSpan").textContent =
+                projectName || "Project";
+            });
+          }
+
+          const confirmBtn = document.getElementById("confirmInvestment");
+          if (confirmBtn) {
+            confirmBtn.addEventListener("click", (e) => {
+              e.preventDefault();
+              handleInvestment();
+            });
+          }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          if (typeof window.ethereum === "undefined") {
+            console.warn("MetaMask not detected.");
+            document
+              .querySelectorAll('[data-bs-target="#investModal"]')
+              .forEach((button) => {
+                button.setAttribute("title", "MetaMask required");
+                button.addEventListener("click", function (e) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  alert("Please install MetaMask from https://metamask.io");
+                });
+              });
+          } else {
+            initInvestmentModal();
+          }
+        });
+
+        // Position Management Section
+        let positions = [];
+
+        function updatePositionList() {
+          const container = document.getElementById("position-list");
+          container.innerHTML = "";
+          positions.forEach((pos, index) => {
+            container.innerHTML += `
+      <div class="badge bg-purple text-white me-2 mb-2" style="border-radius: 25px;">
+        <i class="bi bi-info-circle"></i> ${pos.title}
+        <button type="button" class="btn-close btn-close-white btn-sm ms-2" onclick="removePosition(${index})"></button>
+      </div>`;
+          });
+          document.getElementById(
+            "position-count"
+          ).innerText = `Added ${positions.length}/5`;
+        }
+
+        function clearInputs() {
+          document.getElementById("position-title").value = "";
+          document.getElementById("position-description").value = "";
+          ["paid", "unpaid", "equity"].forEach((type) => {
+            document.getElementById(`comp-${type}`).checked = false;
+          });
+        }
+
+        function removePosition(index) {
+          positions.splice(index, 1);
+          updatePositionList();
+        }
+
+        document
+          .getElementById("positionForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            const title = document
+              .getElementById("position-title")
+              .value.trim();
+            const description = document
+              .getElementById("position-description")
+              .value.trim();
+            let compensation = null;
+
+            ["paid", "unpaid", "equity"].forEach((type) => {
+              if (document.getElementById(`comp-${type}`).checked)
+                compensation = type;
+            });
+
+            if (!title || !description || !compensation) {
+              alert("Fill all fields and select one compensation type.");
+              return;
+            }
+
+            if (positions.length >= 5) {
+              alert("Maximum of 5 positions allowed.");
+              return;
+            }
+
+            positions.push({
+              title,
+              description,
+              compensation_type: compensation,
+            });
+            updatePositionList();
+            clearInputs();
+          });
+
+       document
+  .querySelector("#createProjectModal form")
+  .addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent default form submission for now
+
+    const form = e.target;
+    const submitBtn = document.getElementById("publishProjectBtn");
+    const positionsInput = document.getElementById("positionsJsonInput");
+
+    // Disable the button to prevent double clicks
+    submitBtn.disabled = true;
+
+    // Inject positions into hidden input
+    positionsInput.value = JSON.stringify(positions);
+
+    // Optionally, validate again before submitting
+    if (positions.length === 0) {
+      alert("Please add at least one position.");
+      submitBtn.disabled = false;
+      return;
+    }
+
+    
+  });
+
+
+        document
+          .getElementById("updateAndContinue")
+          .addEventListener("click", function () {
+            if (positions.length === 0) {
+              alert("Please add at least one position.");
+              return;
+            }
+
+            document.getElementById("positionsJsonInput").value =
+              JSON.stringify(positions);
+            renderPositionPreview();
+
+            const posModal = bootstrap.Modal.getOrCreateInstance(
+              document.getElementById("positionsModal")
+            );
+            posModal.hide();
+
+            const projectModal = new bootstrap.Modal(
+              document.getElementById("createProjectModal")
+            );
+            projectModal.show();
+          });
+
+        function renderPositionPreview() {
+          const preview = document.getElementById("positionPreview");
+          preview.innerHTML = "";
+          positions.forEach((pos) => {
+            const badge = document.createElement("span");
+            badge.className =
+              "badge bg-purple text-white rounded-pill px-3 py-2 d-flex align-items-center";
+            badge.innerHTML = `<i class="bi bi-info-circle me-1"></i> ${pos.title}`;
+            preview.appendChild(badge);
+          });
+        }
+      </script>
+    </body>
+  </body>
+</html>

@@ -1,0 +1,422 @@
+{% load humanize %}
+
+<style>
+  body {
+    background-color: #f3eefd;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .container {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+  }
+
+  .sidebar {
+    width: 250px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+  }
+
+  .project {
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #6a38d9;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .project:hover, .project.active {
+    background: #eee6ff;
+  }
+
+  .content {
+    flex-grow: 1;
+  }
+
+  .app-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+  }
+
+  .username {
+    color: #6a38d9;
+    font-weight: 600;
+  }
+
+  .muted {
+    color: #888;
+    font-size: 0.9em;
+  }
+
+  .apps {
+    display: none;
+  }
+
+  .apps.active {
+    display: block;
+  }
+
+  .empty-project {
+    background-color: #fff;
+    padding: 40px;
+    text-align: center;
+    border-radius: 20px;
+    color: #888;
+    font-weight: 500;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 100px 20px;
+    background-color: #f3eefd;
+    border-radius: 20px;
+  }
+
+  .empty-state h3 {
+    color: #999;
+    font-weight: 600;
+  }
+
+  .empty-state p {
+    color: #aaa;
+  }
+
+  .btn-primary-custom {
+    margin-top: 20px;
+    background-color: #6a38d9;
+    color: #fff;
+    border: none;
+    padding: 10px 25px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: background 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary-custom:hover {
+    background-color: #5930b5;
+    color: #fff;
+  }
+
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 40px 10px;
+  }
+
+  /* Message system styles */
+  .message-btn {
+    background-color: #6a38d9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 12px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .message-btn:hover {
+    background-color: #5a2ec9;
+  }
+  
+  .message-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .message-modal-content {
+    background-color: white;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .message-header h3 {
+    margin: 0;
+    color: #6a38d9;
+  }
+  
+  .close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #888;
+  }
+  
+  .message-form textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    min-height: 120px;
+    margin-bottom: 15px;
+    resize: vertical;
+  }
+  
+  .send-message-btn {
+    background-color: #6a38d9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .send-message-btn:hover {
+    background-color: #5a2ec9;
+  }
+  
+  .message-history {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .message-bubble {
+    padding: 8px 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    max-width: 80%;
+  }
+  
+  .message-sent {
+    background-color: #e6e0ff;
+    margin-left: auto;
+    text-align: right;
+  }
+  
+  .message-received {
+    background-color: #f0f0f0;
+  }
+  
+  .message-time {
+    font-size: 0.7em;
+    color: #888;
+    margin-top: 3px;
+  }
+  
+  .unread-badge {
+    display: inline-block;
+    background-color: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 0.7em;
+    text-align: center;
+    line-height: 20px;
+    margin-left: 5px;
+  }
+</style>
+
+{% if grouped_apps %}
+  <div class="header-bar">
+    <h2>📥 Application Notifications</h2>
+    <a href="{% url 'home' %}" class="btn-primary-custom">Go to Projects</a>
+  </div>
+
+  <div class="container">
+    <!-- Sidebar with Project Names -->
+    <div class="sidebar" id="project-list">
+      {% for project, apps in grouped_apps %}
+        <div class="project {% if forloop.first %}active{% endif %}" 
+             onclick="showApps('project{{ forloop.counter }}', this)">
+          {{ project.name }}
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Application Panels -->
+    <div class="content">
+      {% for project, apps in grouped_apps %}
+        <div class="apps {% if forloop.first %}active{% endif %}" id="project{{ forloop.counter }}">
+          {% if apps %}
+            {% for app in apps %}
+              <div class="app-card">
+                <div class="username">@{{ app.applicant.username }}</div>
+                <div class="muted">{{ app.created_at|naturaltime }}</div>
+                <p><strong>Position:</strong> {{ app.position.title }}</p>
+                <p><strong>Reason:</strong> {{ app.reason|default:"—" }}</p>
+                <p><strong>Experience:</strong> {{ app.experience|default:"—" }}</p>
+                
+                <!-- Message button -->
+                <button class="message-btn" onclick="openMessageModal({{ app.id }}, '{{ app.applicant.username }}')">
+                  Message Applicant
+                  {% if app.has_unread %}
+                    <span class="unread-badge">{{ app.unread_count }}</span>
+                  {% endif %}
+                </button>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="empty-project">
+              No applications yet for <strong>{{ project.name }}</strong>.
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Message Modal -->
+  <div class="message-modal" id="messageModal">
+    <div class="message-modal-content">
+      <div class="message-header">
+        <h3>Message to <span id="recipientUsername"></span></h3>
+        <button class="close-modal" onclick="closeMessageModal()">&times;</button>
+      </div>
+      
+      <div class="message-history" id="messageHistory">
+        <!-- Message history will be loaded here -->
+      </div>
+      
+      <form class="message-form" id="messageForm">
+        {% csrf_token %}
+        <input type="hidden" id="applicationId" name="application_id" value="">
+        <textarea id="messageContent" name="content" placeholder="Type your message here..." required></textarea>
+        <button type="submit" class="send-message-btn">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function showApps(id, el) {
+      document.querySelectorAll('.apps').forEach(app => app.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      document.querySelectorAll('.project').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+    }
+    
+    // Message system functions
+    function openMessageModal(applicationId, username) {
+      document.getElementById('messageModal').style.display = 'flex';
+      document.getElementById('recipientUsername').textContent = username;
+      document.getElementById('applicationId').value = applicationId;
+      
+      // Load message history
+      loadMessageHistory(applicationId);
+    }
+    
+    function closeMessageModal() {
+      document.getElementById('messageModal').style.display = 'none';
+    }
+    
+    function loadMessageHistory(applicationId) {
+      const messageHistory = document.getElementById('messageHistory');
+      messageHistory.innerHTML = '<div class="loading">Loading messages...</div>';
+      
+      fetch(`/messages/history/${applicationId}/`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.messages && data.messages.length > 0) {
+            messageHistory.innerHTML = '';
+            data.messages.forEach(message => {
+              const messageElement = document.createElement('div');
+              messageElement.className = `message-bubble ${message.is_sender ? 'message-sent' : 'message-received'}`;
+              messageElement.innerHTML = `
+                ${message.content}
+                <div class="message-time">${message.timestamp}</div>
+              `;
+              messageHistory.appendChild(messageElement);
+            });
+          } else {
+            messageHistory.innerHTML = '<div class="empty-messages">No messages yet. Start the conversation!</div>';
+          }
+          
+          // Scroll to bottom of message history
+          messageHistory.scrollTop = messageHistory.scrollHeight;
+        })
+        .catch(error => {
+          console.error('Error loading messages:', error);
+          messageHistory.innerHTML = '<div class="error">Failed to load messages. Please try again.</div>';
+        });
+    }
+    
+    // Handle message form submission
+    document.getElementById('messageForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const applicationId = document.getElementById('applicationId').value;
+      const content = document.getElementById('messageContent').value.trim();
+      
+      if (!content) return;
+      
+      // Send message to server
+      fetch('/messages/send/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: new URLSearchParams({
+          'application_id': applicationId,
+          'content': content
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Clear input field
+          document.getElementById('messageContent').value = '';
+          
+          // Reload message history to show the new message
+          loadMessageHistory(applicationId);
+        } else {
+          alert('Failed to send message: ' + data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error sending message:', error);
+        alert('Failed to send message. Please try again.');
+      });
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+      if (event.target === document.getElementById('messageModal')) {
+        closeMessageModal();
+      }
+    });
+  </script>
+{% else %}
+  <div class="empty-state">
+    <h3>No projects or applications yet</h3>
+    <p>Once you create a project and receive applications, they will appear here.</p>
+    <a href="{% url 'home' %}" class="btn-primary-custom">Go to Projects</a>
+  </div>
+{% endif %}

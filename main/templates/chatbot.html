@@ -1,0 +1,250 @@
+{% block title %}AI Chatbot{% endblock %} {% block styles %}
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  .chat-container {
+    max-width: 800px;
+    margin: 30px auto;
+    background-color: #f5f6ff;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: calc(100vh - 100px);
+  }
+
+  .chat-header {
+    background-color: #4c44cf;
+    color: white;
+    padding: 12px 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+  }
+
+  .chat-body {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .messages-list {
+    padding: 0;
+    list-style: none;
+  }
+
+  .message {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message-text {
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 80%;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .sent {
+    align-items: flex-end;
+  }
+
+  .sent .message-text {
+    background-color: #dcd9ff;
+    text-align: right;
+  }
+
+  .received {
+    align-items: flex-start;
+  }
+
+  .received .message-text {
+    background-color: #ffffff;
+  }
+
+  .message-form {
+    display: flex;
+    padding: 10px;
+    background-color: #ecebfc;
+    border-top: 1px solid #ddd;
+  }
+
+  .message-input {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+
+  .btn-send {
+    background-color: #4c44cf;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-send:hover {
+    background-color: #372fcf;
+  }
+
+  .back-button {
+    margin: 20px;
+  }
+</style>
+{% endblock %} {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary back-button">
+        <i class="fas fa-arrow-left"></i> Back to Projects
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="chat-container">
+  <div class="chat-header">AI Assistant</div>
+
+  <div class="chat-body">
+    <ul class="messages-list" id="messagesList">
+      {% if not chats %}
+      <li class="message received">
+        <div class="message-text">
+          <strong>AI:</strong> Hello! I'm your AI assistant. How can I help you
+          with your startup journey today?
+        </div>
+      </li>
+      {% else %} {% for chat in chats %}
+      <li class="message sent">
+        <div class="message-text"><strong>You:</strong> {{ chat.message }}</div>
+      </li>
+      <li class="message received">
+        <div class="message-text"><strong>AI:</strong> {{ chat.response }}</div>
+      </li>
+      {% endfor %} {% endif %}
+    </ul>
+  </div>
+
+  <form
+    method="post"
+    action="{% url 'chatbot' %}"
+    class="message-form"
+    id="chat-form"
+  >
+    {% csrf_token %}
+    <input
+      type="text"
+      name="message"
+      class="message-input"
+      id="message-input"
+      placeholder="Type your message..."
+      autocomplete="off"
+    />
+    <button type="submit" class="btn-send">Send</button>
+  </form>
+</div>
+
+<script>
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === name + "=") {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const chatForm = document.getElementById("chat-form");
+    const messageInput = document.getElementById("message-input");
+    const messagesList = document.getElementById("messagesList");
+
+    // Scroll to bottom of chat on load
+    messagesList.scrollTop = messagesList.scrollHeight;
+
+    chatForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const message = messageInput.value.trim();
+      if (!message) return;
+
+      // Add user message to chat
+      const userMessage = document.createElement("li");
+      userMessage.classList.add("message", "sent");
+      userMessage.innerHTML = `<div class="message-text"><strong>You:</strong> ${message}</div>`;
+      messagesList.appendChild(userMessage);
+      messageInput.value = "";
+      messagesList.scrollTop = messagesList.scrollHeight;
+
+      // Show loading indicator
+      const loadingMessage = document.createElement("li");
+      loadingMessage.classList.add("message", "received");
+      loadingMessage.id = "loading-message";
+      loadingMessage.innerHTML = `<div class="message-text"><strong>AI:</strong> Thinking...</div>`;
+      messagesList.appendChild(loadingMessage);
+      messagesList.scrollTop = messagesList.scrollHeight;
+
+      // Send message to server
+      fetch("{% url 'chatbot' %}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+        body: new URLSearchParams({ message: message }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Remove loading indicator
+          const loadingElement = document.getElementById("loading-message");
+          if (loadingElement) {
+            loadingElement.remove();
+          }
+
+          // Add bot response
+          const botMessage = document.createElement("li");
+          botMessage.classList.add("message", "received");
+          botMessage.innerHTML = `<div class="message-text"><strong>AI:</strong> ${data.response}</div>`;
+          messagesList.appendChild(botMessage);
+          messagesList.scrollTop = messagesList.scrollHeight;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          // Remove loading indicator
+          const loadingElement = document.getElementById("loading-message");
+          if (loadingElement) {
+            loadingElement.remove();
+          }
+
+          // Add error message
+          const errorMessage = document.createElement("li");
+          errorMessage.classList.add("message", "received");
+          errorMessage.innerHTML = `<div class="message-text"><strong>AI:</strong> Sorry, I'm having trouble connecting right now. Please try again later.</div>`;
+          messagesList.appendChild(errorMessage);
+          messagesList.scrollTop = messagesList.scrollHeight;
+        });
+    });
+  });
+</script>
+{% endblock %}

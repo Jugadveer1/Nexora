@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Market Size Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f3eefd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      padding: 30px 40px;
+      text-align: center;
+      max-width: 320px;
+    }
+
+    .card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background-color: #6a38d9;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #542bb6;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-content h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .modal-content p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-size: 24px;
+      color: #888;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Card with launch button -->
+  <div class="card">
+    <h2>Market Size Calculator</h2>
+    <p>Calculate your total addressable market (TAM) size.</p>
+    <button class="btn" onclick="openModal()">Calculate Now</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="tamModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2>Market Size Calculator</h2>
+      <p>Calculate your total addressable market (TAM) size.</p>
+
+      <div class="input-group">
+        <label for="customers">Total Potential Customers</label>
+        <input type="number" id="customers" placeholder="e.g., 10000" />
+      </div>
+
+      <div class="input-group">
+        <label for="revenue">Average Revenue per Customer ($)</label>
+        <input type="number" id="revenue" placeholder="e.g., 50" />
+      </div>
+
+      <button class="btn" onclick="calculateTAM()">Calculate Now</button>
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('tamModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('tamModal').style.display = 'none';
+      document.getElementById('result').textContent = '';
+      document.getElementById('customers').value = '';
+      document.getElementById('revenue').value = '';
+    }
+
+    function calculateTAM() {
+      const customers = parseFloat(document.getElementById('customers').value);
+      const revenue = parseFloat(document.getElementById('revenue').value);
+      const resultDiv = document.getElementById('result');
+
+      if (!isNaN(customers) && !isNaN(revenue) && customers >= 0 && revenue >= 0) {
+        const tam = customers * revenue;
+        resultDiv.textContent = Estimated TAM: $${tam.toLocaleString()};
+      } else {
+        resultDiv.textContent = 'Please enter valid numbers.';
+      }
+    }
+
+    // Close modal if user clicks outside modal content
+    window.onclick = function(event) {
+      const modal = document.getElementById('tamModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+  </script>
+
+</body>
+</html>
