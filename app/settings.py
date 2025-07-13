@@ -33,6 +33,12 @@ ALLOWED_HOSTS = []
 
 LOGIN_URL = '/login/'
 
+# CSRF Settings
+CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
+CSRF_COOKIE_HTTPONLY = False
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+
 # Application definition
 
 INSTALLED_APPS = [

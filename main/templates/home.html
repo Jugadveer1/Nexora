@@ -15,8 +15,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
 
-    <!-- Bootstrap JS Bundle -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- Bootstrap JS Bundle - moved to bottom of page -->
 
     <style>
       :root {
@@ -455,187 +454,1118 @@
         bottom: 6px;
         left: 25px;
       }
+
+      /* Enhanced Navbar Styles */
+      .navbar {
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .navbar-brand:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s ease;
+      }
+
+      .nav-link {
+        position: relative;
+        transition: all 0.3s ease;
+        color: #495057 !important;
+        font-weight: 500;
+      }
+
+      .nav-link:hover {
+        color: var(--primary) !important;
+        transform: translateY(-2px);
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background-color: var(--primary);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      .nav-link:hover::after {
+        width: 80%;
+      }
+
+      .btn-outline-primary:hover {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark) !important;
+        border-color: var(--primary-dark) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+      }
+
+      /* Mobile navbar improvements */
+      @media (max-width: 991.98px) {
+        .navbar-nav {
+          text-align: center;
+          padding: 1rem 0;
+        }
+
+        .navbar-nav .nav-link {
+          padding: 0.75rem 1rem;
+          border-radius: 8px;
+          margin: 0.25rem 0;
+        }
+
+        .navbar-nav .nav-link:hover {
+          background-color: rgba(124, 58, 237, 0.1);
+        }
+      }
+
+      /* Enhanced Footer Styles */
+      footer {
+        background: #ffffff !important;
+        color: #1f1f1f;
+        border-top: 1px solid #e9ecef;
+      }
+
+      footer .text-muted {
+        color: #6c757d !important;
+      }
+
+      footer .footer-text {
+        color: #1f1f1f !important;
+      }
+
+      footer .footer-link {
+        color: #6c757d !important;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      footer .footer-link:hover {
+        color: var(--primary) !important;
+        transform: translateX(5px);
+      }
+
+      .hover-purple {
+        transition: all 0.3s ease;
+      }
+
+      .hover-purple:hover {
+        color: var(--primary) !important;
+        transform: translateX(5px);
+      }
+
+      footer .input-group input {
+        background-color: #ffffff !important;
+        border: 1px solid #e9ecef !important;
+        color: #1f1f1f !important;
+      }
+
+      footer .input-group input::placeholder {
+        color: #6c757d !important;
+      }
+
+      footer .input-group input:focus {
+        background-color: #ffffff !important;
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25) !important;
+        color: #1f1f1f !important;
+      }
+
+      footer .btn:hover {
+        background-color: var(--primary-dark) !important;
+        border-color: var(--primary-dark) !important;
+        transform: scale(1.05);
+      }
+
+      /* Social media icons hover effects */
+      footer .fs-5:hover {
+        transform: translateY(-3px) scale(1.1);
+        color: var(--primary) !important;
+      }
+
+      /* Footer section headings */
+      footer h6 {
+        color: var(--primary) !important;
+        font-weight: 700;
+      }
+
+      /* Bottom bar styling */
+      footer .border-top {
+        border-color: #e9ecef !important;
+      }
+
+      /* Enhanced Modal Styles */
+      .modal-content {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .modal-header {
+        border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+        padding: 2rem 2rem 1rem;
+      }
+
+      .modal-body {
+        padding: 1rem 2rem 2rem;
+      }
+
+      .modal-title {
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+
+      .modal .form-control {
+        border-radius: 12px;
+        border: 2px solid #e9ecef;
+        padding: 12px 16px;
+        transition: all 0.3s ease;
+        background-color: #f8f9ff;
+      }
+
+      .modal .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.15);
+        background-color: white;
+        transform: translateY(-2px);
+      }
+
+      .modal .form-label {
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+      }
+
+      .modal .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        border: none;
+        border-radius: 12px;
+        padding: 12px 24px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .modal .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .modal .btn-primary:hover::before {
+        left: 100%;
+      }
+
+      .modal .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+      }
+
+      .modal .btn-success {
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: none;
+        border-radius: 12px;
+        padding: 12px 24px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .modal .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+      }
+
+      .password-toggle {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: var(--text-muted);
+        transition: color 0.3s ease;
+        z-index: 10;
+      }
+
+      .password-toggle:hover {
+        color: var(--primary);
+      }
+
+      .modal-link {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .modal-link:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+
+      /* Modal Animation */
+      .modal.fade .modal-dialog {
+        transform: scale(0.8) translateY(-50px);
+        transition: all 0.3s ease;
+      }
+
+      .modal.show .modal-dialog {
+        transform: scale(1) translateY(0);
+      }
+
+      /* Input Group Enhancements */
+      .input-group-text {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 0 12px 12px 0;
+      }
+
+      /* Alert Styling */
+      .alert {
+        border-radius: 12px;
+        border: none;
+        font-weight: 500;
+      }
+
+      .alert-danger {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        color: #dc2626;
+      }
+
+      .alert-success {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        color: #059669;
+      }
+
+      /* Form Validation Styles */
+      .form-control.is-valid {
+        border-color: #10b981;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2310b981' d='m2.3 6.73.94-.94 1.44 1.44L7.4 4.5l.94.94L4.6 9.18z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+      }
+
+      .form-control.is-invalid {
+        border-color: #ef4444;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ef4444'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 4.6 2.4 2.4M8.2 4.6l-2.4 2.4'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+      }
+
+      .form-control.is-valid:focus {
+        border-color: #10b981;
+        box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25);
+      }
+
+      .form-control.is-invalid:focus {
+        border-color: #ef4444;
+        box-shadow: 0 0 0 0.2rem rgba(239, 68, 68, 0.25);
+      }
+
+      .text-success {
+        color: #10b981 !important;
+      }
+
+      .text-danger {
+        color: #ef4444 !important;
+      }
+
+      /* Loading state for forms */
+      .btn-loading {
+        position: relative;
+        pointer-events: none;
+      }
+
+      .btn-loading::after {
+        content: "";
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        top: 50%;
+        left: 50%;
+        margin-left: -8px;
+        margin-top: -8px;
+        border: 2px solid transparent;
+        border-top-color: #ffffff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Enhanced checkbox styling */
+      .form-check-input:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+      }
+
+      .form-check-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25);
+      }
+
+      /* Chatbot Styles */
+      .chatbot-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1050;
+      }
+
+      .chatbot-toggle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        border: none;
+        color: white;
+        font-size: 24px;
+        box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .chatbot-toggle:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 25px rgba(124, 58, 237, 0.4);
+      }
+
+      .chatbot-window {
+        position: absolute;
+        bottom: 80px;
+        right: 0;
+        width: 350px;
+        height: 500px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid rgba(124, 58, 237, 0.1);
+      }
+
+      .chatbot-header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .chatbot-messages {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background: #f8f9fa;
+      }
+
+      .chatbot-input-area {
+        padding: 15px 20px;
+        border-top: 1px solid #e9ecef;
+        background: white;
+      }
+
+      .message {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .message.user {
+        justify-content: flex-end;
+      }
+
+      .message-content {
+        max-width: 80%;
+        padding: 10px 15px;
+        border-radius: 18px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .message.bot .message-content {
+        background: white;
+        color: #333;
+        border: 1px solid #e9ecef;
+      }
+
+      .message.user .message-content {
+        background: var(--primary);
+        color: white;
+      }
+
+      .message-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        margin: 0 8px;
+      }
+
+      .message.bot .message-avatar {
+        background: var(--primary);
+        color: white;
+      }
+
+      .message.user .message-avatar {
+        background: #6c757d;
+        color: white;
+      }
+
+      .typing-indicator {
+        display: none;
+        padding: 10px 15px;
+        background: white;
+        border-radius: 18px;
+        border: 1px solid #e9ecef;
+        margin-bottom: 15px;
+      }
+
+      .typing-dots {
+        display: flex;
+        gap: 4px;
+      }
+
+      .typing-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--primary);
+        animation: typing 1.4s infinite ease-in-out;
+      }
+
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes typing {
+        0%, 60%, 100% {
+          transform: translateY(0);
+          opacity: 0.5;
+        }
+        30% {
+          transform: translateY(-10px);
+          opacity: 1;
+        }
+      }
+
+      .chatbot-input {
+        border: 1px solid #e9ecef;
+        border-radius: 25px;
+        padding: 10px 15px;
+        width: 100%;
+        outline: none;
+        font-size: 14px;
+      }
+
+      .chatbot-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25);
+      }
+
+      .chatbot-send {
+        position: absolute;
+        right: 25px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .chatbot-send:hover {
+        background: var(--primary-dark);
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .chatbot-send:disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+        transform: translateY(-50%);
+      }
+
+      /* Feature Cards Hover Effects */
+      .nexora-feature-card {
+        transition: all 0.3s ease;
+      }
+
+      .nexora-feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(124, 58, 237, 0.15) !important;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem !important;
+        }
+
+        .hero .lead {
+          font-size: 1.1rem;
+        }
+      }
+
+      /* Funding goal reached animation */
+      @keyframes goalReached {
+        0% { background-color: #198754; }
+        50% { background-color: #7c3aed; }
+        100% { background-color: #198754; }
+      }
+
+      .goal-reached {
+        animation: goalReached 2s ease infinite;
+      }
+
+      /* Compact Create Project Modal Styles */
+      #createProjectModal .modal-content {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      /* Step indicators */
+      .step-indicator {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #6b7280;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .step-indicator.active {
+        background-color: #7c3aed;
+      }
+
+      .step-indicator.completed {
+        background-color: #10b981;
+      }
+
+      .step-indicator.warning {
+        background-color: #f59e0b;
+      }
+
+      .step-indicator.error {
+        background-color: #ef4444;
+        color: white;
+      }
+
+      /* Fix z-index for positions modal to appear above create project modal */
+      #positionsModal {
+        z-index: 1060 !important;
+      }
+
+      #positionsModal .modal-backdrop {
+        z-index: 1059 !important;
+      }
+
+      /* Ensure create project modal has proper z-index */
+      #createProjectModal {
+        z-index: 1055 !important;
+      }
+
+      #createProjectModal .modal-backdrop {
+        z-index: 1054 !important;
+      }
+
+      .step-line {
+        width: 40px;
+        height: 2px;
+        background-color: #6b7280;
+        margin: 0 8px;
+      }
+
+      .step-label {
+        font-size: 11px;
+        transition: all 0.3s ease;
+      }
+
+      .step-label.active {
+        color: #7c3aed !important;
+        font-weight: 600;
+      }
+
+      /* Form controls styling */
+      #createProjectModal .form-control,
+      #createProjectModal .form-select {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+
+      #createProjectModal .form-control::placeholder {
+        color: #9ca3af;
+        font-size: 14px;
+      }
+
+      #createProjectModal .form-select option {
+        background-color: #ffffff;
+        color: #1f1f1f;
+      }
+
+      /* Banner drop zone */
+      #bannerDropZone {
+        min-height: 80px;
+        transition: all 0.3s ease;
+      }
+
+      #bannerDropZone:hover {
+        border-color: #7c3aed !important;
+        background-color: #f8f9fa !important;
+      }
+
+      /* Button styling */
+      #createProjectModal .btn-sm {
+        font-size: 12px;
+        padding: 6px 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Position preview badges */
+      #positionPreview .badge {
+        background-color: #7c3aed !important;
+        color: white;
+        font-size: 11px;
+        padding: 4px 8px;
+        border-radius: 12px;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 576px) {
+        #createProjectModal .modal-dialog {
+          margin: 0.5rem;
+        }
+
+        #createProjectModal .step-indicator {
+          width: 20px;
+          height: 20px;
+          font-size: 10px;
+        }
+
+        #createProjectModal .step-line {
+          width: 30px;
+        }
+      }
     </style>
   </head>
   <body>
-    <!-- Login Modal -->
-    <div
-      class="modal fade"
-      id="loginModal"
-      tabindex="-1"
-      aria-hidden="true"
-      style="padding-top: 120px"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content p-3">
-          <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <h4 class="text-center fw-bold">Login</h4>
-            <hr />
-            {% if messages %}
-            <div class="alert alert-danger">
-              {% for message in messages %}{{ message }}{% endfor %}
-            </div>
-            {% endif %}
-            <div class="mb-3">
-              <label class="form-label">Username</label>
-              <input
-                type="text"
-                name="username"
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="mb-3 position-relative">
-              <label class="form-label">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="LoginPasswordInput"
-                class="form-control"
-                required
-              />
-              <i
-                class="bi bi-eye-slash position-absolute"
-                style="top: 55%; right: 15px; cursor: pointer"
-                onclick="togglePassword('LoginPasswordInput', this)"
-              ></i>
+    <!-- Enhanced Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0 text-center">
+            <div class="w-100">
+              <div class="d-flex justify-content-center mb-3">
+                <div class="bg-primary rounded-circle p-3">
+                  <i class="bi bi-person-fill text-white fs-4"></i>
+                </div>
+              </div>
+              <h4 class="modal-title">Welcome Back</h4>
+              <p class="text-muted mb-0">Sign in to your Nexora account</p>
             </div>
             <button
-              type="submit"
-              class="btn btn-primary w-100"
-              style="background-color: #4c1d95"
-            >
-              Login
-            </button>
-          </form>
-          <div class="text-center mt-2">
-            <a
-              href="#"
-              data-bs-toggle="modal"
-              data-bs-target="#registerModal"
+              type="button"
+              class="btn-close"
               data-bs-dismiss="modal"
-              >New user? Register</a
-            >
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="{% url 'login' %}">
+              {% csrf_token %} {% if messages %}
+              <div class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                {% for message in messages %}{{ message }}{% endfor %}
+              </div>
+              {% endif %}
+              <div class="mb-4">
+                <label class="form-label">
+                  <i class="bi bi-person me-2"></i>Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  class="form-control"
+                  placeholder="Enter your username"
+                  required
+                />
+              </div>
+              <div class="mb-4 position-relative">
+                <label class="form-label">
+                  <i class="bi bi-lock me-2"></i>Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  id="LoginPasswordInput"
+                  class="form-control"
+                  placeholder="Enter your password"
+                  required
+                />
+                <i
+                  class="bi bi-eye-slash password-toggle"
+                  onclick="togglePassword('LoginPasswordInput', this)"
+                ></i>
+              </div>
+              <div class="mb-4">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="rememberMe"
+                  />
+                  <label class="form-check-label" for="rememberMe">
+                    Remember me
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary w-100 mb-3">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+              </button>
+            </form>
+            <div class="text-center">
+              <p class="mb-0">
+                Don't have an account?
+                <a
+                  href="#"
+                  class="modal-link"
+                  data-bs-toggle="modal"
+                  data-bs-target="#registerModal"
+                  data-bs-dismiss="modal"
+                >
+                  Create one here
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Register Modal -->
-    <div
-      class="modal fade"
-      id="registerModal"
-      tabindex="-1"
-      aria-hidden="true"
-      style="padding-top: 50px"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content p-3">
-          <form method="post" action="{% url 'register' %}">
-            {% csrf_token %}
-            <h4 class="text-center fw-bold">Register</h4>
-            <hr />
-            {% if messages %}
-            <div class="alert alert-danger">
-              {% for message in messages %}{{ message }}{% endfor %}
-            </div>
-            {% endif %}
-            <div class="mb-2">
-              <label class="form-label">First Name</label>
-              <input
-                type="text"
-                name="first_name"
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Last Name</label>
-              <input
-                type="text"
-                name="last_name"
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Username</label>
-              <input
-                type="text"
-                name="username"
-                class="form-control"
-                required
-              />
-            </div>
-            <div class="mb-3 position-relative">
-              <label class="form-label">Password</label>
-              <input
-                type="password"
-                name="password"
-                id="RegisterPasswordInput"
-                class="form-control"
-                required
-              />
-              <i
-                class="bi bi-eye-slash position-absolute"
-                style="top: 55%; right: 15px; cursor: pointer"
-                onclick="togglePassword('RegisterPasswordInput', this)"
-              ></i>
+    <!-- Enhanced Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0 text-center">
+            <div class="w-100">
+              <div class="d-flex justify-content-center mb-3">
+                <div class="bg-success rounded-circle p-3">
+                  <i class="bi bi-person-plus-fill text-white fs-4"></i>
+                </div>
+              </div>
+              <h4 class="modal-title">Join Nexora</h4>
+              <p class="text-muted mb-0">
+                Create your account and start your journey
+              </p>
             </div>
             <button
-              type="submit"
-              class="btn btn-success w-100"
-              style="background-color: #4c1d95"
-            >
-              Register
-            </button>
-          </form>
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="{% url 'register' %}">
+              {% csrf_token %} {% if messages %}
+              <div class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                {% for message in messages %}{{ message }}{% endfor %}
+              </div>
+              {% endif %}
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">
+                    <i class="bi bi-person me-2"></i>First Name
+                  </label>
+                  <input
+                    type="text"
+                    name="first_name"
+                    class="form-control"
+                    placeholder="Enter first name"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">
+                    <i class="bi bi-person me-2"></i>Last Name
+                  </label>
+                  <input
+                    type="text"
+                    name="last_name"
+                    class="form-control"
+                    placeholder="Enter last name"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">
+                  <i class="bi bi-at me-2"></i>Username
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  class="form-control"
+                  placeholder="Choose a username"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">
+                  <i class="bi bi-envelope me-2"></i>Email Address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <div class="mb-4 position-relative">
+                <label class="form-label">
+                  <i class="bi bi-lock me-2"></i>Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  id="RegisterPasswordInput"
+                  class="form-control"
+                  placeholder="Create a strong password"
+                  required
+                />
+                <i
+                  class="bi bi-eye-slash password-toggle"
+                  onclick="togglePassword('RegisterPasswordInput', this)"
+                ></i>
+                <div class="form-text">
+                  <small class="text-muted">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Password should be at least 8 characters long
+                  </small>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="agreeTerms"
+                    required
+                  />
+                  <label class="form-check-label" for="agreeTerms">
+                    I agree to the
+                    <a href="#" class="modal-link">Terms of Service</a> and
+                    <a href="#" class="modal-link">Privacy Policy</a>
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-success w-100 mb-3">
+                <i class="bi bi-person-plus me-2"></i>Create Account
+              </button>
+            </form>
+            <div class="text-center">
+              <p class="mb-0">
+                Already have an account?
+                <a
+                  href="#"
+                  class="modal-link"
+                  data-bs-toggle="modal"
+                  data-bs-target="#loginModal"
+                  data-bs-dismiss="modal"
+                >
+                  Sign in here
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Improved Navbar for Authenticated Users -->
     {% if user.is_authenticated %}
-    <div
-      style="
-        background-color: #ffffff;
-        padding: 20px 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #ddd;
-      "
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top"
     >
-      <div style="font-size: 24px; font-weight: bold; color: #7c3aed">
-        Nexora
-      </div>
-      <div>
+      <div class="container-fluid px-4">
+        <!-- Brand -->
         <a
-          href="{% url 'blog' %}"
-          style="margin-right: 20px; text-decoration: none; color: #333"
-          >Features</a
+          class="navbar-brand fw-bold fs-3"
+          href="{% url 'home' %}"
+          style="color: #7c3aed"
         >
-
-        <!-- Bell Icon -->
-        <a
-          href="{% url 'notifications' %}"
-          class="btn btn-light position-relative me-3"
-        >
-          🔔 {% if unread_messages_count > 0 %}
-          <span
-            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-          >
-            {{ unread_messages_count }}
-          </span>
-          {% endif %}
+          <i class="bi bi-hexagon-fill me-2"></i>Nexora
         </a>
-        <form action="{% url 'logout' %}" method="post" class="d-inline">
-          {% csrf_token %}
-          <button class="btn btn-outline-dark">Logout</button>
-        </form>
+
+        <!-- Mobile Toggle Button -->
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <!-- Center Navigation Links -->
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'home' %}">
+                <i class="bi bi-house-door me-1"></i>Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'about' %}">
+                <i class="bi bi-info-circle me-1"></i>About
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'features' %}">
+                <i class="bi bi-star me-1"></i>Features
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'contact' %}">
+                <i class="bi bi-envelope me-1"></i>Contact
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'ai_mentorship' %}">
+                <i class="bi bi-robot me-1"></i>AI Mentorship
+              </a>
+            </li>
+          
+          </ul>
+
+          <!-- Right Side Actions -->
+          <div class="d-flex align-items-center gap-3">
+            <!-- Notifications -->
+            <a
+              href="{% url 'notifications' %}"
+              class="btn btn-outline-primary position-relative"
+            >
+              <i class="bi bi-bell"></i>
+              {% if unread_messages_count > 0 %}
+              <span
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              >
+                {{ unread_messages_count }}
+              </span>
+              {% endif %}
+            </a>
+
+            <!-- User Dropdown -->
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="bi bi-person-circle me-2"></i><span>{{ user.get_full_name|default:user.username }}</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="{% url 'profile' %}"
+                    ><i class="bi bi-person me-2"></i>Profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'settings' %}"
+                    ><i class="bi bi-gear me-2"></i>Settings</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'applicant_messages' %}"
+                    ><i class="bi bi-envelope me-2"></i>My Applications</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <form
+                    action="{% url 'logout' %}"
+                    method="post"
+                    class="d-inline w-100"
+                  >
+                    {% csrf_token %}
+                    <button class="dropdown-item text-danger" type="submit">
+                      <i class="bi bi-box-arrow-right me-2"></i>Logout
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
     <div class="container text-center my-5 hero position-relative">
       <h1>Invest in Tomorrow's Unicorns, Today</h1>
       <p class="text-muted">
@@ -644,49 +1574,80 @@
       </p>
     </div>
 
-    <!-- Search & Filter Section -->
+    <!-- Enhanced Search & Filter Section -->
     <div class="container my-5">
-      <form method="get" class="w-100">
-        <div
-          class="d-flex flex-wrap gap-3 justify-content-between align-items-center"
-        >
-          <!-- Search Input -->
-          <div class="flex-grow-1 position-relative">
-            <input
-              type="text"
-              name="q"
-              value="{{ query }}"
-              class="form-control bg-white ps-5 pe-4 border rounded-3 shadow-sm"
-              placeholder="Search for a specific project..."
-              style="height: 48px"
-            />
-            <span
-              class="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
-            >
-              <i class="fas fa-search"></i>
-            </span>
-            {% if query %}
-            <a
-              href="{% url 'home' %}"
-              class="position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
-              style="cursor: pointer"
-            >
-              <i class="fas fa-times-circle"></i>
-            </a>
-            {% endif %}
-          </div>
+      <div class="search-filter-container bg-white rounded-4 shadow-sm p-4">
+        <form method="get" class="w-100" id="searchForm">
+          <div class="row g-3 align-items-center">
+            <!-- Search Input -->
+            <div class="col-lg-6">
+              <div class="position-relative">
+                <input
+                  type="text"
+                  name="q"
+                  id="searchInput"
+                  value="{{ query }}"
+                  class="form-control bg-light ps-5 pe-4 border-0 rounded-3"
+                  placeholder="Search projects by name, description, or problem..."
+                  style="height: 50px; font-size: 16px;"
+                />
+                <span class="position-absolute top-50 start-0 translate-middle-y ms-3 text-primary">
+                  <i class="bi bi-search fs-5"></i>
+                </span>
+                {% if query %}
+                <button
+                  type="button"
+                  id="clearSearch"
+                  class="position-absolute top-50 end-0 translate-middle-y me-3 btn btn-sm btn-outline-secondary rounded-circle"
+                  style="width: 30px; height: 30px; padding: 0;"
+                >
+                  <i class="bi bi-x"></i>
+                </button>
+                {% endif %}
+              </div>
+            </div>
 
-          <!-- Create Project Button -->
-          <button
-            type="button"
-            class="btn btn-purple px-4 py-2 rounded-3"
-            data-bs-toggle="modal"
-            data-bs-target="#createProjectModal"
-          >
-            <i class="bi bi-plus-circle me-2"></i> Create Project
-          </button>
-        </div>
-      </form>
+            <!-- Quick Filters -->
+            <div class="col-lg-4">
+              <div class="d-flex gap-2">
+                <select name="category" id="categoryFilter" class="form-select rounded-3">
+                  <option value="">All Categories</option>
+                  <option value="AI" {% if selected_category == 'AI' %}selected{% endif %}>AI & Machine Learning</option>
+                  <option value="Fintech" {% if selected_category == 'Fintech' %}selected{% endif %}>Fintech</option>
+                  <option value="Health" {% if selected_category == 'Health' %}selected{% endif %}>Healthcare</option>
+                  <option value="Education" {% if selected_category == 'Education' %}selected{% endif %}>Education</option>
+                  <option value="E-commerce" {% if selected_category == 'E-commerce' %}selected{% endif %}>E-commerce</option>
+                  <option value="SaaS" {% if selected_category == 'SaaS' %}selected{% endif %}>SaaS</option>
+                </select>
+                <select name="stage" id="stageFilter" class="form-select rounded-3">
+                  <option value="">All Stages</option>
+                  <option value="Idea" {% if selected_stage == 'Idea' %}selected{% endif %}>Idea</option>
+                  <option value="MVP" {% if selected_stage == 'MVP' %}selected{% endif %}>MVP</option>
+                  <option value="Beta" {% if selected_stage == 'Beta' %}selected{% endif %}>Beta</option>
+                  <option value="Launch" {% if selected_stage == 'Launch' %}selected{% endif %}>Launch</option>
+                  <option value="Growth" {% if selected_stage == 'Growth' %}selected{% endif %}>Growth</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="col-lg-2">
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary rounded-3 flex-fill">
+                  <i class="bi bi-funnel me-1"></i>Filter
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-purple rounded-3 flex-fill"
+                  data-bs-toggle="modal"
+                  data-bs-target="#createProjectModal"
+                >
+                  <i class="bi bi-plus-circle me-1"></i>Create
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
 
       <!-- Filters -->
       <div class="d-flex flex-wrap align-items-center mt-3 gap-2">
@@ -761,813 +1722,539 @@
             </li>
           </ul>
         </div>
+
+        <!-- Quick Filter Tags -->
+        <div class="mt-3">
+          <div class="d-flex flex-wrap align-items-center gap-2">
+            <span class="fw-semibold text-muted small">Active filters:</span>
+
+            <!-- Active Filter Tags -->
+            {% if selected_category %}
+            <span class="badge bg-info rounded-pill">
+              Category: {{ selected_category }}
+              <a href="?{% if query %}q={{ query }}&{% endif %}{% if mine %}mine=1&{% endif %}{% if selected_stage %}stage={{ selected_stage }}{% endif %}" class="text-white ms-1">
+                <i class="bi bi-x"></i>
+              </a>
+            </span>
+            {% endif %}
+
+            {% if selected_stage %}
+            <span class="badge bg-warning rounded-pill">
+              Stage: {{ selected_stage }}
+              <a href="?{% if query %}q={{ query }}&{% endif %}{% if mine %}mine=1&{% endif %}{% if selected_category %}category={{ selected_category }}{% endif %}" class="text-white ms-1">
+                <i class="bi bi-x"></i>
+              </a>
+            </span>
+            {% endif %}
+
+            {% if query %}
+            <span class="badge bg-secondary rounded-pill">
+              Search: "{{ query }}"
+              <a href="?{% if mine %}mine=1&{% endif %}{% if selected_category %}category={{ selected_category }}&{% endif %}{% if selected_stage %}stage={{ selected_stage }}{% endif %}" class="text-white ms-1">
+                <i class="bi bi-x"></i>
+              </a>
+            </span>
+            {% endif %}
+
+            <!-- Clear All Filters -->
+            {% if query or selected_category or selected_stage or mine %}
+            <a href="{% url 'home' %}" class="btn btn-sm btn-outline-danger rounded-pill">
+              <i class="bi bi-x-circle me-1"></i>Clear All Filters
+            </a>
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
 
     {% else %}
-    <body
-      style="
-        margin: 0;
-        font-family: sans-serif;
-        background-color: #f4f6ff;
-        color: #1a1a1a;
-      "
+    <!-- Improved Navbar for Non-Authenticated Users -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top"
     >
-      <!-- Header -->
-      <div
-        style="
-          background-color: #ffffff;
-          padding: 20px 40px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-bottom: 1px solid #ddd;
-        "
-      >
-        <div style="font-size: 24px; font-weight: bold; color: #7c3aed">
-          Nexora
-        </div>
-        <div>
-          <a
-            href="#"
-            style="margin-right: 20px; text-decoration: none; color: #333"
-            >About</a
-          >
-          <a
-            href="#"
-            style="margin-right: 20px; text-decoration: none; color: #333"
-            >Features</a
-          >
-          <a
-            href="#"
-            style="margin-right: 20px; text-decoration: none; color: #333"
-            >Contact</a
-          >
-          <a
-            href="#"
-            style="
-              padding: 10px 20px;
-              background-color: #7c3aed;
-              color: #fff;
-              border-radius: 5px;
-              text-decoration: none;
-            "
-            data-bs-toggle="modal"
-            data-bs-target="#loginModal"
-            title="Login"
-            >Get Started</a
-          >
+      <div class="container-fluid px-4">
+        <!-- Brand -->
+        <a
+          class="navbar-brand fw-bold fs-3"
+          href="{% url 'home' %}"
+          style="color: #7c3aed"
+        >
+          <i class="bi bi-hexagon-fill me-2"></i>Nexora
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavPublic"
+          aria-controls="navbarNavPublic"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse" id="navbarNavPublic">
+          <!-- Center Navigation Links -->
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'home' %}">
+                <i class="bi bi-house-door me-1"></i>Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'about' %}">
+                <i class="bi bi-info-circle me-1"></i>About
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'features' %}">
+                <i class="bi bi-star me-1"></i>Features
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'contact' %}">
+                <i class="bi bi-envelope me-1"></i>Contact
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold px-3" href="{% url 'ai_mentorship' %}">
+                <i class="bi bi-robot me-1"></i> AI Mentorship
+              </a>
+            </li>
+           
+          </ul>
+
+          <!-- Right Side Actions -->
+          <div class="d-flex align-items-center gap-2">
+            <button
+              class="btn btn-outline-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              <i class="bi bi-box-arrow-in-right me-1"></i>Login
+            </button>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#registerModal"
+              style="background-color: #7c3aed; border-color: #7c3aed"
+            >
+              <i class="bi bi-person-plus me-1"></i>Get Started
+            </button>
+          </div>
         </div>
       </div>
-      <div
-        style="
-          text-align: center;
-          padding: 60px 20px;
-          background-color: #f4f4ff;
-        "
-      >
-        <h1
-          style="
-            font-size: 42px;
-            max-width: 600px;
-            margin: auto;
-            color: #1f1f1f;
-          "
+    </nav>
+
+    <!-- Hero Section for Non-Authenticated Users -->
+    <div class="container text-center my-5 hero position-relative">
+      <h1 class="display-4 fw-bold mb-4" style="max-width: 800px; margin: 0 auto; color: #7c3aed;">
+        Empowering Early-Stage Founders with AI, Blockchain, and Crypto Microfunding
+      </h1>
+      <p class="lead text-muted mb-5" style="max-width: 650px; margin: 0 auto; font-size: 1.2rem;">
+        Trustless collaboration, instant mentorship, and secure decentralized
+        funding — all in one seamless platform.
+      </p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap mb-5">
+        <button
+          class="btn btn-primary btn-lg px-4 py-3 shadow-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#registerModal"
+          style="background-color: #7c3aed; border-color: #7c3aed"
         >
-          Empowering Early-Stage Founders with AI, Blockchain, and Crypto
-          Microfunding
-        </h1>
-        <p
-          style="
-            margin-left: 20px;
-            font-size: 20px;
-            margin-top: 20px;
-            color: #6c757d;
-          "
+          <i class="bi bi-rocket-takeoff me-2"></i>Get Started
+        </button>
+        <a
+          href="{% url 'about' %}"
+          class="btn btn-outline-primary btn-lg px-4 py-3"
+          style="border-color: #7c3aed; color: #7c3aed"
         >
-          Trustless collaboration, instant mentorship, and secure decentralized
-          funding — all in one seamless platform.
-        </p>
-        <div style="margin-bottom: 30px; margin-top: 50px">
-          <a
-            href="#"
-            style="
-              margin: 0 10px;
-              padding: 10px 20px;
-              background-color: #7c3aed;
-              color: #fff;
-              border-radius: 5px;
-              text-decoration: none;
-            "
-            >Get Started</a
-          >
-          <a
-            href="#"
-            style="
-              margin: 0 10px;
-              padding: 10px 20px;
-              border: 1px solid #7c3aed;
-              color: #7c3aed;
-              border-radius: 5px;
-              text-decoration: none;
-            "
-            >Learn More</a
-          >
-        </div>
-        <img
-          src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
-          style="max-width: 50%; margin-top: 20px"
-        />
+          <i class="bi bi-info-circle me-2"></i>Learn More
+        </a>
       </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <img
+            src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            class="img-fluid rounded-4 shadow-lg"
+            alt="Entrepreneurs collaborating on startup ideas"
+            style="max-height: 450px; object-fit: cover; width: 100%;"
+          />
+          <div class="d-flex justify-content-center gap-4 mt-5">
+            <div class="text-center">
+              <div class="fs-1 fw-bold text-primary" style="color: #7c3aed !important;">500+</div>
+              <div class="text-muted">Startups Funded</div>
+            </div>
+            <div class="text-center">
+              <div class="fs-1 fw-bold text-primary" style="color: #7c3aed !important;">$2.5M</div>
+              <div class="text-muted">Total Investments</div>
+            </div>
+            <div class="text-center">
+              <div class="fs-1 fw-bold text-primary" style="color: #7c3aed !important;">10k+</div>
+              <div class="text-muted">Active Users</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
       <!-- How Nexora Helps Section -->
-      <div
-        style="
-          background-color: #7c3aed;
-          padding: 80px 20px;
-          text-align: center;
-        "
-      >
-        <h2
-          style="
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            margin-bottom: 50px;
-          "
-        >
-          How Nexora Helps
-        </h2>
-
-        <div
-          class="nexora-helps-container"
-          style="
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-          "
-        >
-          <!-- AI Mentorship Card -->
-          <div
-            class="nexora-card"
-            style="
-              background-color: white;
-              border-radius: 16px;
-              padding: 30px;
-              width: 300px;
-              text-align: left;
-              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            "
-          >
-            <h3
-              style="
-                color: #7c3aed;
-                font-size: 24px;
-                font-weight: 600;
-                margin-bottom: 20px;
-              "
-            >
-              AI Mentorship
-            </h3>
-            <p style="color: #6c757d; font-size: 16px; line-height: 1.5">
-              Get personalized guidance and insights powered by advanced AI.
-            </p>
+      <section class="py-5" style="background-color: #7c3aed;" id="features-section">
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold text-white mb-4">
+              How Nexora Helps
+            </h2>
           </div>
 
-          <!-- Blockchain Trust Card -->
-          <div
-            class="nexora-card"
-            style="
-              background-color: white;
-              border-radius: 16px;
-              padding: 30px;
-              width: 300px;
-              text-align: left;
-              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            "
-          >
-            <h3
-              style="
-                color: #7c3aed;
-                font-size: 24px;
-                font-weight: 600;
-                margin-bottom: 20px;
-              "
-            >
-              Blockchain Trust
-            </h3>
-            <p style="color: #6c757d; font-size: 16px; line-height: 1.5">
-              Build verifiable reputation and track record on the blockchain.
-            </p>
-          </div>
-        </div>
-
-        <!-- Centered bottom card -->
-        <div style="display: flex; justify-content: center; margin-top: 30px">
-          <div
-            class="nexora-card"
-            style="
-              background-color: white;
-              border-radius: 16px;
-              padding: 30px;
-              width: 300px;
-              text-align: left;
-              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            "
-          >
-            <h3
-              style="
-                color: #7c3aed;
-                font-size: 24px;
-                font-weight: 600;
-                margin-bottom: 20px;
-              "
-            >
-              Crypto Microfunding
-            </h3>
-            <p style="color: #6c757d; font-size: 16px; line-height: 1.5">
-              Access or provide funding through decentralized mechanisms.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Why Nexora -->
-      <div
-        style="
-          padding: 40px 20px;
-          background: #f5f3ff;
-          margin-left: 40px;
-          margin-right: 40px;
-          border-radius: 10px;
-          margin-top: 100px;
-        "
-      >
-        <div
-          style="
-            text-align: center;
-            margin-bottom: 50px;
-            margin-top: 20px;
-            font-size: 40px;
-            font-weight: bold;
-            color: #7c3aed;
-          "
-        >
-          Why Nexora?
-        </div>
-        <div style="display: flex; flex-direction: row">
-          <div
-            style="
-              display: flex;
-              gap: 40px;
-              flex-direction: column;
-              margin-left: 200px;
-            "
-          >
-            <div
-              class="nexora-feature-card"
-              style="
-                width: 400px;
-                background: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              "
-            >
-              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
-                <div class="icon-wrapper">
-                  <div class="icon-trustless">
-                    <div class="hand-left"></div>
-                    <div class="hand-right"></div>
+          <div class="row g-4 justify-content-center">
+            <!-- AI Mentorship Card -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 border-0 shadow-lg rounded-4">
+                <div class="card-body p-4">
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="bg-primary rounded-circle p-3 me-3">
+                      <i class="bi bi-robot text-white fs-4"></i>
+                    </div>
+                    <h3 class="card-title h5 mb-0 text-primary fw-bold">
+                      AI Mentorship
+                    </h3>
                   </div>
+                  <p class="card-text text-muted">
+                    Get personalized guidance and insights powered by advanced AI to accelerate your startup journey.
+                  </p>
                 </div>
-                Trustless Collaboration
-              </div>
-              <div style="color: #6c757d">
-                Work together without intermediaries
               </div>
             </div>
 
-            <div
-              class="nexora-feature-card"
-              style="
-                width: 400px;
-                background: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              "
-            >
-              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
-                <div class="icon-wrapper">
-                  <div class="icon-funding">
-                    <div class="coin"></div>
-                    <div class="lightning"></div>
+            <!-- Blockchain Trust Card -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 border-0 shadow-lg rounded-4">
+                <div class="card-body p-4">
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="bg-primary rounded-circle p-3 me-3">
+                      <i class="bi bi-shield-check text-white fs-4"></i>
+                    </div>
+                    <h3 class="card-title h5 mb-0 text-primary fw-bold">
+                      Blockchain Trust
+                    </h3>
                   </div>
+                  <p class="card-text text-muted">
+                    Build verifiable reputation and track record on the blockchain with transparent, immutable records.
+                  </p>
                 </div>
-                Instant Microfunding
               </div>
-              <div style="color: #6c757d">Quick access to startup capital</div>
             </div>
 
-            <div
-              class="nexora-feature-card"
-              style="
-                width: 400px;
-                background: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              "
-            >
-              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
-                <div class="icon-wrapper">
-                  <div class="icon-secure">
-                    <div class="lock-body"></div>
-                    <div class="lock-shackle"></div>
-                    <div class="node-1"></div>
-                    <div class="node-2"></div>
-                    <div class="node-3"></div>
-                    <div class="connection-1"></div>
-                    <div class="connection-2"></div>
-                    <div class="connection-3"></div>
+            <!-- Crypto Microfunding Card -->
+            <div class="col-lg-4 col-md-6">
+              <div class="card h-100 border-0 shadow-lg rounded-4">
+                <div class="card-body p-4">
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="bg-primary rounded-circle p-3 me-3">
+                      <i class="bi bi-currency-bitcoin text-white fs-4"></i>
+                    </div>
+                    <h3 class="card-title h5 mb-0 text-primary fw-bold">
+                      Crypto Microfunding
+                    </h3>
                   </div>
+                  <p class="card-text text-muted">
+                    Access or provide funding through secure decentralized mechanisms with instant transactions.
+                  </p>
                 </div>
-                Secure & Decentralized
               </div>
-              <div style="color: #6c757d">Your data, your control</div>
-            </div>
-          </div>
-
-          <div
-            style="
-              display: flex;
-              gap: 40px;
-              flex-direction: column;
-              margin-left: 200px;
-            "
-          >
-            <div
-              class="nexora-feature-card"
-              style="
-                width: 400px;
-                background: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              "
-            >
-              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
-                <div class="icon-wrapper">
-                  <div class="icon-reputation">
-                    <div class="checkmark"></div>
-                    <div class="ribbon-left"></div>
-                    <div class="ribbon-right"></div>
-                  </div>
-                </div>
-                Transparent Reputation
-              </div>
-              <div style="color: #6c757d">Build credibility on-chain</div>
-            </div>
-
-            <div
-              class="nexora-feature-card"
-              style="
-                width: 400px;
-                background: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              "
-            >
-              <div style="font-size: 22px; margin-bottom: 8px; color: #7c3aed">
-                <div class="icon-wrapper">
-                  <div class="icon-mentorship">
-                    <div class="globe"></div>
-                    <div class="person"></div>
-                  </div>
-                </div>
-                Global Mentorship
-              </div>
-              <div style="color: #6c757d">Access worldwide expertise</div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <style>
-        /* Add hover effect for Why Nexora cards */
-        .nexora-feature-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 15px 30px rgba(124, 58, 237, 0.15);
-          cursor: pointer;
-        }
+      <!-- Why Nexora Section -->
+      <section class="py-5 my-5">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-10">
+              <div class="bg-light rounded-4 p-5" style="background: linear-gradient(135deg, #f5f3ff 0%, #e9ecef 100%) !important;">
+                <div class="text-center mb-5">
+                  <h2 class="display-5 fw-bold text-primary mb-4">
+                    Why Nexora?
+                  </h2>
+                </div>
 
-        /* Add hover effect for How Nexora Helps cards */
-        .nexora-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-          cursor: pointer;
-        }
+                <div class="row g-4">
+                  <!-- Trustless Collaboration -->
+                  <div class="col-lg-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 nexora-feature-card">
+                      <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                          <div class="icon-wrapper me-3">
+                            <div class="icon-trustless">
+                              <div class="hand-left"></div>
+                              <div class="hand-right"></div>
+                            </div>
+                          </div>
+                          <h4 class="card-title h5 mb-0 text-primary fw-bold">
+                            Trustless Collaboration
+                          </h4>
+                        </div>
+                        <p class="card-text text-muted">
+                          Work together without intermediaries using blockchain-verified smart contracts.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-        /* Add responsive styles for the How Nexora Helps section */
-        @media (max-width: 768px) {
-          .nexora-helps-container {
-            flex-direction: column;
-            align-items: center;
-          }
+                  <!-- Instant Microfunding -->
+                  <div class="col-lg-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 nexora-feature-card">
+                      <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                          <div class="icon-wrapper me-3">
+                            <div class="icon-funding">
+                              <div class="coin"></div>
+                              <div class="lightning"></div>
+                            </div>
+                          </div>
+                          <h4 class="card-title h5 mb-0 text-primary fw-bold">
+                            Instant Microfunding
+                          </h4>
+                        </div>
+                        <p class="card-text text-muted">
+                          Quick access to startup capital through decentralized funding mechanisms.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-          .nexora-card {
-            width: 90% !important;
-            max-width: 350px;
-            margin-top: 20px !important;
-          }
+                  <!-- Secure & Decentralized -->
+                  <div class="col-lg-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 nexora-feature-card">
+                      <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                          <div class="icon-wrapper me-3">
+                            <div class="icon-secure">
+                              <div class="lock-body"></div>
+                              <div class="lock-shackle"></div>
+                              <div class="node-1"></div>
+                              <div class="node-2"></div>
+                              <div class="node-3"></div>
+                              <div class="connection-1"></div>
+                              <div class="connection-2"></div>
+                              <div class="connection-3"></div>
+                            </div>
+                          </div>
+                          <h4 class="card-title h5 mb-0 text-primary fw-bold">
+                            Secure & Decentralized
+                          </h4>
+                        </div>
+                        <p class="card-text text-muted">
+                          Your data, your control - built on secure blockchain infrastructure.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-          .nexora-card:last-child {
-            margin-top: 20px !important;
-          }
-        }
+                  <!-- Transparent Reputation -->
+                  <div class="col-lg-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 nexora-feature-card">
+                      <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                          <div class="icon-wrapper me-3">
+                            <div class="icon-reputation">
+                              <div class="checkmark"></div>
+                              <div class="ribbon-left"></div>
+                              <div class="ribbon-right"></div>
+                            </div>
+                          </div>
+                          <h4 class="card-title h5 mb-0 text-primary fw-bold">
+                            Transparent Reputation
+                          </h4>
+                        </div>
+                        <p class="card-text text-muted">
+                          Build credibility on-chain with verifiable track records and achievements.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-        /* Funding goal reached animation */
-        @keyframes goalReached {
-          0% {
-            background-color: #198754;
-          }
-          50% {
-            background-color: #7c3aed;
-          }
-          100% {
-            background-color: #198754;
-          }
-        }
+                  <!-- Global Mentorship -->
+                  <div class="col-lg-6 mb-4">
+                    <div class="card h-100 border-0 shadow-sm rounded-3 nexora-feature-card">
+                      <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                          <div class="icon-wrapper me-3">
+                            <div class="icon-mentorship">
+                              <div class="globe"></div>
+                              <div class="person"></div>
+                            </div>
+                          </div>
+                          <h4 class="card-title h5 mb-0 text-primary fw-bold">
+                            Global Mentorship
+                          </h4>
+                        </div>
+                        <p class="card-text text-muted">
+                          Access worldwide expertise from successful entrepreneurs and industry leaders.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        .goal-reached {
-          animation: goalReached 2s ease infinite;
-        }
+
       </style>
 
-      <!-- Add CSS variables for the icons -->
-      <style>
-        :root {
-          --primary: #6c3fd6;
-          --primary-light: #9a7ae6;
-          --background-light: #ffffff;
-        }
+      <!-- Enhanced Footer -->
+      <footer class="mt-5">
+        <div class="container py-5">
+          <div class="row g-4">
+            <!-- Company Info -->
+            <div class="col-lg-4 col-md-6">
+              <div class="d-flex align-items-center mb-3">
+                <i
+                  class="bi bi-hexagon-fill me-2 fs-3"
+                  style="color: #7c3aed"
+                ></i>
+                <h5 class="mb-0 fw-bold">Nexora</h5>
+              </div>
+              <p class="footer-text mb-3">
+                Empowering early-stage founders with AI mentorship, blockchain
+                trust, and crypto microfunding. Building the future of
+                decentralized startup ecosystem.
+              </p>
+              <div class="d-flex gap-3">
+                <a href="#" class="text-muted fs-5 hover-purple">
+                  <i class="bi bi-twitter"></i>
+                </a>
+                <a href="#" class="text-muted fs-5 hover-purple">
+                  <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="#" class="text-muted fs-5 hover-purple">
+                  <i class="bi bi-github"></i>
+                </a>
+                <a href="#" class="text-muted fs-5 hover-purple">
+                  <i class="bi bi-discord"></i>
+                </a>
+                <a href="#" class="text-muted fs-5 hover-purple">
+                  <i class="bi bi-telegram"></i>
+                </a>
+              </div>
+            </div>
 
-        /* CSS-only Icons for Nexora Features */
-        .icon-wrapper {
-          width: 60px;
-          height: 60px;
-          position: relative;
-          margin-bottom: 15px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-        }
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-6">
+              <h6 class="fw-bold mb-3" style="color: #7c3aed">Platform</h6>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <a href="{% url 'home' %}" class="footer-link">Home</a>
+                </li>
+                <li class="mb-2">
+                  <a href="{% url 'about' %}" class="footer-link">About</a>
+                </li>
+                <li class="mb-2">
+                  <a href="{% url 'features' %}" class="footer-link"
+                    >Features</a
+                  >
+                </li>
+                <li class="mb-2">
+                  <a href="{% url 'blog' %}" class="footer-link">Blog</a>
+                </li>
+              </ul>
+            </div>
 
-        /* 1. Trustless Collaboration Icon - Handshake */
-        .icon-trustless {
-          position: relative;
-          width: 60px;
-          height: 40px;
-        }
+            <!-- Support -->
+            <div class="col-lg-2 col-md-6">
+              <h6 class="fw-bold mb-3" style="color: #7c3aed">Support</h6>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <a href="{% url 'contact' %}" class="footer-link">Contact</a>
+                </li>
+                <li class="mb-2">
+                  <a href="#" class="footer-link">Help Center</a>
+                </li>
+                <li class="mb-2">
+                  <a href="#" class="footer-link">Documentation</a>
+                </li>
+                <li class="mb-2">
+                  <a href="#" class="footer-link">Community</a>
+                </li>
+              </ul>
+            </div>
 
-        .icon-trustless::before,
-        .icon-trustless::after {
-          content: "";
-          position: absolute;
-          width: 30px;
-          height: 12px;
-          background-color: var(--primary);
-          border-radius: 6px 10px 4px 4px;
-        }
+            <!-- Legal -->
+            <div class="col-lg-2 col-md-6">
+              <h6 class="fw-bold mb-3" style="color: #7c3aed">Legal</h6>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <a href="#" class="footer-link">Privacy Policy</a>
+                </li>
+                <li class="mb-2">
+                  <a href="#" class="footer-link">Terms of Service</a>
+                </li>
+                <li class="mb-2">
+                  <a href="#" class="footer-link">Cookie Policy</a>
+                </li>
+                <li class="mb-2">
+                  <a href="#" class="footer-link">Disclaimer</a>
+                </li>
+              </ul>
+            </div>
 
-        .icon-trustless::before {
-          top: 14px;
-          left: 4px;
-          transform: rotate(-15deg);
-        }
+            <!-- Newsletter -->
+            <div class="col-lg-2 col-md-6">
+              <h6 class="fw-bold mb-3" style="color: #7c3aed">Stay Updated</h6>
+              <p class="footer-text small mb-3">
+                Get the latest updates on new features and opportunities.
+              </p>
+              <div class="input-group mb-3">
+                <input
+                  type="email"
+                  class="form-control form-control-sm"
+                  placeholder="Your email"
+                />
+                <button
+                  class="btn btn-sm"
+                  type="button"
+                  style="background-color: #7c3aed; border-color: #7c3aed"
+                >
+                  <i class="bi bi-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        .icon-trustless::after {
-          top: 14px;
-          right: 4px;
-          transform: rotate(15deg);
-        }
-
-        .icon-trustless .hand-left {
-          position: absolute;
-          width: 16px;
-          height: 10px;
-          background-color: var(--primary-light);
-          border-radius: 3px;
-          transform: rotate(-15deg);
-          top: 8px;
-          left: 12px;
-        }
-
-        .icon-trustless .hand-right {
-          position: absolute;
-          width: 16px;
-          height: 10px;
-          background-color: var(--primary-light);
-          border-radius: 3px;
-          transform: rotate(15deg);
-          top: 8px;
-          right: 12px;
-        }
-
-        /* 2. Transparent Reputation Icon - Medal/Badge with Checkmark */
-        .icon-reputation {
-          position: relative;
-          width: 40px;
-          height: 50px;
-        }
-
-        .icon-reputation::before {
-          content: "";
-          position: absolute;
-          width: 30px;
-          height: 36px;
-          background-color: var(--primary);
-          border-radius: 50% 50% 5px 5px;
-          top: 0;
-          left: 5px;
-        }
-
-        .icon-reputation::after {
-          content: "";
-          position: absolute;
-          width: 24px;
-          height: 30px;
-          background-color: var(--background-light);
-          border-radius: 50% 50% 5px 5px;
-          top: 3px;
-          left: 8px;
-        }
-
-        .icon-reputation .checkmark {
-          position: absolute;
-          top: 12px;
-          left: 13px;
-          width: 14px;
-          height: 8px;
-          border-left: 3px solid var(--primary);
-          border-bottom: 3px solid var(--primary);
-          transform: rotate(-45deg);
-          z-index: 1;
-        }
-
-        .icon-reputation .ribbon-left {
-          position: absolute;
-          bottom: 0;
-          left: 10px;
-          width: 8px;
-          height: 15px;
-          background-color: var(--primary-light);
-          transform: skewX(-20deg);
-        }
-
-        .icon-reputation .ribbon-right {
-          position: absolute;
-          bottom: 0;
-          right: 10px;
-          width: 8px;
-          height: 15px;
-          background-color: var(--primary-light);
-          transform: skewX(20deg);
-        }
-
-        /* 3. Instant Microfunding Icon - Money/Lightning */
-        .icon-funding {
-          position: relative;
-          width: 50px;
-          height: 50px;
-        }
-
-        .icon-funding .coin {
-          position: absolute;
-          width: 30px;
-          height: 30px;
-          background-color: var(--primary);
-          border-radius: 50%;
-          bottom: 0;
-          left: 10px;
-          overflow: hidden;
-        }
-
-        .icon-funding .coin::after {
-          content: "$";
-          position: absolute;
-          font-size: 20px;
-          font-weight: bold;
-          color: var(--background-light);
-          top: 2px;
-          left: 10px;
-        }
-
-        .icon-funding .lightning {
-          position: absolute;
-          top: 0;
-          left: 22px;
-          width: 0;
-          height: 0;
-          border-left: 8px solid transparent;
-          border-right: 8px solid transparent;
-          border-top: 22px solid var(--primary);
-        }
-
-        .icon-funding .lightning::before {
-          content: "";
-          position: absolute;
-          top: -24px;
-          left: -12px;
-          width: 0;
-          height: 0;
-          border-left: 6px solid transparent;
-          border-right: 6px solid transparent;
-          border-bottom: 14px solid var(--primary);
-          transform: rotate(30deg);
-        }
-
-        /* 4. Global Mentorship Icon - Globe with Person */
-        .icon-mentorship {
-          position: relative;
-          width: 50px;
-          height: 50px;
-        }
-
-        .icon-mentorship .globe {
-          position: absolute;
-          width: 36px;
-          height: 36px;
-          background-color: var(--primary-light);
-          border-radius: 50%;
-          bottom: 0;
-          left: 7px;
-          overflow: hidden;
-        }
-
-        .icon-mentorship .globe::before,
-        .icon-mentorship .globe::after {
-          content: "";
-          position: absolute;
-          background-color: var(--primary);
-        }
-
-        .icon-mentorship .globe::before {
-          width: 36px;
-          height: 3px;
-          top: 50%;
-          left: 0;
-          transform: translateY(-50%);
-        }
-
-        .icon-mentorship .globe::after {
-          width: 3px;
-          height: 36px;
-          left: 50%;
-          top: 0;
-          transform: translateX(-50%);
-        }
-
-        .icon-mentorship .person {
-          position: absolute;
-          top: 0;
-          left: 19px;
-          width: 12px;
-          height: 12px;
-          background-color: var(--primary);
-          border-radius: 50%;
-        }
-
-        .icon-mentorship .person::after {
-          content: "";
-          position: absolute;
-          width: 10px;
-          height: 15px;
-          background-color: var(--primary);
-          border-radius: 5px 5px 0 0;
-          bottom: -10px;
-          left: 1px;
-        }
-
-        /* 5. Secure & Decentralized - Lock with Network */
-        .icon-secure {
-          position: relative;
-          width: 50px;
-          height: 50px;
-        }
-
-        .icon-secure .lock-body {
-          position: absolute;
-          width: 30px;
-          height: 22px;
-          background-color: var(--primary);
-          border-radius: 4px;
-          bottom: 6px;
-          left: 10px;
-        }
-
-        .icon-secure .lock-shackle {
-          position: absolute;
-          width: 20px;
-          height: 16px;
-          border: 4px solid var(--primary);
-          border-bottom: none;
-          border-radius: 10px 10px 0 0;
-          bottom: 28px;
-          left: 11px;
-        }
-
-        .icon-secure .node-1 {
-          position: absolute;
-          width: 6px;
-          height: 6px;
-          background-color: var(--primary-light);
-          border-radius: 50%;
-          top: 5px;
-          left: 5px;
-        }
-
-        .icon-secure .node-2 {
-          position: absolute;
-          width: 6px;
-          height: 6px;
-          background-color: var(--primary-light);
-          border-radius: 50%;
-          top: 5px;
-          right: 5px;
-        }
-
-        .icon-secure .node-3 {
-          position: absolute;
-          width: 6px;
-          height: 6px;
-          background-color: var(--primary-light);
-          border-radius: 50%;
-          bottom: 0;
-          left: 22px;
-        }
-
-        .icon-secure .connection-1 {
-          position: absolute;
-          width: 20px;
-          height: 1px;
-          background-color: var(--primary-light);
-          transform: rotate(30deg);
-          top: 8px;
-          left: 10px;
-        }
-
-        .icon-secure .connection-2 {
-          position: absolute;
-          width: 20px;
-          height: 1px;
-          background-color: var(--primary-light);
-          transform: rotate(-30deg);
-          top: 8px;
-          right: 10px;
-        }
-
-        .icon-secure .connection-3 {
-          position: absolute;
-          width: 1px;
-          height: 15px;
-          background-color: var(--primary-light);
-          bottom: 6px;
-          left: 25px;
-        }
-      </style>
-
-      <!-- Footer -->
-      <div
-        style="
-          padding: 20px;
-          background: #f4f4f4;
-          font-size: 14px;
-          margin-top: 50px;
-        "
-      >
-        <a href="#" style="margin: 0 10px; text-decoration: none; color: #555"
-          >About</a
-        >
-        <a href="#" style="margin: 0 10px; text-decoration: none; color: #555"
-          >Contact</a
-        >
-        <a href="#" style="margin: 0 10px; text-decoration: none; color: #555"
-          >Terms of Service</a
-        >
-      </div>
+        <!-- Bottom Bar -->
+        <div class="border-top">
+          <div class="container py-3">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <p class="footer-text small mb-0">
+                  © 2024 Nexora. All rights reserved. Built with ❤️ for the
+                  startup community.
+                </p>
+              </div>
+              <div class="col-md-6 text-md-end">
+                <div class="d-flex justify-content-md-end gap-3">
+                  <span class="footer-text small">Powered by</span>
+                  <i class="bi bi-ethereum text-warning"></i>
+                  <span class="footer-text small">Ethereum</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {% endif %}
+
+
 
       <!--Create Projects Modal -->
       <div
@@ -1575,187 +2262,275 @@
         id="createProjectModal"
         tabindex="-1"
         aria-hidden="true"
+        data-bs-backdrop="static"
       >
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
           <div
-            class="modal-content p-4 rounded-4 shadow-lg"
-            style="background-color: #ffffff; color: #1f1f1f"
+            class="modal-content rounded-3 shadow-lg border-0"
+            style="background-color: #ffffff; color: #1f1f1f;"
           >
             <!-- Header -->
-            <form method="POST" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
-                <h5 class="modal-title fw-bold">Create New Project</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
+            <div class="modal-header border-0 pb-2">
+              <h5 class="modal-title fw-bold" style="color: #7c3aed;">Create Project</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
 
-              <!-- Project Name -->
-              <div class="mb-3">
-                <label class="form-label">Project Name</label>
-                <input
-                  type="text"
-                  class="form-control form-control-light"
-                  name="name"
-                />
-              </div>
+            <div class="modal-body px-4 py-3">
+              <form method="POST" enctype="multipart/form-data" id="createProjectForm">
+                {% csrf_token %}
 
-              <!-- Banner Image -->
-              <div class="mb-3">
-                <label class="form-label">Banner Image</label>
-                <input
-                  type="file"
-                  class="form-control form-control-light"
-                  name="banner"
-                />
-              </div>
-
-              <!-- Stepper -->
-              <div
-                class="d-flex justify-content-between align-items-center text-center mb-3"
-              >
-                <div class="step-icon" onclick="setStep(0)">
-                  <div class="icon-wrapper warning-icon" id="icon-0">⚠️</div>
-                  <div class="step-label fw-semibold">Description</div>
-                </div>
-                <div class="step-line"></div>
-                <div class="step-icon" onclick="setStep(1)">
-                  <div class="icon-wrapper warning-icon" id="icon-1">⚠️</div>
-                  <div class="step-label fw-semibold">Problem</div>
-                </div>
-                <div class="step-line"></div>
-                <div class="step-icon" onclick="setStep(2)">
-                  <div class="icon-wrapper warning-icon" id="icon-2">⚠️</div>
-                  <div class="step-label fw-semibold">Market</div>
-                </div>
-                <div class="step-line"></div>
-                <div class="step-icon" onclick="setStep(3)">
-                  <div class="icon-wrapper warning-icon" id="icon-3">⚠️</div>
-                  <div class="step-label fw-semibold">Competition</div>
-                </div>
-                <div class="step-line"></div>
-                <div class="step-icon" onclick="setStep(4)">
-                  <div class="icon-wrapper warning-icon" id="icon-4">⚠️</div>
-                  <div class="step-label fw-semibold">Details</div>
-                </div>
-              </div>
-
-              <!-- Step Content Area -->
-              <div class="mb-3">
-                <label id="step-label" class="form-label">Description</label>
-                <textarea
-                  id="step-textarea"
-                  class="form-control form-control-light"
-                  rows="3"
-                  placeholder="Enter description..."
-                ></textarea>
-              </div>
-
-              <!-- Hidden Inputs for Submission -->
-              <input type="hidden" name="description" id="hidden-description" />
-              <input type="hidden" name="problem" id="hidden-problem" />
-              <input type="hidden" name="market" id="hidden-market" />
-              <input type="hidden" name="competition" id="hidden-competition" />
-              <input type="hidden" name="details" id="hidden-details" />
-
-              <!-- Additional Fields -->
-              <div class="mb-3">
-                <label class="form-label">Stage</label>
-                <select name="stage" class="form-control form-control-light">
-                  <option value="">Select Stage</option>
-                  <option value="Idea">Idea</option>
-                  <option value="MVP">MVP</option>
-                  <option value="Growth">Growth</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select name="category" class="form-select" required>
-                  <option value="">Select Category</option>
-                  <option value="AI">AI</option>
-                  <option value="Fintech">Fintech</option>
-                  <option value="Health">Health</option>
-                </select>
-              </div>
-
-              <!-- Add Funding Goal field -->
-              <div class="mb-3">
-                <label class="form-label">Funding Goal (ETH)</label>
-                <div class="input-group">
+                <!-- Project Name -->
+                <div class="mb-3">
+                  <label class="form-label small" style="color: #1f1f1f;">Project Name:</label>
                   <input
-                    type="number"
-                    name="funding_goal"
+                    type="text"
                     class="form-control"
-                    step="0.01"
-                    min="0"
-                    placeholder="e.g., 2.5"
+                    name="name"
+                    id="projectName"
+                    placeholder="Type your project name.."
+                    style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important;"
                     required
                   />
-                  <span class="input-group-text">ETH</span>
-                </div>
-                <small class="text-muted"
-                  >Set your project's funding target in Ethereum</small
-                >
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Website URL</label>
-                <input
-                  type="url"
-                  name="url"
-                  class="form-control form-control-light"
-                />
-              </div>
-
-              <!-- Add Positions Button -->
-              <div
-                class="border border-purple rounded p-3 my-3"
-                style="cursor: pointer"
-                data-bs-toggle="modal"
-                data-bs-target="#positionsModal"
-              >
-                <div class="d-flex align-items-center text-purple">
-                  <div
-                    class="bg-purple text-white rounded-circle d-flex justify-content-center align-items-center me-2"
-                    style="width: 30px; height: 30px"
-                  >
-                    <strong>+</strong>
+                  <div class="text-end mt-1">
+                    <small class="text-muted"><span id="nameCount">0</span>/40</small>
                   </div>
-                  <strong>Add open positions on your team</strong>
                 </div>
-              </div>
-              <!-- Hidden input to store all positions -->
-              <input
-                type="hidden"
-                name="positions_json"
-                id="positionsJsonInput"
-              />
 
-              <div class="mb-3">
-                <label class="form-label">Open positions:</label>
-                <div id="positionPreview" class="d-flex flex-wrap gap-2">
-                  <!-- Tags will appear here -->
+                <!-- Description -->
+                <div class="mb-3">
+                  <label class="form-label small" style="color: #1f1f1f;">Description:</label>
+                  <textarea
+                    class="form-control"
+                    name="description"
+                    id="projectDescription"
+                    rows="4"
+                    placeholder="Introduce your project idea in simple terms.."
+                    style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important; resize: none;"
+                    required
+                  ></textarea>
+                  <div class="text-end mt-1">
+                    <small class="text-muted"><span id="descriptionCount">0</span>/500</small>
+                  </div>
                 </div>
-              </div>
 
-              <!-- Footer -->
-              <div class="text-end">
+                <!-- Problem -->
+                <div class="mb-3">
+                  <label class="form-label small" style="color: #1f1f1f;">Problem:</label>
+                  <textarea
+                    class="form-control"
+                    name="problem"
+                    id="projectProblem"
+                    rows="3"
+                    placeholder="Describe the problem you're solving.."
+                    style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important; resize: none;"
+                    required
+                  ></textarea>
+                  <div class="text-end mt-1">
+                    <small class="text-muted"><span id="problemCount">0</span>/300</small>
+                  </div>
+                </div>
+
+                <!-- Market -->
+                <div class="mb-3">
+                  <label class="form-label small" style="color: #1f1f1f;">Target Market:</label>
+                  <textarea
+                    class="form-control"
+                    name="market"
+                    id="projectMarket"
+                    rows="3"
+                    placeholder="Define your target customer.."
+                    style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important; resize: none;"
+                    required
+                  ></textarea>
+                  <div class="text-end mt-1">
+                    <small class="text-muted"><span id="marketCount">0</span>/300</small>
+                  </div>
+                </div>
+
+                <!-- Competition -->
+                <div class="mb-3">
+                  <label class="form-label small" style="color: #1f1f1f;">Competition:</label>
+                  <textarea
+                    class="form-control"
+                    name="competition"
+                    id="projectCompetition"
+                    rows="3"
+                    placeholder="Define how you beat the competition.."
+                    style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important; resize: none;"
+                    required
+                  ></textarea>
+                  <div class="text-end mt-1">
+                    <small class="text-muted"><span id="competitionCount">0</span>/300</small>
+                  </div>
+                </div>
+
+                <!-- Details (Optional) -->
+                <div class="mb-3">
+                  <label class="form-label small" style="color: #1f1f1f;">Additional Details (Optional):</label>
+                  <textarea
+                    class="form-control"
+                    name="details"
+                    id="projectDetails"
+                    rows="3"
+                    placeholder="Add any optional additional information here.."
+                    style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important; resize: none;"
+                  ></textarea>
+                  <div class="text-end mt-1">
+                    <small class="text-muted"><span id="detailsCount">0</span>/300</small>
+                  </div>
+                </div>
+
+                <!-- Banner Upload -->
+                <div class="mb-3">
+                  <label class="form-label small" style="color: #1f1f1f;">Banner (Optional):</label>
+                  <div class="border border-2 border-dashed rounded-3 p-3 text-center"
+                       id="bannerDropZone"
+                       style="cursor: pointer; border-color: #e9ecef; background-color: #f8f9fa;">
+                    <input type="file" name="banner" id="bannerInput" class="d-none" accept="image/*">
+                    <div id="bannerPreview" class="d-none">
+                      <img id="bannerImage" class="img-fluid rounded-3 mb-2" style="max-height: 100px;">
+                      <div>
+                        <button type="button" class="btn btn-sm btn-outline-light" onclick="changeBanner()">
+                          <i class="bi bi-pencil me-1"></i>Change
+                        </button>
+                      </div>
+                    </div>
+                    <div id="bannerPlaceholder">
+                      <i class="bi bi-image fs-3 text-muted mb-2"></i>
+                      <p class="mb-1 text-muted small">Drop or upload your banner image here</p>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <!-- Stage and Category -->
+                <div class="row mb-3">
+                  <div class="col-md-6 mb-2">
+                    <label class="form-label small" style="color: #1f1f1f;">Stage:</label>
+                    <select name="stage" class="form-select form-select-sm" required id="projectStage" style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important;">
+                      <option value="">What stage is your startup in?</option>
+                      <option value="Idea">Idea Stage</option>
+                      <option value="MVP">MVP/Prototype</option>
+                      <option value="Growth">Growth Stage</option>
+                      <option value="Scaling">Scaling</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <label class="form-label small" style="color: #1f1f1f;">Category:</label>
+                    <select name="category" class="form-select form-select-sm" required id="projectCategory" style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important;">
+                      <option value="">What field is your startup in?</option>
+                      <option value="AI">AI & Machine Learning</option>
+                      <option value="Fintech">Fintech</option>
+                      <option value="Health">Healthcare</option>
+                      <option value="Education">Education</option>
+                      <option value="E-commerce">E-commerce</option>
+                      <option value="Social">Social Network</option>
+                      <option value="Gaming">Gaming</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Website and Funding Goal -->
+                <div class="row mb-3">
+                  <div class="col-md-6 mb-2">
+                    <label class="form-label small" style="color: #1f1f1f;">Website (Optional):</label>
+                    <input
+                      type="url"
+                      name="url"
+                      class="form-control form-control-sm"
+                      placeholder="https://yourproject.com"
+                      style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important;"
+                    />
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <label class="form-label small" style="color: #1f1f1f;">Funding Goal (ETH):</label>
+                    <div class="input-group input-group-sm">
+                      <input
+                        type="number"
+                        name="funding_goal"
+                        id="fundingGoal"
+                        class="form-control"
+                        step="0.01"
+                        min="0"
+                        placeholder="e.g., 2.5"
+                        style="background-color: #ffffff !important; border-color: #e9ecef !important; color: #1f1f1f !important;"
+                        required
+                      />
+                      <span class="input-group-text" style="background-color: #7c3aed; color: white; border-color: #7c3aed;">ETH</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Positions Section -->
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <label class="form-label small mb-0" style="color: #1f1f1f;">Open Positions:</label>
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary btn-sm"
+                      id="addPositionsBtn"
+                    >
+                      <i class="bi bi-plus-circle me-1"></i>Add Positions
+                    </button>
+                  </div>
+                  <div id="positionPreview" class="d-flex flex-wrap gap-2">
+                    <!-- Position badges will be rendered here -->
+                  </div>
+                  <input type="hidden" name="positions_json" id="positionsJsonInput" />
+                </div>
+              </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer border-0 pt-0 pb-3">
+              <div class="d-flex justify-content-between w-100">
                 <button
-                  class="btn"
-                  type="submit"
-                  id="publishProjectBtn"
-                  style="background-color: #7c3aed; color: white"
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  data-bs-dismiss="modal"
                 >
-                  Publish
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  form="createProjectForm"
+                  class="btn btn-primary btn-sm px-4"
+                  id="publishBtn"
+                  style="background-color: #7c3aed; border-color: #7c3aed;"
+                >
+                  PUBLISH
                 </button>
               </div>
-            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Positions Confirmation Modal -->
+      <div class="modal fade" id="noPositionsModal" tabindex="-1" aria-hidden="true" style="z-index: 1070 !important;">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content rounded-4 shadow-lg" style="background-color: #2d3748; color: white; border: none;">
+            <div class="modal-body text-center p-4">
+              <h5 class="modal-title fw-bold mb-3" style="color: white;">No roles</h5>
+              <p class="mb-4" style="color: #e2e8f0;">
+                There are no open positions selected. Are you sure you want to close?
+              </p>
+              <div class="d-flex gap-3 justify-content-center">
+                <button type="button" class="btn btn-danger px-4 rounded-pill" id="noPositionsNoBtn">
+                  No
+                </button>
+                <button type="button" class="btn btn-success px-4 rounded-pill" id="noPositionsYesBtn">
+                  Yes
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1766,6 +2541,7 @@
         id="positionsModal"
         tabindex="-1"
         aria-hidden="true"
+        data-bs-backdrop="static"
       >
         <div class="modal-dialog modal-dialog-centered">
           <div
@@ -2285,65 +3061,630 @@
         // Only show register modal if explicitly requested
         new bootstrap.Modal(document.getElementById('registerModal')).show();
         {% endif %}
-      </script>
 
-      <script>
-        const stepLabels = [
-          "Description",
-          "Problem",
-          "Market",
-          "Competition",
-          "Additional Details",
-        ];
-        const stepNames = [
-          "description",
-          "problem",
-          "market",
-          "competition",
-          "details",
-        ];
-        let stepData = {
-          description: "",
-          problem: "",
-          market: "",
-          competition: "",
-          details: "",
-        };
-        let currentStep = 0;
+        // Enhanced Form Validation and User Experience
+        document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced Search and Filter Functionality
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const stageFilter = document.getElementById('stageFilter');
+            const clearSearchBtn = document.getElementById('clearSearch');
+            const searchForm = document.getElementById('searchForm');
 
-        function setStep(index) {
-          // Save current textarea to the right hidden input and stepData
-          const currentField = stepNames[currentStep];
-          const currentValue = document.getElementById("step-textarea").value;
-          stepData[currentField] = currentValue;
-          document.getElementById(`hidden-${currentField}`).value =
-            currentValue;
+            // Real-time search with debouncing
+            let searchTimeout;
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        if (this.value.length >= 2 || this.value.length === 0) {
+                            searchForm.submit();
+                        }
+                    }, 500); // 500ms delay
+                });
 
-          // Set new step
-          currentStep = index;
+                // Enhanced search input styling
+                searchInput.addEventListener('focus', function() {
+                    this.parentElement.classList.add('shadow-sm');
+                    this.style.borderColor = '#7c3aed';
+                });
 
-          // Update stepper UI
-          for (let i = 0; i < 5; i++) {
-            const icon = document.getElementById("icon-" + i);
-            icon.className = "icon-wrapper warning-icon";
-            icon.innerHTML = "⚠️";
-          }
+                searchInput.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('shadow-sm');
+                    this.style.borderColor = '';
+                });
+            }
 
-          const activeIcon = document.getElementById("icon-" + index);
-          activeIcon.className = "icon-wrapper active-step";
-          activeIcon.innerHTML = index + 1;
+            // Auto-submit on filter changes
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', function() {
+                    searchForm.submit();
+                });
+            }
 
-          // Update textarea and label for the new step
-          const label = document.getElementById("step-label");
-          const textarea = document.getElementById("step-textarea");
-          const newField = stepNames[index];
+            if (stageFilter) {
+                stageFilter.addEventListener('change', function() {
+                    searchForm.submit();
+                });
+            }
 
-          label.innerText = stepLabels[index];
-          textarea.placeholder = `Enter ${stepLabels[index].toLowerCase()}...`;
-          textarea.value = stepData[newField];
+            // Clear search functionality
+            if (clearSearchBtn) {
+                clearSearchBtn.addEventListener('click', function() {
+                    searchInput.value = '';
+                    searchForm.submit();
+                });
+            }
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Ctrl/Cmd + K to focus search
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    if (searchInput) {
+                        searchInput.focus();
+                        searchInput.select();
+                    }
+                }
+
+                // Escape to clear search
+                if (e.key === 'Escape' && searchInput && searchInput === document.activeElement) {
+                    searchInput.value = '';
+                    searchInput.blur();
+                }
+            });
+
+            // Password strength indicator
+            const registerPassword = document.getElementById('RegisterPasswordInput');
+            if (registerPassword) {
+                registerPassword.addEventListener('input', function() {
+                    checkPasswordStrength(this.value);
+                });
+            }
+
+            // Real-time username validation
+            const usernameInputs = document.querySelectorAll('input[name="username"]');
+            usernameInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    validateUsername(this);
+                });
+            });
+
+            // Email validation
+            const emailInputs = document.querySelectorAll('input[type="email"]');
+            emailInputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    validateEmail(this);
+                });
+            });
+
+            // Form submission validation
+            const loginForm = document.querySelector('#loginModal form');
+            const registerForm = document.querySelector('#registerModal form');
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    if (!validateLoginForm()) {
+                        e.preventDefault();
+                    }
+                });
+            }
+
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    if (!validateRegisterForm()) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
+
+        function checkPasswordStrength(password) {
+            const strengthIndicator = document.getElementById('password-strength');
+            const strengthText = document.getElementById('strength-text');
+
+            if (!strengthIndicator) {
+                // Create strength indicator if it doesn't exist
+                const passwordField = document.getElementById('RegisterPasswordInput');
+                const strengthDiv = document.createElement('div');
+                strengthDiv.className = 'mt-2';
+                strengthDiv.innerHTML = `
+                    <div class="progress" style="height: 4px;">
+                        <div id="password-strength" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <small id="strength-text" class="text-muted"></small>
+                `;
+                passwordField.parentNode.appendChild(strengthDiv);
+            }
+
+            let strength = 0;
+            let feedback = '';
+
+            if (password.length >= 8) strength += 25;
+            if (/[a-z]/.test(password)) strength += 25;
+            if (/[A-Z]/.test(password)) strength += 25;
+            if (/[0-9]/.test(password)) strength += 25;
+
+            const indicator = document.getElementById('password-strength');
+            const text = document.getElementById('strength-text');
+
+            if (indicator && text) {
+                indicator.style.width = strength + '%';
+
+                if (strength < 50) {
+                    indicator.className = 'progress-bar bg-danger';
+                    feedback = 'Weak password';
+                } else if (strength < 75) {
+                    indicator.className = 'progress-bar bg-warning';
+                    feedback = 'Medium strength';
+                } else {
+                    indicator.className = 'progress-bar bg-success';
+                    feedback = 'Strong password';
+                }
+
+                text.textContent = feedback;
+            }
         }
 
-        
+        function validateUsername(input) {
+            const username = input.value;
+            const feedback = input.parentNode.querySelector('.username-feedback') || createFeedback(input, 'username-feedback');
+
+            if (username.length < 3) {
+                showFieldError(input, feedback, 'Username must be at least 3 characters long');
+            } else if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                showFieldError(input, feedback, 'Username can only contain letters, numbers, and underscores');
+            } else {
+                showFieldSuccess(input, feedback, 'Username looks good!');
+            }
+        }
+
+        function validateEmail(input) {
+            const email = input.value;
+            const feedback = input.parentNode.querySelector('.email-feedback') || createFeedback(input, 'email-feedback');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email && !emailRegex.test(email)) {
+                showFieldError(input, feedback, 'Please enter a valid email address');
+            } else if (email) {
+                showFieldSuccess(input, feedback, 'Email looks good!');
+            } else {
+                hideFeedback(feedback);
+            }
+        }
+
+        function createFeedback(input, className) {
+            const feedback = document.createElement('div');
+            feedback.className = `form-text ${className}`;
+            input.parentNode.appendChild(feedback);
+            return feedback;
+        }
+
+        function showFieldError(input, feedback, message) {
+            input.classList.remove('is-valid');
+            input.classList.add('is-invalid');
+            feedback.className = feedback.className.replace('text-success', 'text-danger');
+            feedback.textContent = message;
+            feedback.style.display = 'block';
+        }
+
+        function showFieldSuccess(input, feedback, message) {
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+            feedback.className = feedback.className.replace('text-danger', 'text-success');
+            feedback.textContent = message;
+            feedback.style.display = 'block';
+        }
+
+        function hideFeedback(feedback) {
+            feedback.style.display = 'none';
+        }
+
+        function validateLoginForm() {
+            const username = document.querySelector('#loginModal input[name="username"]').value;
+            const password = document.querySelector('#loginModal input[name="password"]').value;
+
+            if (!username.trim()) {
+                showAlert('Please enter your username', 'danger');
+                return false;
+            }
+
+            if (!password.trim()) {
+                showAlert('Please enter your password', 'danger');
+                return false;
+            }
+
+            return true;
+        }
+
+        function validateRegisterForm() {
+            const firstName = document.querySelector('#registerModal input[name="first_name"]').value;
+            const lastName = document.querySelector('#registerModal input[name="last_name"]').value;
+            const username = document.querySelector('#registerModal input[name="username"]').value;
+            const email = document.querySelector('#registerModal input[name="email"]').value;
+            const password = document.querySelector('#registerModal input[name="password"]').value;
+            const agreeTerms = document.querySelector('#registerModal input[name="agreeTerms"]').checked;
+
+            if (!firstName.trim() || !lastName.trim()) {
+                showAlert('Please enter your first and last name', 'danger');
+                return false;
+            }
+
+            if (!username.trim() || username.length < 3) {
+                showAlert('Username must be at least 3 characters long', 'danger');
+                return false;
+            }
+
+            if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showAlert('Please enter a valid email address', 'danger');
+                return false;
+            }
+
+            if (!password.trim() || password.length < 8) {
+                showAlert('Password must be at least 8 characters long', 'danger');
+                return false;
+            }
+
+            if (!agreeTerms) {
+                showAlert('Please agree to the Terms of Service and Privacy Policy', 'danger');
+                return false;
+            }
+
+            return true;
+        }
+
+        function showAlert(message, type) {
+            // Create and show a temporary alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            alertDiv.style.cssText = 'top: 20px; right: 20px; z-index: 9999; max-width: 400px;';
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            document.body.appendChild(alertDiv);
+
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+      </script>
+
+      {% if user.is_authenticated %}
+      <script>
+        // Old step management code removed - using new compact modal system
+
+
+
+        // Chatbot Functionality
+        function initializeChatbot() {
+          console.log('Initializing chatbot...');
+
+          const chatbotToggle = document.getElementById('chatbotToggle');
+          const chatbotWindow = document.getElementById('chatbotWindow');
+          const chatbotClose = document.getElementById('chatbotClose');
+          const chatbotInput = document.getElementById('chatbotInput');
+          const chatbotSend = document.getElementById('chatbotSend');
+          const chatbotMessages = document.getElementById('chatbotMessages');
+          const typingIndicator = document.getElementById('typingIndicator');
+          const chatbotIcon = document.getElementById('chatbotIcon');
+
+          console.log('Chatbot elements:', {
+            toggle: !!chatbotToggle,
+            window: !!chatbotWindow,
+            close: !!chatbotClose,
+            input: !!chatbotInput,
+            send: !!chatbotSend,
+            messages: !!chatbotMessages,
+            typing: !!typingIndicator,
+            icon: !!chatbotIcon
+          });
+
+          let isOpen = false;
+
+          if (chatbotToggle && chatbotWindow && chatbotIcon) {
+          // Toggle chatbot window
+          chatbotToggle.addEventListener('click', function() {
+            isOpen = !isOpen;
+            if (isOpen) {
+              chatbotWindow.style.display = 'flex';
+              chatbotIcon.className = 'bi bi-x-lg';
+              chatbotInput.focus();
+            } else {
+              chatbotWindow.style.display = 'none';
+              chatbotIcon.className = 'bi bi-chat-dots';
+            }
+          });
+
+          // Close chatbot
+          chatbotClose.addEventListener('click', function() {
+            isOpen = false;
+            chatbotWindow.style.display = 'none';
+            chatbotIcon.className = 'bi bi-chat-dots';
+          });
+
+          // Send message function
+          async function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            chatbotInput.value = '';
+            chatbotSend.disabled = true;
+
+            // Show typing indicator
+            typingIndicator.style.display = 'flex';
+            scrollToBottom();
+
+            try {
+              // Get CSRF token
+              const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+              const headers = {
+                'Content-Type': 'application/json'
+              };
+
+              if (csrfToken) {
+                headers['X-CSRFToken'] = csrfToken.value;
+              }
+
+              // Call Groq API
+              const response = await fetch('/api/chat/', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({ message: message })
+              });
+
+              const data = await response.json();
+
+              // Hide typing indicator
+              typingIndicator.style.display = 'none';
+
+              if (data.success) {
+                addMessage(data.response, 'bot');
+              } else {
+                addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+              }
+            } catch (error) {
+              console.error('Chat error:', error);
+              typingIndicator.style.display = 'none';
+
+              // Provide a helpful fallback response
+              const fallbackResponses = [
+                "I'm currently having connection issues, but I'd love to help! Here are some quick tips for entrepreneurs:\n\n• Start with a clear problem statement\n• Validate your idea with potential customers\n• Build an MVP (Minimum Viable Product)\n• Focus on customer acquisition\n• Network with other entrepreneurs",
+                "While I'm reconnecting, here's some startup advice:\n\n• Cash flow is king - monitor it closely\n• Don't try to do everything yourself\n• Listen to customer feedback\n• Iterate quickly and often\n• Build a strong team",
+                "Connection issues aside, remember these entrepreneurship fundamentals:\n\n• Solve a real problem people will pay for\n• Know your target market inside out\n• Have a clear value proposition\n• Plan your finances carefully\n• Stay persistent but flexible"
+              ];
+
+              const randomResponse = fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+              addMessage(randomResponse, 'bot');
+            }
+
+            chatbotSend.disabled = false;
+            scrollToBottom();
+          }
+
+          // Add message to chat
+          function addMessage(content, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.innerHTML = sender === 'bot' ? '<i class="bi bi-robot"></i>' : '<i class="bi bi-person"></i>';
+
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerHTML = content.replace(/\n/g, '<br>');
+
+            if (sender === 'user') {
+              messageDiv.appendChild(messageContent);
+              messageDiv.appendChild(avatar);
+            } else {
+              messageDiv.appendChild(avatar);
+              messageDiv.appendChild(messageContent);
+            }
+
+            chatbotMessages.appendChild(messageDiv);
+          }
+
+          // Scroll to bottom of chat
+          function scrollToBottom() {
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+          }
+
+          // Send message on button click
+          chatbotSend.addEventListener('click', sendMessage);
+
+          // Send message on Enter key
+          chatbotInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              sendMessage();
+            }
+          });
+          } else {
+            console.error('Chatbot elements not found!', {
+              toggle: !!chatbotToggle,
+              window: !!chatbotWindow,
+              icon: !!chatbotIcon
+            });
+          }
+        }
+
+        // Initialize chatbot when DOM is ready
+        initializeChatbot();
+
+        // Enhanced Modal Management
+        function initializeModalManagement() {
+          // Get all modals
+          const modals = document.querySelectorAll('.modal');
+
+          modals.forEach(modal => {
+            // Ensure proper cleanup when modal is hidden
+            modal.addEventListener('hidden.bs.modal', function() {
+              // Remove any lingering backdrop
+              const backdrops = document.querySelectorAll('.modal-backdrop');
+              backdrops.forEach(backdrop => backdrop.remove());
+
+              // Restore body scroll
+              document.body.classList.remove('modal-open');
+              document.body.style.overflow = '';
+              document.body.style.paddingRight = '';
+
+              // Clear any form data if needed
+              const forms = this.querySelectorAll('form');
+              forms.forEach(form => {
+                if (form.dataset.clearOnClose !== 'false') {
+                  form.reset();
+                }
+              });
+            });
+
+            // Handle escape key properly
+            modal.addEventListener('keydown', function(e) {
+              if (e.key === 'Escape') {
+                const modalInstance = bootstrap.Modal.getInstance(this);
+                if (modalInstance) {
+                  modalInstance.hide();
+                }
+              }
+            });
+
+            // Ensure clicking outside closes modal
+            modal.addEventListener('click', function(e) {
+              if (e.target === this) {
+                const modalInstance = bootstrap.Modal.getInstance(this);
+                if (modalInstance) {
+                  modalInstance.hide();
+                }
+              }
+            });
+          });
+
+          // Global escape key handler
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+              // Close any open modals
+              const openModals = document.querySelectorAll('.modal.show');
+              openModals.forEach(modal => {
+                const modalInstance = bootstrap.Modal.getInstance(modal);
+                if (modalInstance) {
+                  modalInstance.hide();
+                }
+              });
+
+              // Close chatbot if open
+              if (isOpen && chatbotWindow) {
+                isOpen = false;
+                chatbotWindow.style.display = 'none';
+                chatbotIcon.className = 'bi bi-chat-dots';
+              }
+            }
+          });
+
+          // Prevent multiple modal backdrops
+          document.addEventListener('show.bs.modal', function() {
+            const existingBackdrops = document.querySelectorAll('.modal-backdrop');
+            if (existingBackdrops.length > 1) {
+              for (let i = 1; i < existingBackdrops.length; i++) {
+                existingBackdrops[i].remove();
+              }
+            }
+          });
+        }
+
+        // Initialize modal management
+        initializeModalManagement();
+
+        // Initialize chatbot
+        setTimeout(initializeChatbot, 100);
+
+        // Add celebration function for successful funding
+        function triggerCelebration() {
+          // Create confetti effect
+          const colors = ['#7c3aed', '#10b981', '#f59e0b', '#ef4444', '#3b82f6'];
+          for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+              createConfetti(colors[Math.floor(Math.random() * colors.length)]);
+            }, i * 50);
+          }
+        }
+
+        function createConfetti(color) {
+          const confetti = document.createElement('div');
+          confetti.style.position = 'fixed';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.top = '-10px';
+          confetti.style.width = '10px';
+          confetti.style.height = '10px';
+          confetti.style.backgroundColor = color;
+          confetti.style.borderRadius = '50%';
+          confetti.style.pointerEvents = 'none';
+          confetti.style.zIndex = '9999';
+          confetti.style.animation = 'fall 3s linear forwards';
+
+          document.body.appendChild(confetti);
+
+          setTimeout(() => {
+            confetti.remove();
+          }, 3000);
+        }
+
+        // Add CSS for confetti animation
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes fall {
+            0% {
+              transform: translateY(-10px) rotate(0deg);
+              opacity: 1;
+            }
+            100% {
+              transform: translateY(100vh) rotate(360deg);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(style);
+
+        // Enhanced alert function
+        function showAlert(message, type = 'info') {
+          // Remove existing alerts
+          const existingAlerts = document.querySelectorAll('.custom-alert');
+          existingAlerts.forEach(alert => alert.remove());
+
+          const alertDiv = document.createElement('div');
+          alertDiv.className = `alert alert-${type} alert-dismissible fade show custom-alert`;
+          alertDiv.style.position = 'fixed';
+          alertDiv.style.top = '20px';
+          alertDiv.style.right = '20px';
+          alertDiv.style.zIndex = '9999';
+          alertDiv.style.minWidth = '300px';
+          alertDiv.style.maxWidth = '500px';
+
+          const icon = type === 'success' ? 'check-circle' :
+                      type === 'danger' ? 'exclamation-triangle' :
+                      type === 'warning' ? 'exclamation-triangle' : 'info-circle';
+
+          alertDiv.innerHTML = `
+            <i class="bi bi-${icon} me-2"></i>
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          `;
+
+          document.body.appendChild(alertDiv);
+
+          // Auto-remove after 5 seconds
+          setTimeout(() => {
+            if (alertDiv.parentNode) {
+              alertDiv.remove();
+            }
+          }, 5000);
+        }
       </script>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -2370,6 +3711,23 @@
             </div>
             <div class="modal-body">
               <input type="hidden" id="projectId" />
+
+              <!-- Network and Account Info -->
+              <div id="networkInfo" class="mb-3 p-2 bg-info bg-opacity-10 rounded">
+                <small class="text-muted">Network: <strong>Ganache Local Network</strong></small>
+                <div class="small text-muted">RPC: http://127.0.0.1:7545 | Chain ID: 1337</div>
+                <div class="small text-muted mt-1">
+                  <i class="bi bi-info-circle me-1"></i>
+                  Make sure Ganache is running and connected to MetaMask
+                </div>
+              </div>
+
+              <!-- Current Account Display -->
+              <div id="currentAccountInfo" class="mb-3 p-2 bg-light rounded" style="display: none;">
+                <small class="text-muted">Current MetaMask Account:</small>
+                <div id="currentAccountAddress" class="font-monospace small"></div>
+              </div>
+
               <div class="mb-3">
                 <label class="form-label">Investment Amount (ETH)</label>
                 <div class="input-group">
@@ -2533,7 +3891,38 @@
           }, 5000);
         }
 
-        const contractAddress = "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21";
+        // Enhanced MetaMask Configuration
+        const NETWORKS = {
+          mainnet: {
+            chainId: '0x1',
+            name: 'Ethereum Mainnet',
+            rpcUrl: 'https://mainnet.infura.io/v3/',
+            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21"
+          },
+          sepolia: {
+            chainId: '0xaa36a7',
+            name: 'Sepolia Testnet',
+            rpcUrl: 'https://sepolia.infura.io/v3/',
+            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21"
+          },
+          ganache: {
+            chainId: '0x539',
+            name: 'Ganache Local Network',
+            rpcUrl: 'http://127.0.0.1:7545',
+            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21"
+          },
+          localhost: {
+            chainId: '0x539',
+            name: 'Localhost 8545',
+            rpcUrl: 'http://localhost:8545',
+            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21"
+          }
+        };
+
+        // Use Ganache for development
+        const CURRENT_NETWORK = NETWORKS.ganache;
+        const contractAddress = CURRENT_NETWORK.contractAddress;
+
         const contractABI = [
           {
             inputs: [],
@@ -2542,6 +3931,20 @@
             stateMutability: "payable",
             type: "function",
           },
+          {
+            inputs: [],
+            name: "getBalance",
+            outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+            stateMutability: "view",
+            type: "function",
+          },
+          {
+            inputs: [{ internalType: "address", name: "investor", type: "address" }],
+            name: "getInvestment",
+            outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+            stateMutability: "view",
+            type: "function",
+          }
         ];
 
         function getCookie(name) {
@@ -2589,6 +3992,95 @@
           }
         }
 
+        // Function to check if Ganache is running
+        async function checkGanacheConnection() {
+          try {
+            const response = await fetch(CURRENT_NETWORK.rpcUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                jsonrpc: '2.0',
+                method: 'eth_blockNumber',
+                params: [],
+                id: 1
+              })
+            });
+            return response.ok;
+          } catch (error) {
+            return false;
+          }
+        }
+
+        async function checkMetaMaskConnection() {
+          if (typeof window.ethereum === "undefined") {
+            return { success: false, error: "MetaMask not found. Please install it from https://metamask.io" };
+          }
+
+          // Check if Ganache is running
+          const ganacheRunning = await checkGanacheConnection();
+          if (!ganacheRunning) {
+            return {
+              success: false,
+              error: "Ganache is not running. Please start Ganache on http://127.0.0.1:7545 and make sure it's configured properly."
+            };
+          }
+
+          try {
+            // Always get fresh account information
+            let accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            if (accounts.length === 0) {
+              // Request connection if no accounts
+              accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            }
+
+            // Verify we have at least one account
+            if (accounts.length === 0) {
+              return { success: false, error: "No MetaMask accounts available. Please unlock MetaMask and try again." };
+            }
+
+            // Check network
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+            if (chainId !== CURRENT_NETWORK.chainId) {
+              try {
+                await window.ethereum.request({
+                  method: 'wallet_switchEthereumChain',
+                  params: [{ chainId: CURRENT_NETWORK.chainId }],
+                });
+              } catch (switchError) {
+                if (switchError.code === 4902) {
+                  // Network not added to MetaMask, try to add it
+                  try {
+                    await window.ethereum.request({
+                      method: 'wallet_addEthereumChain',
+                      params: [{
+                        chainId: CURRENT_NETWORK.chainId,
+                        chainName: CURRENT_NETWORK.name,
+                        rpcUrls: [CURRENT_NETWORK.rpcUrl],
+                        nativeCurrency: {
+                          name: 'Ether',
+                          symbol: 'ETH',
+                          decimals: 18
+                        }
+                      }]
+                    });
+                  } catch (addError) {
+                    return { success: false, error: `Failed to add ${CURRENT_NETWORK.name} to MetaMask. Please add it manually with RPC URL: ${CURRENT_NETWORK.rpcUrl}` };
+                  }
+                } else {
+                  throw switchError;
+                }
+              }
+            }
+
+            return { success: true, currentAccount: accounts[0] };
+          } catch (error) {
+            console.error("MetaMask connection error:", error);
+            return { success: false, error: error.message || "Failed to connect to MetaMask" };
+          }
+        }
+
         async function handleInvestment() {
           const amount = document.getElementById("investAmount").value;
           const projectId = document.getElementById("projectId").value;
@@ -2597,79 +4089,162 @@
           const confirmBtn = document.getElementById("confirmInvestment");
           resultBox.innerHTML = "";
 
+          // Enhanced validation
           if (!amount || isNaN(amount) || Number(amount) <= 0) {
             resultBox.innerHTML =
-              '<div class="alert alert-danger">Enter a valid ETH amount</div>';
+              '<div class="alert alert-danger"><i class="bi bi-exclamation-triangle me-2"></i>Please enter a valid ETH amount</div>';
             return;
           }
 
-          if (typeof window.ethereum === "undefined") {
+          if (Number(amount) < 0.001) {
             resultBox.innerHTML =
-              '<div class="alert alert-danger">MetaMask not found. Please install it from https://metamask.io</div>';
+              '<div class="alert alert-warning"><i class="bi bi-info-circle me-2"></i>Minimum investment is 0.001 ETH</div>';
+            return;
+          }
+
+          // Check MetaMask connection
+          const connectionCheck = await checkMetaMaskConnection();
+          if (!connectionCheck.success) {
+            resultBox.innerHTML =
+              `<div class="alert alert-danger"><i class="bi bi-wallet2 me-2"></i>${connectionCheck.error}</div>`;
             return;
           }
 
           try {
             confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Processing...';
             spinner.style.display = "block";
 
+            resultBox.innerHTML = '<div class="alert alert-info"><i class="bi bi-info-circle me-2"></i>Connecting to wallet...</div>';
+
             const web3 = new Web3(window.ethereum);
-            const accounts = await window.ethereum.request({
-              method: "eth_requestAccounts",
-            });
+
+            // Always get fresh account information to handle account switches
+            let accounts;
+            try {
+              // First try to get current accounts without prompting
+              accounts = await window.ethereum.request({ method: 'eth_accounts' });
+
+              // If no accounts or user might have switched, request accounts
+              if (accounts.length === 0) {
+                accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+              }
+            } catch (accountError) {
+              // Fallback to request accounts if eth_accounts fails
+              accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+            }
+
             const sender = accounts[0];
             const weiAmount = web3.utils.toWei(amount, "ether");
 
+            // Always fetch fresh balance for the current account
+            resultBox.innerHTML = '<div class="alert alert-info"><i class="bi bi-info-circle me-2"></i>Checking account balance...</div>';
+
+            const balance = await web3.eth.getBalance(sender);
+            const balanceEth = web3.utils.fromWei(balance, 'ether');
+
+            console.log(`Current account: ${sender}, Balance: ${balanceEth} ETH, Required: ${amount} ETH`);
+
+            if (parseFloat(balanceEth) < parseFloat(amount)) {
+              resultBox.innerHTML = `<div class="alert alert-danger"><i class="bi bi-exclamation-triangle me-2"></i>Insufficient balance. Account ${sender.substring(0,6)}...${sender.substring(38)} has ${parseFloat(balanceEth).toFixed(4)} ETH, but ${amount} ETH is required.</div>`;
+              return;
+            }
+
+            resultBox.innerHTML = '<div class="alert alert-info"><i class="bi bi-clock me-2"></i>Please confirm the transaction in MetaMask...</div>';
+
+            let tx;
+            let transactionMethod = 'direct';
+
             try {
-              const contract = new web3.eth.Contract(
-                contractABI,
-                contractAddress
-              );
-              const tx = await contract.methods
+              // Try smart contract method first
+              const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+              // Estimate gas
+              const gasEstimate = await contract.methods.invest().estimateGas({
+                from: sender,
+                value: weiAmount
+              });
+
+              tx = await contract.methods
                 .invest()
-                .send({ from: sender, value: weiAmount, gas: 200000 });
-              const fundingData = await recordTransaction(
-                sender,
-                tx.transactionHash,
-                amount,
-                projectId
-              );
-              if (fundingData) {
-                updateFundingProgress(projectId, fundingData);
-              } else {
-                resultBox.innerHTML = `<div class="alert alert-success">Investment successful!</div>`;
-              }
+                .send({
+                  from: sender,
+                  value: weiAmount,
+                  gas: Math.floor(gasEstimate * 1.2) // Add 20% buffer
+                });
+              transactionMethod = 'contract';
+
             } catch (contractError) {
-              console.warn(
-                "Contract call failed. Trying direct transfer...",
-                contractError
-              );
-              const tx = await web3.eth.sendTransaction({
+              console.warn("Contract call failed. Trying direct transfer...", contractError);
+
+              // Fallback to direct transfer
+              tx = await web3.eth.sendTransaction({
                 from: sender,
                 to: contractAddress,
                 value: weiAmount,
                 gas: 21000,
               });
-              const fundingData = await recordTransaction(
-                sender,
-                tx.transactionHash,
-                amount,
-                projectId
-              );
-              if (fundingData) {
-                updateFundingProgress(projectId, fundingData);
-              } else {
-                resultBox.innerHTML = `<div class="alert alert-success">Direct investment successful!</div>`;
-              }
+              transactionMethod = 'direct';
             }
+
+            resultBox.innerHTML = '<div class="alert alert-info"><i class="bi bi-check-circle me-2"></i>Transaction sent! Recording...</div>';
+
+            // Record transaction
+            const fundingData = await recordTransaction(
+              sender,
+              tx.transactionHash,
+              amount,
+              projectId
+            );
+
+            if (fundingData) {
+              updateFundingProgress(projectId, fundingData);
+              resultBox.innerHTML = `
+                <div class="alert alert-success">
+                  <i class="bi bi-check-circle-fill me-2"></i>
+                  <strong>Investment successful!</strong><br>
+                  <small>Transaction: ${tx.transactionHash.substring(0, 10)}...${tx.transactionHash.substring(tx.transactionHash.length - 8)}</small><br>
+                  <small>Method: ${transactionMethod === 'contract' ? 'Smart Contract' : 'Direct Transfer'}</small>
+                </div>`;
+
+              // Trigger celebration if funding goal reached
+              if (fundingData.celebrate) {
+                triggerCelebration();
+              }
+            } else {
+              resultBox.innerHTML = `
+                <div class="alert alert-success">
+                  <i class="bi bi-check-circle-fill me-2"></i>
+                  <strong>Investment successful!</strong><br>
+                  <small>Transaction: ${tx.transactionHash}</small>
+                </div>`;
+            }
+
           } catch (error) {
             console.error("Investment error:", error);
-            resultBox.innerHTML = `<div class="alert alert-danger">Transaction failed: ${
-              error.message || "Unknown error"
-            }</div>`;
+
+            let errorMessage = "Transaction failed";
+            if (error.code === 4001) {
+              errorMessage = "Transaction cancelled by user";
+            } else if (error.code === -32603) {
+              errorMessage = "Internal error - please try again";
+            } else if (error.message.includes("insufficient funds")) {
+              errorMessage = "Insufficient funds for transaction";
+            } else if (error.message.includes("gas")) {
+              errorMessage = "Gas estimation failed - please try a smaller amount";
+            }
+
+            resultBox.innerHTML = `
+              <div class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <strong>${errorMessage}</strong><br>
+                <small>${error.message}</small>
+              </div>`;
+
           } finally {
             spinner.style.display = "none";
             confirmBtn.disabled = false;
+            confirmBtn.innerHTML = '<i class="bi bi-check-lg me-2"></i>Confirm Investment';
           }
         }
 
@@ -2687,6 +4262,9 @@
               document.getElementById("projectId").value = projectId;
               document.getElementById("projectNameSpan").textContent =
                 projectName || "Project";
+
+              // Update current account display when modal opens
+              updateCurrentAccountDisplay();
             });
           }
 
@@ -2695,6 +4273,54 @@
             confirmBtn.addEventListener("click", (e) => {
               e.preventDefault();
               handleInvestment();
+            });
+          }
+        }
+
+        // Function to update current account display
+        async function updateCurrentAccountDisplay() {
+          try {
+            if (typeof window.ethereum !== "undefined") {
+              const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+              const accountInfo = document.getElementById("currentAccountInfo");
+              const accountAddress = document.getElementById("currentAccountAddress");
+
+              if (accounts.length > 0 && accountInfo && accountAddress) {
+                const account = accounts[0];
+                accountAddress.textContent = `${account.substring(0, 6)}...${account.substring(38)}`;
+                accountInfo.style.display = "block";
+              } else if (accountInfo) {
+                accountInfo.style.display = "none";
+              }
+            }
+          } catch (error) {
+            console.error("Error updating account display:", error);
+          }
+        }
+
+        // Add MetaMask account change detection
+        function setupMetaMaskListeners() {
+          if (typeof window.ethereum !== "undefined") {
+            // Listen for account changes
+            window.ethereum.on('accountsChanged', function (accounts) {
+              console.log('MetaMask account changed:', accounts);
+              // Clear any previous error messages when account changes
+              const resultBox = document.getElementById("txResult");
+              if (resultBox) {
+                resultBox.innerHTML = "";
+              }
+              // Update account display
+              updateCurrentAccountDisplay();
+            });
+
+            // Listen for network changes
+            window.ethereum.on('chainChanged', function (chainId) {
+              console.log('MetaMask network changed:', chainId);
+              // Clear any previous error messages when network changes
+              const resultBox = document.getElementById("txResult");
+              if (resultBox) {
+                resultBox.innerHTML = "";
+              }
             });
           }
         }
@@ -2714,6 +4340,7 @@
               });
           } else {
             initInvestmentModal();
+            setupMetaMaskListeners();
           }
         });
 
@@ -2746,6 +4373,8 @@
         function removePosition(index) {
           positions.splice(index, 1);
           updatePositionList();
+          renderPositionPreview();
+          // Position removed
         }
 
         document
@@ -2784,67 +4413,697 @@
             clearInputs();
           });
 
-       document
-  .querySelector("#createProjectModal form")
-  .addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevent default form submission for now
-
-    const form = e.target;
-    const submitBtn = document.getElementById("publishProjectBtn");
-    const positionsInput = document.getElementById("positionsJsonInput");
-
-    // Disable the button to prevent double clicks
-    submitBtn.disabled = true;
-
-    // Inject positions into hidden input
-    positionsInput.value = JSON.stringify(positions);
-
-    // Optionally, validate again before submitting
-    if (positions.length === 0) {
-      alert("Please add at least one position.");
-      submitBtn.disabled = false;
-      return;
-    }
-
-    
-  });
+        // Simplified Create Project Modal JavaScript - No steps, single form
 
 
-        document
-          .getElementById("updateAndContinue")
-          .addEventListener("click", function () {
-            if (positions.length === 0) {
-              alert("Please add at least one position.");
-              return;
+
+
+
+        // Banner upload functionality (cached elements)
+        let bannerElements = null;
+
+        function initializeBannerElements() {
+            bannerElements = {
+                input: document.getElementById('bannerInput'),
+                dropZone: document.getElementById('bannerDropZone'),
+                preview: document.getElementById('bannerPreview'),
+                placeholder: document.getElementById('bannerPlaceholder'),
+                image: document.getElementById('bannerImage')
+            };
+        }
+
+        function setupBannerUpload() {
+            if (!bannerElements) initializeBannerElements();
+
+            if (bannerElements.dropZone) {
+                bannerElements.dropZone.addEventListener('click', () => bannerElements.input.click());
+
+                bannerElements.input.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        handleBannerFile(file);
+                    }
+                });
+
+                // Drag and drop functionality
+                bannerElements.dropZone.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.style.borderColor = '#9ca3af';
+                    this.style.backgroundColor = '#4b5563';
+                });
+
+                bannerElements.dropZone.addEventListener('dragleave', function(e) {
+                    e.preventDefault();
+                    this.style.borderColor = '#6b7280';
+                    this.style.backgroundColor = '#374151';
+                });
+
+                bannerElements.dropZone.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.style.borderColor = '#6b7280';
+                    this.style.backgroundColor = '#374151';
+
+                    const file = e.dataTransfer.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        bannerElements.input.files = e.dataTransfer.files;
+                        handleBannerFile(file);
+                    }
+                });
+            }
+        }
+
+        function handleBannerFile(file) {
+            if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                alert('File size must be less than 5MB');
+                return;
             }
 
-            document.getElementById("positionsJsonInput").value =
-              JSON.stringify(positions);
+            if (!bannerElements) initializeBannerElements();
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if (bannerElements.image) bannerElements.image.src = e.target.result;
+                if (bannerElements.preview) bannerElements.preview.classList.remove('d-none');
+                if (bannerElements.placeholder) bannerElements.placeholder.classList.add('d-none');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function changeBanner() {
+            if (!bannerElements) initializeBannerElements();
+            if (bannerElements.input) bannerElements.input.click();
+        }
+
+        function clearBannerUpload() {
+            if (!bannerElements) initializeBannerElements();
+
+            if (bannerElements.input) bannerElements.input.value = '';
+            if (bannerElements.preview) bannerElements.preview.classList.add('d-none');
+            if (bannerElements.placeholder) bannerElements.placeholder.classList.remove('d-none');
+            if (bannerElements.image) bannerElements.image.src = '';
+        }
+
+        function showNoPositionsConfirmation() {
+            const noPositionsModal = new bootstrap.Modal(document.getElementById('noPositionsModal'));
+            noPositionsModal.show();
+        }
+
+        // Debug function to clear all drafts
+        function clearAllDrafts() {
+            localStorage.removeItem(DRAFT_KEY);
+            console.log('All drafts cleared');
+        }
+
+        // Add to window for debugging
+        window.clearAllDrafts = clearAllDrafts;
+
+        function validateRequiredFields() {
+            // Get elements safely with null checks
+            const projectNameEl = document.getElementById('projectName');
+            const descriptionEl = document.getElementById('projectDescription');
+            const problemEl = document.getElementById('projectProblem');
+            const marketEl = document.getElementById('projectMarket');
+            const competitionEl = document.getElementById('projectCompetition');
+            const stageEl = document.getElementById('projectStage');
+            const categoryEl = document.getElementById('projectCategory');
+            const fundingGoalEl = document.getElementById('fundingGoal');
+
+            // Check if elements exist before accessing their values
+            const projectName = projectNameEl ? projectNameEl.value.trim() : '';
+            const description = descriptionEl ? descriptionEl.value.trim() : '';
+            const problem = problemEl ? problemEl.value.trim() : '';
+            const market = marketEl ? marketEl.value.trim() : '';
+            const competition = competitionEl ? competitionEl.value.trim() : '';
+            const stage = stageEl ? stageEl.value : '';
+            const category = categoryEl ? categoryEl.value : '';
+            const fundingGoal = fundingGoalEl ? fundingGoalEl.value : '';
+
+            const missingFields = [];
+            if (!projectName) missingFields.push('Project Name');
+            if (!description) missingFields.push('Description');
+            if (!problem) missingFields.push('Problem');
+            if (!market) missingFields.push('Target Market');
+            if (!competition) missingFields.push('Competition');
+            if (!stage) missingFields.push('Stage');
+            if (!category) missingFields.push('Category');
+            if (!fundingGoal) missingFields.push('Funding Goal');
+
+            if (missingFields.length > 0) {
+                showAlert(`Please fill in the following required fields: ${missingFields.join(', ')}`, 'warning');
+                return false;
+            }
+            return true;
+        }
+
+        // Form submission
+        document.getElementById('createProjectForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate required fields
+            if (!validateRequiredFields()) {
+                return;
+            }
+
+            // Show loading state
+            const publishBtn = document.getElementById('publishBtn');
+            publishBtn.disabled = true;
+            publishBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i>PUBLISHING...';
+
+            // Inject positions data
+            document.getElementById('positionsJsonInput').value = JSON.stringify(positions);
+
+            // Submit form
+            try {
+                // Project will be submitted
+                this.submit();
+            } catch (error) {
+                console.error('Form submission error:', error);
+                showAlert('An error occurred while publishing your project. Please try again.', 'danger');
+                publishBtn.disabled = false;
+                publishBtn.innerHTML = 'PUBLISH';
+            }
+        });
+
+        // Simplified modal - no auto-save to keep it clean and fast
+
+        // Function to reset modal after successful publication
+        function resetCreateProjectModal() {
+            positions = [];
+
+            // Clear all form fields
+            document.getElementById('createProjectForm').reset();
+
+            // Clear positions
+            renderPositionPreview();
+            updatePositionList();
+
+            // Clear banner upload
+            clearBannerUpload();
+
+            // Reset character counters
+            updateCharacterCounters();
+
+            console.log('Create project modal reset');
+        }
+
+        // Reset modal when it's closed
+        document.getElementById('createProjectModal').addEventListener('hidden.bs.modal', function(e) {
+            // Reset form data when modal is closed (don't save data)
+            resetCreateProjectModal();
+        });
+
+        // Character counter functionality
+        function updateCharacterCounters() {
+            const counters = [
+                { input: 'projectName', counter: 'nameCount', max: 40 },
+                { input: 'projectDescription', counter: 'descriptionCount', max: 500 },
+                { input: 'projectProblem', counter: 'problemCount', max: 300 },
+                { input: 'projectMarket', counter: 'marketCount', max: 300 },
+                { input: 'projectCompetition', counter: 'competitionCount', max: 300 },
+                { input: 'projectDetails', counter: 'detailsCount', max: 300 }
+            ];
+
+            counters.forEach(({ input, counter }) => {
+                const inputEl = document.getElementById(input);
+                const counterEl = document.getElementById(counter);
+                if (inputEl && counterEl) {
+                    counterEl.textContent = inputEl.value.length;
+                }
+            });
+        }
+
+        // Add character counter event listeners
+        document.addEventListener('input', function(e) {
+            if (e.target.matches('#projectName, #projectDescription, #projectProblem, #projectMarket, #projectCompetition, #projectDetails')) {
+                updateCharacterCounters();
+            }
+        });
+
+        // Add Positions button handler
+        document.getElementById('addPositionsBtn').addEventListener('click', function() {
+            // Save current form data before hiding modal
+            saveFormData();
+            
+            const createProjectModal = bootstrap.Modal.getInstance(document.getElementById('createProjectModal'));
+            if (createProjectModal) {
+                createProjectModal.hide();
+            }
+
+            setTimeout(() => {
+                const positionsModal = new bootstrap.Modal(document.getElementById('positionsModal'));
+                positionsModal.show();
+            }, 300);
+        });
+
+        // Update and Continue button handler
+        document.getElementById("updateAndContinue").addEventListener("click", function () {
+            // Check if no positions added and show confirmation
+            if (positions.length === 0) {
+                showNoPositionsConfirmation();
+                return;
+            }
+
+            document.getElementById("positionsJsonInput").value = JSON.stringify(positions);
             renderPositionPreview();
 
-            const posModal = bootstrap.Modal.getOrCreateInstance(
-              document.getElementById("positionsModal")
-            );
+            const posModal = bootstrap.Modal.getOrCreateInstance(document.getElementById("positionsModal"));
             posModal.hide();
 
-            const projectModal = new bootstrap.Modal(
-              document.getElementById("createProjectModal")
-            );
-            projectModal.show();
-          });
+            // Don't create new modal instance, just show the existing one
+            setTimeout(() => {
+                const projectModal = bootstrap.Modal.getOrCreateInstance(document.getElementById("createProjectModal"));
+                projectModal.show();
+                // Restore form data when returning to create project modal
+                restoreFormData();
+            }, 300);
+        });
+
+        // Form data storage
+        let tempFormData = {};
+
+        // Save form data to temporary storage
+        function saveFormData() {
+            const formElements = [
+                'projectName', 'projectDescription', 'projectProblem', 
+                'projectMarket', 'projectCompetition', 'projectDetails',
+                'projectStage', 'projectCategory', 'projectUrl', 'fundingGoal'
+            ];
+            
+            tempFormData = {};
+            formElements.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    tempFormData[id] = element.value;
+                }
+            });
+            
+            // Save banner image if exists
+            if (bannerElements && bannerElements.image && bannerElements.image.src) {
+                tempFormData.bannerSrc = bannerElements.image.src;
+                tempFormData.hasBanner = !bannerElements.preview.classList.contains('d-none');
+            }
+        }
+
+        // Restore form data from temporary storage
+        function restoreFormData() {
+            for (const [id, value] of Object.entries(tempFormData)) {
+                const element = document.getElementById(id);
+                if (element && id !== 'bannerSrc' && id !== 'hasBanner') {
+                    element.value = value;
+                }
+            }
+            
+            // Restore banner image if it was saved
+            if (tempFormData.hasBanner && tempFormData.bannerSrc && bannerElements) {
+                bannerElements.image.src = tempFormData.bannerSrc;
+                bannerElements.preview.classList.remove('d-none');
+                bannerElements.placeholder.classList.add('d-none');
+            }
+            
+            // Update character counters
+            updateCharacterCounters();
+        }
+
+        // Reset modal when it's fully closed (not when navigating between modals)
+        document.getElementById('createProjectModal').addEventListener('hidden.bs.modal', function(e) {
+            // Only reset if we're not opening the positions modal
+            if (!document.getElementById('positionsModal').classList.contains('show') && 
+                !document.getElementById('noPositionsModal').classList.contains('show')) {
+                // Reset form data when modal is fully closed
+                resetCreateProjectModal();
+                // Clear temporary storage
+                tempFormData = {};
+            }
+        });
 
         function renderPositionPreview() {
           const preview = document.getElementById("positionPreview");
           preview.innerHTML = "";
-          positions.forEach((pos) => {
+          positions.forEach((pos, index) => {
             const badge = document.createElement("span");
             badge.className =
               "badge bg-purple text-white rounded-pill px-3 py-2 d-flex align-items-center";
-            badge.innerHTML = `<i class="bi bi-info-circle me-1"></i> ${pos.title}`;
+            badge.innerHTML = `
+              <i class="bi bi-info-circle me-1"></i>
+              ${pos.title}
+              <button type="button" class="btn-close btn-close-white btn-sm ms-2"
+                      onclick="removePositionFromPreview(${index})"
+                      style="font-size: 0.7em;"
+                      title="Remove position"></button>
+            `;
             preview.appendChild(badge);
           });
         }
+
+        function removePositionFromPreview(index) {
+          positions.splice(index, 1);
+          renderPositionPreview();
+          updatePositionList();
+          // Position removed
+        }
+
+        // No positions confirmation modal handlers
+        document.getElementById('noPositionsYesBtn').addEventListener('click', function() {
+            // User confirmed to close without positions
+            const noPositionsModal = bootstrap.Modal.getInstance(document.getElementById('noPositionsModal'));
+            const positionsModal = bootstrap.Modal.getInstance(document.getElementById('positionsModal'));
+
+            if (noPositionsModal) noPositionsModal.hide();
+            if (positionsModal) positionsModal.hide();
+
+            // Go back to create project modal
+            setTimeout(() => {
+                const projectModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('createProjectModal'));
+                projectModal.show();
+            }, 300);
+        });
+
+        document.getElementById('noPositionsNoBtn').addEventListener('click', function() {
+            // User wants to go back to add positions
+            const noPositionsModal = bootstrap.Modal.getInstance(document.getElementById('noPositionsModal'));
+            if (noPositionsModal) noPositionsModal.hide();
+
+            // Keep positions modal open (it should still be open behind the confirmation)
+        });
+
+        // Project form persistence using localStorage
+        const PROJECT_FORM_STORAGE_KEY = 'nexora_project_form_data';
+        let isNavigatingBetweenModals = false;
+
+        // Save form data to localStorage
+        function saveProjectForm() {
+          const formData = {
+            projectName: document.getElementById('projectName')?.value || '',
+            projectDescription: document.getElementById('projectDescription')?.value || '',
+            projectProblem: document.getElementById('projectProblem')?.value || '',
+            projectMarket: document.getElementById('projectMarket')?.value || '',
+            projectCompetition: document.getElementById('projectCompetition')?.value || '',
+            projectDetails: document.getElementById('projectDetails')?.value || '',
+            projectStage: document.getElementById('projectStage')?.value || '',
+            projectCategory: document.getElementById('projectCategory')?.value || '',
+            projectUrl: document.getElementById('projectUrl')?.value || '',
+            fundingGoal: document.getElementById('fundingGoal')?.value || ''
+          };
+          
+          // Save banner if exists
+          if (bannerElements && bannerElements.image && bannerElements.image.src) {
+            formData.bannerSrc = bannerElements.image.src;
+            formData.hasBanner = !bannerElements.preview.classList.contains('d-none');
+          }
+          
+          localStorage.setItem(PROJECT_FORM_STORAGE_KEY, JSON.stringify(formData));
+          console.log('Form data saved to localStorage');
+        }
+
+        // Load form data from localStorage
+        function loadProjectForm() {
+          const storedData = localStorage.getItem(PROJECT_FORM_STORAGE_KEY);
+          if (!storedData) return false;
+          
+          try {
+            const formData = JSON.parse(storedData);
+            
+            // Populate form fields
+            if (formData.projectName) document.getElementById('projectName').value = formData.projectName;
+            if (formData.projectDescription) document.getElementById('projectDescription').value = formData.projectDescription;
+            if (formData.projectProblem) document.getElementById('projectProblem').value = formData.projectProblem;
+            if (formData.projectMarket) document.getElementById('projectMarket').value = formData.projectMarket;
+            if (formData.projectCompetition) document.getElementById('projectCompetition').value = formData.projectCompetition;
+            if (formData.projectDetails) document.getElementById('projectDetails').value = formData.projectDetails;
+            if (formData.projectStage) document.getElementById('projectStage').value = formData.projectStage;
+            if (formData.projectCategory) document.getElementById('projectCategory').value = formData.projectCategory;
+            if (formData.projectUrl) document.getElementById('projectUrl').value = formData.projectUrl;
+            if (formData.fundingGoal) document.getElementById('fundingGoal').value = formData.fundingGoal;
+            
+            // Restore banner
+            if (formData.hasBanner && formData.bannerSrc && bannerElements) {
+              bannerElements.image.src = formData.bannerSrc;
+              bannerElements.preview.classList.remove('d-none');
+              bannerElements.placeholder.classList.add('d-none');
+            }
+            
+            // Update character counters
+            if (typeof updateCharacterCounters === 'function') {
+              updateCharacterCounters();
+            }
+            
+            console.log('Form data loaded from localStorage');
+            return true;
+          } catch (e) {
+            console.error('Error loading form data:', e);
+            return false;
+          }
+        }
+
+        // Clear form data from localStorage
+        function clearProjectForm() {
+          localStorage.removeItem(PROJECT_FORM_STORAGE_KEY);
+          console.log('Form data cleared from localStorage');
+        }
+
+        // Add event listeners when document is ready
+        document.addEventListener('DOMContentLoaded', function() {
+          // Add Positions button - set flag and save form
+          document.getElementById('addPositionsBtn').addEventListener('click', function() {
+            isNavigatingBetweenModals = true;
+            saveProjectForm();
+            
+            const createProjectModal = bootstrap.Modal.getInstance(document.getElementById('createProjectModal'));
+            createProjectModal.hide();
+            
+            setTimeout(() => {
+              const positionsModal = new bootstrap.Modal(document.getElementById('positionsModal'));
+              positionsModal.show();
+            }, 300);
+          });
+          
+          // Update and Continue button - maintain flag
+          document.getElementById('updateAndContinue').addEventListener('click', function() {
+            if (positions.length === 0) {
+              showNoPositionsConfirmation();
+              return;
+            }
+            
+            document.getElementById('positionsJsonInput').value = JSON.stringify(positions);
+            renderPositionPreview();
+            
+            const posModal = bootstrap.Modal.getInstance(document.getElementById('positionsModal'));
+            posModal.hide();
+            
+            setTimeout(() => {
+              const projectModal = new bootstrap.Modal(document.getElementById('createProjectModal'));
+              projectModal.show();
+            }, 300);
+          });
+          
+          // When create project modal is shown, load saved data if coming from positions modal
+          document.getElementById('createProjectModal').addEventListener('shown.bs.modal', function() {
+            if (isNavigatingBetweenModals) {
+              loadProjectForm();
+            }
+          });
+          
+          // When create project modal is hidden
+          document.getElementById('createProjectModal').addEventListener('hidden.bs.modal', function() {
+            // Wait to see if we're opening another modal
+            setTimeout(() => {
+              const positionsModalOpen = document.getElementById('positionsModal').classList.contains('show');
+              const noPositionsModalOpen = document.getElementById('noPositionsModal').classList.contains('show');
+              
+              // If we're not opening another modal, clear the form data
+              if (!positionsModalOpen && !noPositionsModalOpen) {
+                isNavigatingBetweenModals = false;
+                clearProjectForm();
+                // Reset the form
+                document.getElementById('createProjectForm').reset();
+                if (bannerElements && typeof clearBannerUpload === 'function') {
+                  clearBannerUpload();
+                }
+              }
+            }, 300);
+          });
+          
+          // When form is submitted successfully, clear storage
+          document.getElementById('createProjectForm').addEventListener('submit', function() {
+            clearProjectForm();
+          });
+        });
+
+        // Modify the existing createProjectModal button click handler
+        document.querySelectorAll('[data-bs-target="#createProjectModal"]').forEach(button => {
+          button.addEventListener('click', function() {
+            // Reset navigation flag when opening modal fresh
+            isNavigatingBetweenModals = false;
+          });
+        });
       </script>
+      {% endif %}
+
+    <!-- Chatbot - Only for authenticated users -->
+    {% if user.is_authenticated %}
+    <div class="chatbot-container" style="display: block !important;">
+      <button class="chatbot-toggle" id="chatbotToggle">
+        <i class="bi bi-chat-dots" id="chatbotIcon"></i>
+      </button>
+
+      <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+          <div class="d-flex align-items-center">
+            <div class="message-avatar me-2">
+              <i class="bi bi-robot"></i>
+            </div>
+            <div>
+              <h6 class="mb-0">Nexora AI Assistant</h6>
+              <small class="opacity-75">Entrepreneur Support</small>
+            </div>
+          </div>
+          <button class="btn btn-sm text-white" id="chatbotClose">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <div class="chatbot-messages" id="chatbotMessages">
+          <div class="message bot">
+            <div class="message-avatar">
+              <i class="bi bi-robot"></i>
+            </div>
+            <div class="message-content">
+              👋 Hi there! I'm your AI assistant specialized in helping entrepreneurs. I can help you with:
+              <br><br>
+              • Business strategy and planning<br>
+              • Funding and investment advice<br>
+              • Market research insights<br>
+              • Startup best practices<br>
+              • Technical guidance<br>
+              <br>
+              What would you like to discuss today?
+            </div>
+          </div>
+
+          <div class="typing-indicator" id="typingIndicator">
+            <div class="message-avatar">
+              <i class="bi bi-robot"></i>
+            </div>
+            <div class="typing-dots">
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+              <div class="typing-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chatbot-input-area">
+          <div class="position-relative">
+            <input
+              type="text"
+              class="chatbot-input"
+              id="chatbotInput"
+              placeholder="Ask me anything about entrepreneurship..."
+              maxlength="500"
+            >
+            <button class="chatbot-send" id="chatbotSend">
+              <i class="bi bi-send"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Chatbot Initialization Script - Only for authenticated users -->
+    {% if user.is_authenticated %}
+    <script>
+      // Simple chatbot initialization that runs immediately
+      (function() {
+        console.log('Chatbot script starting...');
+
+        function initChatbot() {
+          console.log('Looking for chatbot elements...');
+
+          const chatbotToggle = document.getElementById('chatbotToggle');
+          const chatbotWindow = document.getElementById('chatbotWindow');
+          const chatbotIcon = document.getElementById('chatbotIcon');
+          const chatbotClose = document.getElementById('chatbotClose');
+
+          console.log('Found elements:', {
+            toggle: !!chatbotToggle,
+            window: !!chatbotWindow,
+            icon: !!chatbotIcon,
+            close: !!chatbotClose
+          });
+
+          if (chatbotToggle && chatbotWindow && chatbotIcon) {
+            console.log('All elements found, setting up event listeners...');
+
+            let isOpen = false;
+
+            chatbotToggle.addEventListener('click', function(e) {
+              e.preventDefault();
+              console.log('Chatbot toggle clicked, current state:', isOpen);
+
+              isOpen = !isOpen;
+              if (isOpen) {
+                chatbotWindow.style.display = 'flex';
+                chatbotIcon.className = 'bi bi-x-lg';
+                console.log('Chatbot opened');
+              } else {
+                chatbotWindow.style.display = 'none';
+                chatbotIcon.className = 'bi bi-chat-dots';
+                console.log('Chatbot closed');
+              }
+            });
+
+            if (chatbotClose) {
+              chatbotClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                isOpen = false;
+                chatbotWindow.style.display = 'none';
+                chatbotIcon.className = 'bi bi-chat-dots';
+                console.log('Chatbot closed via close button');
+              });
+            }
+
+            console.log('Chatbot initialized successfully!');
+          } else {
+            console.error('Chatbot elements not found!');
+          }
+        }
+
+        // Try to initialize immediately
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initChatbot);
+        } else {
+          initChatbot();
+        }
+      })();
+
+      // CSRF Token Management
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+      // Ensure CSRF token is available for forms
+      document.addEventListener('DOMContentLoaded', function() {
+        const csrfToken = getCookie('csrftoken');
+        if (!csrfToken) {
+          console.warn('CSRF token not found. Refreshing page...');
+          // Optionally refresh the page to get a new CSRF token
+          // window.location.reload();
+        }
+      });
+    </script>
+    {% endif %}
+
     </body>
-  </body>
 </html>

@@ -1,422 +1,873 @@
 {% load humanize %}
-
-<style>
-  body {
-    background-color: #f3eefd;
-    font-family: 'Segoe UI', sans-serif;
-  }
-
-  .container {
-    display: flex;
-    gap: 40px;
-    margin-top: 40px;
-  }
-
-  .sidebar {
-    width: 250px;
-    background: #fff;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-  }
-
-  .project {
-    padding: 10px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    color: #6a38d9;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-
-  .project:hover, .project.active {
-    background: #eee6ff;
-  }
-
-  .content {
-    flex-grow: 1;
-  }
-
-  .app-card {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-  }
-
-  .username {
-    color: #6a38d9;
-    font-weight: 600;
-  }
-
-  .muted {
-    color: #888;
-    font-size: 0.9em;
-  }
-
-  .apps {
-    display: none;
-  }
-
-  .apps.active {
-    display: block;
-  }
-
-  .empty-project {
-    background-color: #fff;
-    padding: 40px;
-    text-align: center;
-    border-radius: 20px;
-    color: #888;
-    font-weight: 500;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 100px 20px;
-    background-color: #f3eefd;
-    border-radius: 20px;
-  }
-
-  .empty-state h3 {
-    color: #999;
-    font-weight: 600;
-  }
-
-  .empty-state p {
-    color: #aaa;
-  }
-
-  .btn-primary-custom {
-    margin-top: 20px;
-    background-color: #6a38d9;
-    color: #fff;
-    border: none;
-    padding: 10px 25px;
-    font-weight: 600;
-    border-radius: 10px;
-    transition: background 0.3s;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .btn-primary-custom:hover {
-    background-color: #5930b5;
-    color: #fff;
-  }
-
-  .header-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 30px 40px 10px;
-  }
-
-  /* Message system styles */
-  .message-btn {
-    background-color: #6a38d9;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 12px;
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .message-btn:hover {
-    background-color: #5a2ec9;
-  }
-  
-  .message-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .message-modal-content {
-    background-color: white;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 500px;
-    padding: 25px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  }
-  
-  .message-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .message-header h3 {
-    margin: 0;
-    color: #6a38d9;
-  }
-  
-  .close-modal {
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    cursor: pointer;
-    color: #888;
-  }
-  
-  .message-form textarea {
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px;
-    min-height: 120px;
-    margin-bottom: 15px;
-    resize: vertical;
-  }
-  
-  .send-message-btn {
-    background-color: #6a38d9;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .send-message-btn:hover {
-    background-color: #5a2ec9;
-  }
-  
-  .message-history {
-    max-height: 200px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 10px;
-  }
-  
-  .message-bubble {
-    padding: 8px 12px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    max-width: 80%;
-  }
-  
-  .message-sent {
-    background-color: #e6e0ff;
-    margin-left: auto;
-    text-align: right;
-  }
-  
-  .message-received {
-    background-color: #f0f0f0;
-  }
-  
-  .message-time {
-    font-size: 0.7em;
-    color: #888;
-    margin-top: 3px;
-  }
-  
-  .unread-badge {
-    display: inline-block;
-    background-color: #ff4757;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    font-size: 0.7em;
-    text-align: center;
-    line-height: 20px;
-    margin-left: 5px;
-  }
-</style>
-
-{% if grouped_apps %}
-  <div class="header-bar">
-    <h2>📥 Application Notifications</h2>
-    <a href="{% url 'home' %}" class="btn-primary-custom">Go to Projects</a>
-  </div>
-
-  <div class="container">
-    <!-- Sidebar with Project Names -->
-    <div class="sidebar" id="project-list">
-      {% for project, apps in grouped_apps %}
-        <div class="project {% if forloop.first %}active{% endif %}" 
-             onclick="showApps('project{{ forloop.counter }}', this)">
-          {{ project.name }}
-        </div>
-      {% endfor %}
-    </div>
-
-    <!-- Application Panels -->
-    <div class="content">
-      {% for project, apps in grouped_apps %}
-        <div class="apps {% if forloop.first %}active{% endif %}" id="project{{ forloop.counter }}">
-          {% if apps %}
-            {% for app in apps %}
-              <div class="app-card">
-                <div class="username">@{{ app.applicant.username }}</div>
-                <div class="muted">{{ app.created_at|naturaltime }}</div>
-                <p><strong>Position:</strong> {{ app.position.title }}</p>
-                <p><strong>Reason:</strong> {{ app.reason|default:"—" }}</p>
-                <p><strong>Experience:</strong> {{ app.experience|default:"—" }}</p>
-                
-                <!-- Message button -->
-                <button class="message-btn" onclick="openMessageModal({{ app.id }}, '{{ app.applicant.username }}')">
-                  Message Applicant
-                  {% if app.has_unread %}
-                    <span class="unread-badge">{{ app.unread_count }}</span>
-                  {% endif %}
-                </button>
-              </div>
-            {% endfor %}
-          {% else %}
-            <div class="empty-project">
-              No applications yet for <strong>{{ project.name }}</strong>.
-            </div>
-          {% endif %}
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-
-  <!-- Message Modal -->
-  <div class="message-modal" id="messageModal">
-    <div class="message-modal-content">
-      <div class="message-header">
-        <h3>Message to <span id="recipientUsername"></span></h3>
-        <button class="close-modal" onclick="closeMessageModal()">&times;</button>
-      </div>
-      
-      <div class="message-history" id="messageHistory">
-        <!-- Message history will be loaded here -->
-      </div>
-      
-      <form class="message-form" id="messageForm">
-        {% csrf_token %}
-        <input type="hidden" id="applicationId" name="application_id" value="">
-        <textarea id="messageContent" name="content" placeholder="Type your message here..." required></textarea>
-        <button type="submit" class="send-message-btn">Send Message</button>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    function showApps(id, el) {
-      document.querySelectorAll('.apps').forEach(app => app.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-
-      document.querySelectorAll('.project').forEach(p => p.classList.remove('active'));
-      el.classList.add('active');
-    }
-    
-    // Message system functions
-    function openMessageModal(applicationId, username) {
-      document.getElementById('messageModal').style.display = 'flex';
-      document.getElementById('recipientUsername').textContent = username;
-      document.getElementById('applicationId').value = applicationId;
-      
-      // Load message history
-      loadMessageHistory(applicationId);
-    }
-    
-    function closeMessageModal() {
-      document.getElementById('messageModal').style.display = 'none';
-    }
-    
-    function loadMessageHistory(applicationId) {
-      const messageHistory = document.getElementById('messageHistory');
-      messageHistory.innerHTML = '<div class="loading">Loading messages...</div>';
-      
-      fetch(`/messages/history/${applicationId}/`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.messages && data.messages.length > 0) {
-            messageHistory.innerHTML = '';
-            data.messages.forEach(message => {
-              const messageElement = document.createElement('div');
-              messageElement.className = `message-bubble ${message.is_sender ? 'message-sent' : 'message-received'}`;
-              messageElement.innerHTML = `
-                ${message.content}
-                <div class="message-time">${message.timestamp}</div>
-              `;
-              messageHistory.appendChild(messageElement);
-            });
-          } else {
-            messageHistory.innerHTML = '<div class="empty-messages">No messages yet. Start the conversation!</div>';
-          }
-          
-          // Scroll to bottom of message history
-          messageHistory.scrollTop = messageHistory.scrollHeight;
-        })
-        .catch(error => {
-          console.error('Error loading messages:', error);
-          messageHistory.innerHTML = '<div class="error">Failed to load messages. Please try again.</div>';
-        });
-    }
-    
-    // Handle message form submission
-    document.getElementById('messageForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const applicationId = document.getElementById('applicationId').value;
-      const content = document.getElementById('messageContent').value.trim();
-      
-      if (!content) return;
-      
-      // Send message to server
-      fetch('/messages/send/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-        },
-        body: new URLSearchParams({
-          'application_id': applicationId,
-          'content': content
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          // Clear input field
-          document.getElementById('messageContent').value = '';
-          
-          // Reload message history to show the new message
-          loadMessageHistory(applicationId);
-        } else {
-          alert('Failed to send message: ' + data.error);
-        }
-      })
-      .catch(error => {
-        console.error('Error sending message:', error);
-        alert('Failed to send message. Please try again.');
-      });
-    });
-    
-    // Close modal when clicking outside
-    window.addEventListener('click', function(event) {
-      if (event.target === document.getElementById('messageModal')) {
-        closeMessageModal();
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Applicant Messages - Nexora</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <style>
+      :root {
+        --primary: #7c3aed;
+        --primary-light: #a78bfa;
+        --primary-dark: #6d28d9;
       }
-    });
-  </script>
-{% else %}
-  <div class="empty-state">
-    <h3>No projects or applications yet</h3>
-    <p>Once you create a project and receive applications, they will appear here.</p>
-    <a href="{% url 'home' %}" class="btn-primary-custom">Go to Projects</a>
-  </div>
-{% endif %}
+
+      body {
+        background-color: #f8f9fa;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .project-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 1px solid #e9ecef;
+      }
+
+      .project-card:hover,
+      .project-card.active {
+        background-color: #f8f9ff;
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
+
+      .applicant-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 1px solid #e9ecef;
+      }
+
+      .applicant-card:hover {
+        background-color: #f8f9ff;
+        transform: translateY(-1px);
+      }
+
+      .applicant-card:not(.cursor-pointer) {
+        opacity: 0.8;
+      }
+
+      .applicant-card:not(.cursor-pointer):hover {
+        background-color: transparent;
+        transform: none;
+      }
+
+      .status-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      .status-pending {
+        background-color: #fbbf24;
+      }
+      .status-approved {
+        background-color: #10b981;
+      }
+      .status-rejected {
+        background-color: #ef4444;
+      }
+
+      .message-area {
+        height: 400px;
+        overflow-y: auto;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 1rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        position: relative;
+      }
+
+      .message-bubble {
+        margin-bottom: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: 18px;
+        max-width: 75%;
+        word-wrap: break-word;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        animation: messageSlideIn 0.3s ease-out;
+      }
+
+      @keyframes messageSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message-sent {
+        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        color: white;
+        margin-left: auto;
+        border-bottom-right-radius: 4px;
+        box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+      }
+
+      .message-received {
+        background: white;
+        border: 1px solid #e9ecef;
+        color: #333;
+        margin-right: auto;
+        border-bottom-left-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .message-time {
+        font-size: 0.7rem;
+        opacity: 0.8;
+        margin-top: 0.25rem;
+        text-align: right;
+      }
+
+      .message-received .message-time {
+        text-align: left;
+      }
+
+      .empty-messages {
+        text-align: center;
+        color: #6c757d;
+        padding: 3rem 1rem;
+        font-style: italic;
+      }
+
+      .message-input-container {
+        border-top: 1px solid #e9ecef;
+        padding: 1rem;
+        background: white;
+        border-radius: 0 0 12px 12px;
+      }
+
+      .message-input {
+        border: 1px solid #e9ecef;
+        border-radius: 25px;
+        padding: 0.75rem 1rem;
+        resize: none;
+        transition: all 0.2s ease;
+      }
+
+      .message-input:focus {
+        border-color: #7c3aed;
+        box-shadow: 0 0 0 0.2rem rgba(124, 58, 237, 0.25);
+      }
+
+      .send-button {
+        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .send-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a
+          class="navbar-brand fw-bold"
+          href="{% url 'home' %}"
+          style="color: var(--primary)"
+        >
+          <i class="bi bi-hexagon-fill me-2"></i>Nexora
+        </a>
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="{% url 'home' %}">
+            <i class="bi bi-house-door me-1"></i>Home
+          </a>
+          <a class="nav-link" href="{% url 'applicant_messages' %}">
+            <i class="bi bi-envelope me-1"></i>My Applications
+          </a>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+            >
+              <i class="bi bi-person-circle me-1"></i>{{ user.username }}
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'settings' %}"
+                  >Settings</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <form
+                  action="{% url 'logout' %}"
+                  method="post"
+                  class="d-inline"
+                >
+                  {% csrf_token %}
+                  <button class="dropdown-item text-danger" type="submit">
+                    Logout
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h2>
+                <i class="bi bi-bell me-2" style="color: var(--primary)"></i>
+                Notifications
+              </h2>
+              <p class="text-muted">
+                Manage your projects and applications
+              </p>
+            </div>
+            <div>
+              <a href="{% url 'home' %}" class="btn btn-outline-primary me-2">
+                <i class="bi bi-house-door me-1"></i>Browse Projects
+              </a>
+              <a href="{% url 'applicant_messages' %}" class="btn btn-primary">
+                <i class="bi bi-envelope me-1"></i>View My Applications
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <ul class="nav nav-tabs" id="notificationTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="applicant-messages-tab" data-bs-toggle="tab" data-bs-target="#applicant-messages" type="button" role="tab">
+                <i class="bi bi-envelope me-2"></i>Applicant Messages
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="browse-projects-tab" data-bs-toggle="tab" data-bs-target="#browse-projects" type="button" role="tab">
+                <i class="bi bi-folder me-2"></i>Browse Projects
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="notificationTabsContent">
+        <!-- Applicant Messages Tab -->
+        <div class="tab-pane fade show active" id="applicant-messages" role="tabpanel">
+
+          <!-- Search and Filter Form -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+              <form method="GET" class="row g-3">
+                <div class="col-md-4">
+                  <label for="search_project" class="form-label">Search Project</label>
+                  <select class="form-select" id="search_project" name="search_project">
+                    <option value="">All Projects</option>
+                    {% for project in all_user_projects %}
+                    <option value="{{ project.name }}" {% if search_project == project.name %}selected{% endif %}>
+                      {{ project.name }}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label for="filter_status" class="form-label">Filter by Status</label>
+                  <select class="form-select" id="filter_status" name="filter_status">
+                    <option value="">All Status</option>
+                    <option value="pending" {% if filter_status == 'pending' %}selected{% endif %}>Pending</option>
+                    <option value="approved" {% if filter_status == 'approved' %}selected{% endif %}>Approved</option>
+                    <option value="rejected" {% if filter_status == 'rejected' %}selected{% endif %}>Rejected</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label for="search_applicant" class="form-label">Search Applicant</label>
+                  <input type="text" class="form-control" id="search_applicant" name="search_applicant"
+                         placeholder="Username..." value="{{ search_applicant }}">
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">&nbsp;</label>
+                  <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="bi bi-search"></i>
+                    </button>
+                    <a href="{% url 'notifications' %}" class="btn btn-outline-secondary">
+                      <i class="bi bi-arrow-clockwise"></i>
+                    </a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          {% if grouped_apps %}
+          <div class="row">
+        <!-- Projects Sidebar -->
+        <div class="col-lg-3">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-folder me-2"></i>Select Project
+              </h5>
+            </div>
+            <div class="card-body p-0">
+              {% for project, apps in grouped_apps %}
+              <div
+                class="project-card p-3 border-bottom"
+                onclick="showProject('{{ project.id }}')"
+              >
+                <h6 class="mb-1">{{ project.name }}</h6>
+                <small class="text-muted">{{ apps|length }} application{{ apps|length|pluralize }}</small>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Applications and Messages -->
+        <div class="col-lg-9">
+          {% for project, apps in grouped_apps %}
+          <div
+            id="project-{{ project.id }}"
+            class="project-content"
+            style="display: none"
+          >
+            <div class="card border-0 shadow-sm mb-4">
+              <div class="card-header bg-light">
+                <h5 class="mb-0">{{ project.name }}</h5>
+                <small class="text-muted"
+                  >{{ project.description|default:"No description." }}</small
+                >
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6>Positions:</h6>
+                    {% for app in apps %}
+                    <span class="badge bg-secondary me-1"
+                      >{{ app.position.title }}</span
+                    >
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {% if apps %}
+            <div class="row">
+              <!-- Applicants List -->
+              <div class="col-lg-5">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-header bg-secondary text-white">
+                    <h6 class="mb-0">
+                      <i class="bi bi-people me-2"></i>Applicants
+                    </h6>
+                  </div>
+                  <div
+                    class="card-body p-0"
+                    style="max-height: 500px; overflow-y: auto"
+                  >
+                    {% for app in apps %}
+                    <div
+                      class="applicant-card p-3 border-bottom {% if app.status == 'approved' %}cursor-pointer{% endif %}"
+                      {% if app.status == 'approved' %}onclick="loadMessages({{ app.id }})"{% endif %}
+                    >
+                      <div class="d-flex align-items-center mb-2">
+                        <div
+                          class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
+                          style="width: 40px; height: 40px"
+                        >
+                          <span class="text-white fw-bold"
+                            >{{ app.applicant.username|first|upper }}</span
+                          >
+                        </div>
+                        <div class="flex-grow-1">
+                          <h6 class="mb-0">{{ app.applicant.username }}</h6>
+                          <small class="text-muted"
+                            >{{ app.created_at|naturaltime }}</small
+                          >
+                          <div class="small text-muted">{{ app.position.title }}</div>
+                        </div>
+                        <div class="text-end">
+                          <span class="badge status-{{ app.status|default:'pending' }} mb-1">
+                            {{ app.status|default:"pending"|title }}
+                          </span>
+                          <div class="small text-muted">{{ app.created_at|time:"H:i" }}</div>
+                          {% if app.has_unread %}
+                          <div class="badge bg-danger rounded-pill">{{ app.unread_count }}</div>
+                          {% endif %}
+                        </div>
+                      </div>
+
+                      {% if app.status == 'pending' %}
+                      <div class="d-flex gap-2 mb-2">
+                        <button
+                          class="btn btn-sm btn-success"
+                          onclick="updateStatus({{ app.id }}, 'approved')"
+                        >
+                          <i class="bi bi-check"></i> Approve
+                        </button>
+                        <button
+                          class="btn btn-sm btn-danger"
+                          onclick="updateStatus({{ app.id }}, 'rejected')"
+                        >
+                          <i class="bi bi-x"></i> Reject
+                        </button>
+                      </div>
+                      {% endif %}
+
+                      <div class="text-muted small mb-2">
+                        {{ app.reason|default:"—" }}
+                      </div>
+
+                      {% if app.status == 'approved' %}
+                      <div class="small text-success">
+                        <i class="bi bi-chat-dots me-1"></i>Click to start messaging
+                      </div>
+                      {% elif app.status == 'rejected' %}
+                      <div class="small text-danger">
+                        <i class="bi bi-x-circle me-1"></i>Application rejected
+                      </div>
+                      {% else %}
+                      <div class="small text-warning">
+                        <i class="bi bi-clock me-1"></i>Awaiting your decision
+                      </div>
+                      {% endif %}
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Messages Area -->
+              <div class="col-lg-7">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-header bg-light">
+                    <h6 class="mb-0">
+                      <i class="bi bi-chat-dots me-2"></i>Messages
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div id="messageArea-{{ project.id }}" class="message-area">
+                      <div class="empty-messages">
+                        <i class="bi bi-chat-square-text display-4 mb-3"></i>
+                        <h6>Welcome to Nexora</h6>
+                        <p>
+                          Your professional messaging platform for project
+                          collaboration
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Message Input -->
+                    <div
+                      class="mt-3"
+                      id="messageInput-{{ project.id }}"
+                      style="display: none"
+                    >
+                      <form class="messageForm">
+                        {% csrf_token %}
+                        <input
+                          type="hidden"
+                          class="applicationId"
+                          name="application_id"
+                        />
+                        <div class="input-group">
+                          <input
+                            type="text"
+                            class="form-control messageContent"
+                            name="content"
+                            placeholder="Type your message..."
+                            required
+                          />
+                          <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-send"></i>
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% else %}
+            <div class="card border-0 shadow-sm">
+              <div class="card-body text-center py-5">
+                <i class="bi bi-inbox display-4 text-muted mb-3"></i>
+                <h5>No applicants yet</h5>
+                <p class="text-muted">
+                  Publish a project to start receiving applications
+                </p>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <div class="row">
+        <div class="col-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+              <i class="bi bi-folder-x display-4 text-muted mb-3"></i>
+              <h4>No projects published</h4>
+              <p class="text-muted">
+                Create your first project to start receiving applications
+              </p>
+              <a href="{% url 'home' %}" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-2"></i>Create Project
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+        </div>
+
+        <!-- Browse Projects Tab -->
+        <div class="tab-pane fade" id="browse-projects" role="tabpanel">
+          <div class="row">
+            <div class="col-12">
+              <h4 class="mb-4">
+                <i class="bi bi-folder me-2" style="color: var(--primary)"></i>
+                My Published Projects
+              </h4>
+
+              {% if grouped_apps %}
+              <div class="row">
+                {% for project, apps in grouped_apps %}
+                <div class="col-lg-6 mb-4">
+                  <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                          <h5 class="card-title mb-1">{{ project.name }}</h5>
+                          <p class="text-muted small mb-2">{{ project.description|truncatechars:100 }}</p>
+                          <div class="d-flex gap-2 mb-2">
+                            <span class="badge bg-light text-dark border">{{ project.category }}</span>
+                            <span class="badge bg-light text-dark border">{{ project.stage }}</span>
+                          </div>
+                        </div>
+                        <div class="text-end">
+                          <small class="text-muted">{{ project.created_at|timesince }} ago</small>
+                        </div>
+                      </div>
+
+                      <div class="row text-center">
+                        <div class="col-4">
+                          <div class="border-end">
+                            <div class="fw-bold text-primary">{{ project.positions.count }}</div>
+                            <small class="text-muted">Position{{ project.positions.count|pluralize }}</small>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="border-end">
+                            <div class="fw-bold text-success">{{ apps|length }}</div>
+                            <small class="text-muted">Application{{ apps|length|pluralize }}</small>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="fw-bold text-info">${{ project.funding_goal|floatformat:0 }}</div>
+                          <small class="text-muted">Goal</small>
+                        </div>
+                      </div>
+
+                      <div class="mt-3">
+                        <a href="{% url 'notifications' %}" class="btn btn-outline-primary btn-sm me-2">
+                          <i class="bi bi-envelope me-1"></i>View Messages
+                        </a>
+                        <a href="{% url 'home' %}#project-{{ project.id }}" class="btn btn-primary btn-sm">
+                          <i class="bi bi-eye me-1"></i>View Project
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              {% else %}
+              <div class="text-center py-5">
+                <i class="bi bi-folder-x display-4 text-muted mb-3"></i>
+                <h4>No projects published</h4>
+                <p class="text-muted">Create your first project to start receiving applications</p>
+                <a href="{% url 'home' %}" class="btn btn-primary">
+                  <i class="bi bi-plus-circle me-2"></i>Create Project
+                </a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      let currentApplicationId = null;
+      let currentProjectId = null;
+
+      function showProject(projectId) {
+        // Hide all project contents
+        document.querySelectorAll(".project-content").forEach((content) => {
+          content.style.display = "none";
+        });
+
+        // Remove active class from all project cards
+        document.querySelectorAll(".project-card").forEach((card) => {
+          card.classList.remove("active");
+        });
+
+        // Show selected project content
+        document.getElementById("project-" + projectId).style.display = "block";
+
+        // Add active class to selected project card
+        event.currentTarget.classList.add("active");
+
+        currentProjectId = projectId;
+      }
+
+      function loadMessages(applicationId) {
+        // Check if application is approved first
+        const applicationCard = event.currentTarget;
+        const statusBadge = applicationCard.querySelector('.badge');
+        const status = statusBadge.textContent.toLowerCase().trim();
+
+        if (status !== 'approved') {
+          // Show message that application needs to be approved
+          const messageArea = document.getElementById(`messageArea-${currentProjectId}`);
+          messageArea.innerHTML = `
+            <div class="empty-messages">
+              <i class="bi bi-lock display-4 mb-3 text-warning"></i>
+              <h6>Application Not Approved</h6>
+              <p>This application is currently <strong>${status}</strong>.</p>
+              <p>Messaging is only available for approved applications.</p>
+              <small class="text-muted">Please approve the application to enable messaging.</small>
+            </div>
+          `;
+          // Hide message input
+          const messageInput = document.getElementById(`messageInput-${currentProjectId}`);
+          if (messageInput) {
+            messageInput.style.display = "none";
+          }
+          return;
+        }
+
+        currentApplicationId = applicationId;
+
+        // Update form application ID
+        const applicationIdInput = document.querySelector(
+          `#project-${currentProjectId} .applicationId`
+        );
+        if (applicationIdInput) {
+          applicationIdInput.value = applicationId;
+        }
+
+        // Show message input
+        const messageInput = document.getElementById(
+          `messageInput-${currentProjectId}`
+        );
+        if (messageInput) {
+          messageInput.style.display = "block";
+        }
+
+        // Highlight selected applicant
+        document.querySelectorAll(".applicant-card").forEach((card) => {
+          card.classList.remove("bg-light");
+        });
+        applicationCard.classList.add("bg-light");
+
+        // Load message history
+        fetch(`/messages/history/${applicationId}/`)
+          .then((response) => response.json())
+          .then((data) => {
+            const messageArea = document.getElementById(
+              `messageArea-${currentProjectId}`
+            );
+            if (data.messages && data.messages.length > 0) {
+              messageArea.innerHTML = "";
+              data.messages.forEach((message) => {
+                const messageDiv = document.createElement("div");
+                messageDiv.className = `message-bubble ${
+                  message.is_sender ? "message-sent" : "message-received"
+                }`;
+                messageDiv.innerHTML = `
+                                ${message.content}
+                                <div class="message-time">${message.timestamp}</div>
+                            `;
+                messageArea.appendChild(messageDiv);
+              });
+            } else {
+              messageArea.innerHTML =
+                '<div class="empty-messages">No messages yet. Start the conversation!</div>';
+            }
+            messageArea.scrollTop = messageArea.scrollHeight;
+          })
+          .catch((error) => {
+            console.error("Error loading messages:", error);
+          });
+      }
+
+      function updateStatus(applicationId, status) {
+        const formData = new FormData();
+        formData.append("application_id", applicationId);
+        formData.append("status", status);
+        formData.append(
+          "csrfmiddlewaretoken",
+          document.querySelector("[name=csrfmiddlewaretoken]").value
+        );
+
+        fetch("/applications/update_status/", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            if (data.success) {
+              const applicantCard = event.currentTarget.closest(".applicant-card");
+
+              // Update the status badge
+              const statusBadge = applicantCard.querySelector(".badge");
+              if (statusBadge) {
+                statusBadge.className = `badge status-${status} mb-1`;
+                statusBadge.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+              }
+
+              // Remove the approve/reject buttons
+              const buttonContainer = applicantCard.querySelector(".d-flex.gap-2");
+              if (buttonContainer) {
+                buttonContainer.remove();
+              }
+
+              // Update the status message at the bottom
+              const statusMessage = applicantCard.querySelector(".small:last-child");
+              if (statusMessage) {
+                if (status === 'approved') {
+                  statusMessage.innerHTML = '<i class="bi bi-chat-dots me-1"></i>Click to start messaging';
+                  statusMessage.className = 'small text-success';
+                  // Make the card clickable
+                  applicantCard.classList.add('cursor-pointer');
+                  applicantCard.setAttribute('onclick', `loadMessages(${applicationId})`);
+                } else {
+                  statusMessage.innerHTML = '<i class="bi bi-x-circle me-1"></i>Application rejected';
+                  statusMessage.className = 'small text-danger';
+                }
+              }
+
+              // Show success message
+              const successAlert = document.createElement('div');
+              successAlert.className = 'alert alert-success alert-dismissible fade show position-fixed';
+              successAlert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+              successAlert.innerHTML = `
+                <i class="bi bi-check-circle me-2"></i>Application ${status} successfully!
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              `;
+              document.body.appendChild(successAlert);
+
+              // Auto-remove after 3 seconds
+              setTimeout(() => {
+                if (successAlert.parentNode) {
+                  successAlert.remove();
+                }
+              }, 3000);
+            } else {
+              alert("Failed to update status: " + (data.error || 'Unknown error'));
+            }
+          })
+          .catch((error) => {
+            console.error("Error updating status:", error);
+            alert("Failed to update status. Please try again.");
+          });
+      }
+
+      // Handle message sending
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".messageForm").forEach((form) => {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch("/messages/send/", {
+              method: "POST",
+              body: formData,
+              headers: {
+                "X-CSRFToken": document.querySelector(
+                  "[name=csrfmiddlewaretoken]"
+                ).value,
+              },
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then((data) => {
+                if (data.success) {
+                  // Clear the input field
+                  this.querySelector(".messageContent").value = "";
+
+                  // Add the message to the UI immediately for better UX
+                  const messageArea = document.getElementById(`messageArea-${currentProjectId}`);
+                  const messageDiv = document.createElement("div");
+                  messageDiv.className = "message-bubble message-sent";
+                  messageDiv.innerHTML = `
+                    ${data.message.content}
+                    <div class="message-time">${data.message.timestamp}</div>
+                  `;
+                  messageArea.appendChild(messageDiv);
+                  messageArea.scrollTop = messageArea.scrollHeight;
+
+                  // Also reload messages to ensure consistency
+                  setTimeout(() => loadMessages(currentApplicationId), 100);
+                } else {
+                  alert("Failed to send message: " + (data.error || 'Unknown error'));
+                }
+              })
+              .catch((error) => {
+                console.error("Error sending message:", error);
+                alert("Failed to send message. Please try again.");
+              });
+          });
+        });
+
+        // Show first project by default if available
+        const firstProject = document.querySelector(".project-card");
+        if (firstProject) {
+          firstProject.click();
+        }
+      });
+    </script>
+  </body>
+</html>
