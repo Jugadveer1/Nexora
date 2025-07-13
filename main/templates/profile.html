@@ -401,15 +401,15 @@
         </div>
         <div class="col-md-3 mb-3">
           <div class="stat-card">
-            <div class="stat-number">{{ total_funded|floatformat:3 }} ETH</div>
+            <div class="stat-number">
+              {{ investments_made|floatformat:3 }} ETH
+            </div>
             <div class="stat-label">Total Funded</div>
           </div>
         </div>
         <div class="col-md-3 mb-3">
           <div class="stat-card">
-            <div class="stat-number">
-              {{ investments_made|floatformat:3 }} ETH
-            </div>
+            <div class="stat-number">{{ funded_projects_count }}</div>
             <div class="stat-label">Investments Made</div>
           </div>
         </div>

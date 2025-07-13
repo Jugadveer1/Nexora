@@ -13,7 +13,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+
 
     <!-- Bootstrap JS Bundle - moved to bottom of page -->
 
@@ -2719,7 +2719,7 @@
                   ></div>
                 </div>
                 <small class="text-muted" id="funding-text-{{ project.id }}">
-                  {{ project.current_funding }} / {{ project.funding_goal }} ETH
+                  {{ project.current_funding|floatformat:2 }} / {{ project.funding_goal|floatformat:2 }} ETH
                 </small>
               </div>
               <div class="d-flex justify-content-between">
@@ -2788,7 +2788,7 @@
                       class="text-muted"
                       id="modal-funding-text-{{ project.id }}"
                     >
-                      {{ project.current_funding }} / {{ project.funding_goal }}
+                      {{ project.current_funding|floatformat:2 }} / {{ project.funding_goal|floatformat:2 }}
                       ETH
                     </small>
                   </div>
@@ -3714,11 +3714,9 @@
 
               <!-- Network and Account Info -->
               <div id="networkInfo" class="mb-3 p-2 bg-info bg-opacity-10 rounded">
-                <small class="text-muted">Network: <strong>Ganache Local Network</strong></small>
-                <div class="small text-muted">RPC: http://127.0.0.1:7545 | Chain ID: 1337</div>
-                <div class="small text-muted mt-1">
+                <div class="small text-muted">
                   <i class="bi bi-info-circle me-1"></i>
-                  Make sure Ganache is running and connected to MetaMask
+                  Network information will be displayed here after connecting to MetaMask
                 </div>
               </div>
 
@@ -3741,6 +3739,9 @@
                     required
                   />
                   <span class="input-group-text">ETH</span>
+                </div>
+                <div class="form-text">
+                  <small class="text-muted">Enter the amount you want to invest in ETH</small>
                 </div>
               </div>
               <div id="spinner" class="text-center mt-3" style="display: none">
@@ -3772,7 +3773,7 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
       <!-- Web3 -->
-      <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
       <script>
@@ -3801,7 +3802,7 @@
 
           if (progressBar && fundingText) {
             progressBar.style.width = `${fundingData.percentage}%`;
-            fundingText.textContent = `${fundingData.current_funding} / ${fundingData.funding_goal} ETH`;
+            fundingText.textContent = `${parseFloat(fundingData.current_funding).toFixed(2)} / ${parseFloat(fundingData.funding_goal).toFixed(2)} ETH`;
             if (fundingData.percentage >= 100) {
               progressBar.classList.add("goal-reached");
             }
@@ -3809,7 +3810,7 @@
 
           if (modalProgressBar && modalFundingText) {
             modalProgressBar.style.width = `${fundingData.percentage}%`;
-            modalFundingText.textContent = `${fundingData.current_funding} / ${fundingData.funding_goal} ETH`;
+            modalFundingText.textContent = `${parseFloat(fundingData.current_funding).toFixed(2)} / ${parseFloat(fundingData.funding_goal).toFixed(2)} ETH`;
             if (fundingData.percentage >= 100) {
               modalProgressBar.classList.add("goal-reached");
             }
@@ -3891,37 +3892,47 @@
           }, 5000);
         }
 
-        // Enhanced MetaMask Configuration
-        const NETWORKS = {
-          mainnet: {
+        // Enhanced MetaMask Configuration - Works with any Ethereum network
+        const SUPPORTED_NETWORKS = {
+          '0x1': {
             chainId: '0x1',
             name: 'Ethereum Mainnet',
             rpcUrl: 'https://mainnet.infura.io/v3/',
-            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21"
+            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21",
+            isMainnet: true
           },
-          sepolia: {
+          '0xaa36a7': {
             chainId: '0xaa36a7',
             name: 'Sepolia Testnet',
             rpcUrl: 'https://sepolia.infura.io/v3/',
-            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21"
+            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21",
+            isMainnet: false
           },
-          ganache: {
+          '0x89': {
+            chainId: '0x89',
+            name: 'Polygon Mainnet',
+            rpcUrl: 'https://polygon-rpc.com/',
+            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21",
+            isMainnet: true
+          },
+          '0xa4b1': {
+            chainId: '0xa4b1',
+            name: 'Arbitrum One',
+            rpcUrl: 'https://arb1.arbitrum.io/rpc',
+            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21",
+            isMainnet: true
+          },
+          '0x539': {
             chainId: '0x539',
             name: 'Ganache Local Network',
             rpcUrl: 'http://127.0.0.1:7545',
-            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21"
-          },
-          localhost: {
-            chainId: '0x539',
-            name: 'Localhost 8545',
-            rpcUrl: 'http://localhost:8545',
-            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21"
+            contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21",
+            isMainnet: false
           }
         };
 
-        // Use Ganache for development
-        const CURRENT_NETWORK = NETWORKS.ganache;
-        const contractAddress = CURRENT_NETWORK.contractAddress;
+        // Default fallback for any network - will work with user's current network
+        let currentNetworkConfig = null;
 
         const contractABI = [
           {
@@ -3992,24 +4003,30 @@
           }
         }
 
-        // Function to check if Ganache is running
-        async function checkGanacheConnection() {
+        // Function to get current network configuration
+        async function getCurrentNetworkConfig() {
+          if (!window.ethereum) return null;
+
           try {
-            const response = await fetch(CURRENT_NETWORK.rpcUrl, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                jsonrpc: '2.0',
-                method: 'eth_blockNumber',
-                params: [],
-                id: 1
-              })
-            });
-            return response.ok;
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+
+            // Check if we have specific configuration for this network
+            if (SUPPORTED_NETWORKS[chainId]) {
+              return SUPPORTED_NETWORKS[chainId];
+            }
+
+            // For any other network, create a generic configuration
+            const networkVersion = await window.ethereum.request({ method: 'net_version' });
+            return {
+              chainId: chainId,
+              name: `Network ${networkVersion}`,
+              rpcUrl: null, // Will use MetaMask's provider
+              contractAddress: "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21", // Default contract address
+              isMainnet: chainId === '0x1' // Only Ethereum mainnet is considered mainnet
+            };
           } catch (error) {
-            return false;
+            console.error('Error getting network config:', error);
+            return null;
           }
         }
 
@@ -4018,16 +4035,13 @@
             return { success: false, error: "MetaMask not found. Please install it from https://metamask.io" };
           }
 
-          // Check if Ganache is running
-          const ganacheRunning = await checkGanacheConnection();
-          if (!ganacheRunning) {
-            return {
-              success: false,
-              error: "Ganache is not running. Please start Ganache on http://127.0.0.1:7545 and make sure it's configured properly."
-            };
-          }
-
           try {
+            // Get current network configuration
+            currentNetworkConfig = await getCurrentNetworkConfig();
+            if (!currentNetworkConfig) {
+              return { success: false, error: "Unable to detect network. Please check your MetaMask connection." };
+            }
+
             // Always get fresh account information
             let accounts = await window.ethereum.request({ method: 'eth_accounts' });
             if (accounts.length === 0) {
@@ -4040,44 +4054,388 @@
               return { success: false, error: "No MetaMask accounts available. Please unlock MetaMask and try again." };
             }
 
-            // Check network
+            // Check if we're on a supported network or show warning for unknown networks
             const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-            if (chainId !== CURRENT_NETWORK.chainId) {
+            if (!SUPPORTED_NETWORKS[chainId]) {
+              console.warn(`Using unsupported network: ${chainId}. Transactions may not work as expected.`);
+            }
+
+            return {
+              success: true,
+              currentAccount: accounts[0],
+              networkConfig: currentNetworkConfig,
+              chainId: chainId
+            };
+          } catch (error) {
+            console.error("MetaMask connection error:", error);
+            return { success: false, error: error.message || "Failed to connect to MetaMask" };
+          }
+        }
+
+        // Simple MetaMask connection function
+        async function connectMetaMask() {
+          console.log("Checking for MetaMask...");
+
+          if (typeof window.ethereum === "undefined") {
+            throw new Error("MetaMask not found. Please install MetaMask from https://metamask.io");
+          }
+
+          console.log("MetaMask found, requesting accounts...");
+
+          try {
+            // This should trigger MetaMask popup
+            const accounts = await window.ethereum.request({
+              method: "eth_requestAccounts"
+            });
+
+            console.log("Accounts received:", accounts);
+
+            if (accounts.length === 0) {
+              throw new Error("No accounts found. Please unlock MetaMask.");
+            }
+
+            return accounts[0];
+          } catch (error) {
+            console.error("MetaMask connection error:", error);
+            if (error.code === 4001) {
+              throw new Error("Connection rejected by user");
+            }
+            throw error;
+          }
+        }
+
+        // Simple test function
+        async function testMetaMaskConnection() {
+          const resultBox = document.getElementById("txResult");
+
+          console.log("Starting MetaMask test...");
+          resultBox.innerHTML = '<div class="alert alert-info">Testing MetaMask...</div>';
+
+          try {
+            console.log("Step 1: Connecting to MetaMask...");
+            const account = await connectMetaMask();
+
+            console.log("Step 2: Connected! Account:", account);
+            resultBox.innerHTML = `
+              <div class="alert alert-success">
+                <strong>✅ MetaMask Connected!</strong><br>
+                Account: ${account}
+              </div>
+            `;
+
+          } catch (error) {
+            console.error("Test failed:", error);
+            resultBox.innerHTML = `
+              <div class="alert alert-danger">
+                <strong>❌ Test Failed:</strong> ${error.message}
+              </div>
+            `;
+          }
+        }
+
+        // Direct MetaMask API test without Web3
+        async function directMetaMaskTest() {
+          const resultBox = document.getElementById("txResult");
+
+          console.log("Direct MetaMask test starting...");
+          resultBox.innerHTML = '<div class="alert alert-info">Testing direct MetaMask API...</div>';
+
+          try {
+            // Check if MetaMask exists
+            if (typeof window.ethereum === 'undefined') {
+              throw new Error('MetaMask not found');
+            }
+
+            console.log("MetaMask detected, requesting accounts...");
+
+            // Direct call to MetaMask - this MUST trigger popup
+            const accounts = await window.ethereum.request({
+              method: 'eth_requestAccounts'
+            });
+
+            console.log("Accounts received:", accounts);
+
+            if (accounts && accounts.length > 0) {
+              resultBox.innerHTML = `
+                <div class="alert alert-success">
+                  <strong>✅ Direct MetaMask Test Successful!</strong><br>
+                  Account: ${accounts[0]}
+                </div>
+              `;
+            } else {
+              throw new Error('No accounts returned');
+            }
+
+          } catch (error) {
+            console.error("Direct test failed:", error);
+            resultBox.innerHTML = `
+              <div class="alert alert-danger">
+                <strong>❌ Direct Test Failed:</strong> ${error.message}<br>
+                <small>Error code: ${error.code || 'N/A'}</small>
+              </div>
+            `;
+          }
+        }
+
+        // Test transaction function using direct MetaMask API
+        async function testTransaction() {
+          const resultBox = document.getElementById("txResult");
+
+          console.log("Testing transaction...");
+          resultBox.innerHTML = '<div class="alert alert-info">Testing transaction...</div>';
+
+          try {
+            // First connect
+            const accounts = await window.ethereum.request({
+              method: 'eth_requestAccounts'
+            });
+
+            if (!accounts || accounts.length === 0) {
+              throw new Error('No accounts found');
+            }
+
+            const sender = accounts[0];
+            console.log("Connected account:", sender);
+
+            // Test transaction (send 0.001 ETH to self)
+            const weiAmount = '0x38D7EA4C68000'; // 0.001 ETH in hex
+
+            resultBox.innerHTML = '<div class="alert alert-warning">⚠️ Please confirm test transaction in MetaMask...</div>';
+
+            console.log("Sending test transaction...");
+            console.log("Transaction params:", {
+              from: sender,
+              to: sender,
+              value: weiAmount,
+              gas: '0x5208'
+            });
+
+            // Add timeout to catch hanging requests
+            const txPromise = window.ethereum.request({
+              method: 'eth_sendTransaction',
+              params: [{
+                from: sender,
+                to: sender, // Send to self for testing
+                value: weiAmount,
+                gas: '0x5208' // 21000 in hex
+              }]
+            });
+
+            // Add timeout
+            const timeoutPromise = new Promise((_, reject) => {
+              setTimeout(() => reject(new Error('Transaction request timed out after 30 seconds')), 30000);
+            });
+
+            console.log("Waiting for MetaMask response...");
+            const txHash = await Promise.race([txPromise, timeoutPromise]);
+
+            console.log("Test transaction successful:", txHash);
+
+            resultBox.innerHTML = `
+              <div class="alert alert-success">
+                <strong>✅ Test Transaction Successful!</strong><br>
+                Hash: ${txHash}
+              </div>
+            `;
+
+          } catch (error) {
+            console.error("Test transaction failed:", error);
+            resultBox.innerHTML = `
+              <div class="alert alert-danger">
+                <strong>❌ Test Transaction Failed:</strong> ${error.message}<br>
+                <small>Error code: ${error.code || 'N/A'}</small>
+              </div>
+            `;
+          }
+        }
+
+        // Debug transaction function with circuit breaker fix
+        async function debugTransaction() {
+          const resultBox = document.getElementById("txResult");
+
+          console.log("=== DEBUG TRANSACTION TEST ===");
+          resultBox.innerHTML = '<div class="alert alert-info">Running debug tests...</div>';
+
+          try {
+            // Test 1: Check MetaMask availability
+            console.log("Test 1: MetaMask availability");
+            if (typeof window.ethereum === 'undefined') {
+              throw new Error('MetaMask not available');
+            }
+            console.log("✅ MetaMask available");
+
+            // Test 2: Get accounts
+            console.log("Test 2: Getting accounts");
+            const accounts = await window.ethereum.request({
+              method: 'eth_requestAccounts'
+            });
+            console.log("✅ Accounts:", accounts);
+
+            // Test 3: Get network info
+            console.log("Test 3: Network info");
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+            const networkId = await window.ethereum.request({ method: 'net_version' });
+            console.log("✅ Chain ID:", chainId, "Network ID:", networkId);
+
+            // Check if we're on a problematic network
+            if (chainId === '0x539') {
+              resultBox.innerHTML = `
+                <div class="alert alert-warning">
+                  <strong>⚠️ Network Issue Detected!</strong><br>
+                  You're on Ganache (${chainId}). Circuit breaker errors are common on local networks.<br>
+                  <button onclick="switchToMainnet()" class="btn btn-sm btn-primary mt-2">Switch to Mainnet</button>
+                  <button onclick="switchToSepolia()" class="btn btn-sm btn-secondary mt-2">Switch to Sepolia</button>
+                </div>
+              `;
+              return;
+            }
+
+            // Test 4: Get balance
+            console.log("Test 4: Balance check");
+            const balance = await window.ethereum.request({
+              method: 'eth_getBalance',
+              params: [accounts[0], 'latest']
+            });
+            console.log("✅ Balance:", balance);
+
+            // Test 5: Try minimal transaction with retry logic
+            console.log("Test 5: Minimal transaction attempt");
+            resultBox.innerHTML = '<div class="alert alert-warning">🔍 Testing minimal transaction - check MetaMask!</div>';
+
+            const minimalTx = {
+              from: accounts[0],
+              to: accounts[0],
+              value: '0x1' // 1 wei
+            };
+
+            console.log("Minimal transaction params:", minimalTx);
+            console.log("🚨 CALLING eth_sendTransaction - MetaMask popup should appear NOW!");
+
+            // Try transaction with retry for circuit breaker
+            let result;
+            let attempts = 0;
+            const maxAttempts = 3;
+
+            while (attempts < maxAttempts) {
               try {
-                await window.ethereum.request({
-                  method: 'wallet_switchEthereumChain',
-                  params: [{ chainId: CURRENT_NETWORK.chainId }],
+                attempts++;
+                console.log(`Attempt ${attempts}/${maxAttempts}`);
+
+                result = await window.ethereum.request({
+                  method: 'eth_sendTransaction',
+                  params: [minimalTx]
                 });
-              } catch (switchError) {
-                if (switchError.code === 4902) {
-                  // Network not added to MetaMask, try to add it
-                  try {
-                    await window.ethereum.request({
-                      method: 'wallet_addEthereumChain',
-                      params: [{
-                        chainId: CURRENT_NETWORK.chainId,
-                        chainName: CURRENT_NETWORK.name,
-                        rpcUrls: [CURRENT_NETWORK.rpcUrl],
-                        nativeCurrency: {
-                          name: 'Ether',
-                          symbol: 'ETH',
-                          decimals: 18
-                        }
-                      }]
-                    });
-                  } catch (addError) {
-                    return { success: false, error: `Failed to add ${CURRENT_NETWORK.name} to MetaMask. Please add it manually with RPC URL: ${CURRENT_NETWORK.rpcUrl}` };
-                  }
+
+                break; // Success, exit retry loop
+
+              } catch (txError) {
+                console.log(`Attempt ${attempts} failed:`, txError);
+
+                if (txError.code === -32603 && attempts < maxAttempts) {
+                  console.log("Circuit breaker error, retrying in 2 seconds...");
+                  await new Promise(resolve => setTimeout(resolve, 2000));
+                  continue;
                 } else {
-                  throw switchError;
+                  throw txError; // Re-throw if not circuit breaker or max attempts reached
                 }
               }
             }
 
-            return { success: true, currentAccount: accounts[0] };
+            console.log("✅ Transaction result:", result);
+
+            resultBox.innerHTML = `
+              <div class="alert alert-success">
+                <strong>🎉 Debug Test Successful!</strong><br>
+                Transaction: ${result}<br>
+                <small>Completed after ${attempts} attempt(s)</small>
+              </div>
+            `;
+
           } catch (error) {
-            console.error("MetaMask connection error:", error);
-            return { success: false, error: error.message || "Failed to connect to MetaMask" };
+            console.error("❌ Debug test failed:", error);
+            console.error("Error details:", {
+              code: error.code,
+              message: error.message,
+              data: error.data
+            });
+
+            let errorMessage = error.message;
+            let solution = "";
+
+            if (error.code === -32603) {
+              errorMessage = "Circuit breaker is open (MetaMask network issue)";
+              solution = `
+                <br><strong>Solutions:</strong>
+                <br>• Switch to a different network (Mainnet/Sepolia)
+                <br>• Wait a few minutes and try again
+                <br>• Restart MetaMask extension
+                <br>• Check your internet connection
+                <br><br>
+                <button onclick="switchToMainnet()" class="btn btn-sm btn-primary me-2">Switch to Mainnet</button>
+                <button onclick="switchToSepolia()" class="btn btn-sm btn-secondary me-2">Switch to Sepolia</button>
+                <button onclick="location.reload()" class="btn btn-sm btn-outline-info">Refresh Page</button>
+              `;
+            }
+
+            resultBox.innerHTML = `
+              <div class="alert alert-danger">
+                <strong>❌ Debug Test Failed:</strong><br>
+                ${errorMessage}<br>
+                <small>Code: ${error.code || 'N/A'}</small>
+                ${solution}
+              </div>
+            `;
+          }
+        }
+
+        // Network switching functions
+        async function switchToMainnet() {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0x1' }], // Ethereum Mainnet
+            });
+            location.reload(); // Refresh page after network switch
+          } catch (error) {
+            console.error('Failed to switch to Mainnet:', error);
+            alert('Failed to switch to Mainnet. Please switch manually in MetaMask.');
+          }
+        }
+
+        async function switchToSepolia() {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0xaa36a7' }], // Sepolia Testnet
+            });
+            location.reload(); // Refresh page after network switch
+          } catch (error) {
+            if (error.code === 4902) {
+              // Network not added, try to add it
+              try {
+                await window.ethereum.request({
+                  method: 'wallet_addEthereumChain',
+                  params: [{
+                    chainId: '0xaa36a7',
+                    chainName: 'Sepolia Testnet',
+                    rpcUrls: ['https://sepolia.infura.io/v3/'],
+                    nativeCurrency: {
+                      name: 'Ether',
+                      symbol: 'ETH',
+                      decimals: 18
+                    },
+                    blockExplorerUrls: ['https://sepolia.etherscan.io/']
+                  }]
+                });
+                location.reload();
+              } catch (addError) {
+                console.error('Failed to add Sepolia:', addError);
+                alert('Failed to add Sepolia network. Please add manually in MetaMask.');
+              }
+            } else {
+              console.error('Failed to switch to Sepolia:', error);
+              alert('Failed to switch to Sepolia. Please switch manually in MetaMask.');
+            }
           }
         }
 
@@ -4102,136 +4460,107 @@
             return;
           }
 
-          // Check MetaMask connection
-          const connectionCheck = await checkMetaMaskConnection();
-          if (!connectionCheck.success) {
-            resultBox.innerHTML =
-              `<div class="alert alert-danger"><i class="bi bi-wallet2 me-2"></i>${connectionCheck.error}</div>`;
-            return;
-          }
-
           try {
             confirmBtn.disabled = true;
             confirmBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Processing...';
             spinner.style.display = "block";
 
-            resultBox.innerHTML = '<div class="alert alert-info"><i class="bi bi-info-circle me-2"></i>Connecting to wallet...</div>';
+            // Connect to MetaMask first
+            console.log("Connecting to MetaMask...");
+            resultBox.innerHTML = '<div class="alert alert-info">Connecting to MetaMask...</div>';
 
+            const sender = await connectMetaMask();
+            console.log("Connected to account:", sender);
+
+            // Initialize Web3
             const web3 = new Web3(window.ethereum);
 
-            // Always get fresh account information to handle account switches
-            let accounts;
-            try {
-              // First try to get current accounts without prompting
-              accounts = await window.ethereum.request({ method: 'eth_accounts' });
+            // Simple fallback address for testing
+            const contractAddress = "0x1D1Fbb57F988690e3E688Fa515993A0b65811F21";
+            const weiAmount = '0x' + BigInt(web3.utils.toWei(amount, "ether")).toString(16);
+            console.log("Wei amount:", weiAmount);
 
-              // If no accounts or user might have switched, request accounts
-              if (accounts.length === 0) {
-                accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-              }
-            } catch (accountError) {
-              // Fallback to request accounts if eth_accounts fails
-              accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-            }
-
-            const sender = accounts[0];
-            const weiAmount = web3.utils.toWei(amount, "ether");
-
-            // Always fetch fresh balance for the current account
-            resultBox.innerHTML = '<div class="alert alert-info"><i class="bi bi-info-circle me-2"></i>Checking account balance...</div>';
-
+            // Check balance
+            resultBox.innerHTML = '<div class="alert alert-info">Checking balance...</div>';
             const balance = await web3.eth.getBalance(sender);
             const balanceEth = web3.utils.fromWei(balance, 'ether');
-
-            console.log(`Current account: ${sender}, Balance: ${balanceEth} ETH, Required: ${amount} ETH`);
+            console.log(`Balance: ${balanceEth} ETH, Required: ${amount} ETH`);
 
             if (parseFloat(balanceEth) < parseFloat(amount)) {
-              resultBox.innerHTML = `<div class="alert alert-danger"><i class="bi bi-exclamation-triangle me-2"></i>Insufficient balance. Account ${sender.substring(0,6)}...${sender.substring(38)} has ${parseFloat(balanceEth).toFixed(4)} ETH, but ${amount} ETH is required.</div>`;
+              resultBox.innerHTML = `<div class="alert alert-danger">Insufficient balance: ${parseFloat(balanceEth).toFixed(4)} ETH available, ${amount} ETH required</div>`;
               return;
             }
 
-            resultBox.innerHTML = '<div class="alert alert-info"><i class="bi bi-clock me-2"></i>Please confirm the transaction in MetaMask...</div>';
+            // Prepare transaction
+            resultBox.innerHTML = '<div class="alert alert-warning">⚠️ Please confirm transaction in MetaMask popup...</div>';
 
-            let tx;
-            let transactionMethod = 'direct';
+            console.log("Sending transaction...");
+            console.log("From:", sender);
+            console.log("To:", contractAddress);
+            console.log("Value:", weiAmount);
 
-            try {
-              // Try smart contract method first
-              const contract = new web3.eth.Contract(contractABI, contractAddress);
-
-              // Estimate gas
-              const gasEstimate = await contract.methods.invest().estimateGas({
-                from: sender,
-                value: weiAmount
-              });
-
-              tx = await contract.methods
-                .invest()
-                .send({
-                  from: sender,
-                  value: weiAmount,
-                  gas: Math.floor(gasEstimate * 1.2) // Add 20% buffer
-                });
-              transactionMethod = 'contract';
-
-            } catch (contractError) {
-              console.warn("Contract call failed. Trying direct transfer...", contractError);
-
-              // Fallback to direct transfer
-              tx = await web3.eth.sendTransaction({
+            // Send transaction using direct MetaMask API (same as working Direct Test)
+            const txHash = await window.ethereum.request({
+              method: 'eth_sendTransaction',
+              params: [{
                 from: sender,
                 to: contractAddress,
                 value: weiAmount,
-                gas: 21000,
-              });
-              transactionMethod = 'direct';
-            }
+                gas: '0x5208' // 21000 in hex
+              }]
+            });
 
-            resultBox.innerHTML = '<div class="alert alert-info"><i class="bi bi-check-circle me-2"></i>Transaction sent! Recording...</div>';
+            console.log("Transaction successful:", txHash);
+
+            // Create transaction object for compatibility
+            const tx = { transactionHash: txHash };
+
+            // Show success
+            resultBox.innerHTML = `
+              <div class="alert alert-success">
+                <strong>✅ Transaction Successful!</strong><br>
+                Hash: ${tx.transactionHash}<br>
+                Amount: ${amount} ETH
+              </div>
+            `;
 
             // Record transaction
-            const fundingData = await recordTransaction(
-              sender,
-              tx.transactionHash,
-              amount,
-              projectId
-            );
-
-            if (fundingData) {
-              updateFundingProgress(projectId, fundingData);
-              resultBox.innerHTML = `
-                <div class="alert alert-success">
-                  <i class="bi bi-check-circle-fill me-2"></i>
-                  <strong>Investment successful!</strong><br>
-                  <small>Transaction: ${tx.transactionHash.substring(0, 10)}...${tx.transactionHash.substring(tx.transactionHash.length - 8)}</small><br>
-                  <small>Method: ${transactionMethod === 'contract' ? 'Smart Contract' : 'Direct Transfer'}</small>
-                </div>`;
-
-              // Trigger celebration if funding goal reached
-              if (fundingData.celebrate) {
-                triggerCelebration();
+            try {
+              const fundingData = await recordTransaction(sender, tx.transactionHash, amount, projectId);
+              if (fundingData) {
+                updateFundingProgress(projectId, fundingData);
+                if (fundingData.celebrate) {
+                  triggerCelebration();
+                }
               }
-            } else {
-              resultBox.innerHTML = `
-                <div class="alert alert-success">
-                  <i class="bi bi-check-circle-fill me-2"></i>
-                  <strong>Investment successful!</strong><br>
-                  <small>Transaction: ${tx.transactionHash}</small>
-                </div>`;
+            } catch (recordError) {
+              console.error("Failed to record transaction:", recordError);
             }
 
           } catch (error) {
             console.error("Investment error:", error);
 
             let errorMessage = "Transaction failed";
+            let solution = "";
+
             if (error.code === 4001) {
               errorMessage = "Transaction cancelled by user";
             } else if (error.code === -32603) {
-              errorMessage = "Internal error - please try again";
+              errorMessage = "Network connection issue (Circuit breaker)";
+              solution = `
+                <br><strong>Solutions:</strong>
+                <br>• Switch to Ethereum Mainnet or Sepolia testnet
+                <br>• Wait a few minutes and try again
+                <br>• Check your internet connection
+                <br><button onclick="switchToMainnet()" class="btn btn-sm btn-primary mt-1 me-1">Switch to Mainnet</button>
+                <button onclick="switchToSepolia()" class="btn btn-sm btn-secondary mt-1">Switch to Sepolia</button>
+              `;
             } else if (error.message.includes("insufficient funds")) {
               errorMessage = "Insufficient funds for transaction";
+              solution = "<br>• Make sure you have enough ETH for the transaction amount plus gas fees";
             } else if (error.message.includes("gas")) {
-              errorMessage = "Gas estimation failed - please try a smaller amount";
+              errorMessage = "Gas estimation failed";
+              solution = "<br>• Try a smaller amount or check network congestion";
             }
 
             resultBox.innerHTML = `
@@ -4239,6 +4568,7 @@
                 <i class="bi bi-exclamation-triangle me-2"></i>
                 <strong>${errorMessage}</strong><br>
                 <small>${error.message}</small>
+                ${solution}
               </div>`;
 
           } finally {
@@ -4298,6 +4628,44 @@
           }
         }
 
+        // Function to display current network info
+        async function displayNetworkInfo() {
+          if (typeof window.ethereum !== "undefined") {
+            try {
+              const networkConfig = await getCurrentNetworkConfig();
+              if (networkConfig) {
+                const networkInfoElement = document.getElementById("networkInfo");
+                if (networkInfoElement) {
+                  const isSupported = SUPPORTED_NETWORKS[networkConfig.chainId] ? "✅" : "⚠️";
+                  const supportedText = SUPPORTED_NETWORKS[networkConfig.chainId] ? "Supported" : "Custom Network";
+                  networkInfoElement.innerHTML = `
+                    <div class="small text-muted">
+                      ${isSupported} <strong>${networkConfig.name}</strong>
+                      ${networkConfig.isMainnet ? '<span class="badge bg-success ms-1">Mainnet</span>' : '<span class="badge bg-warning ms-1">Testnet</span>'}
+                      <span class="badge bg-info ms-1">${supportedText}</span>
+                    </div>
+                    <div class="small text-muted mt-1">
+                      <i class="bi bi-info-circle me-1"></i>
+                      Chain ID: ${networkConfig.chainId} | Ready for transactions
+                    </div>
+                  `;
+                }
+              }
+            } catch (error) {
+              console.error("Error displaying network info:", error);
+              const networkInfoElement = document.getElementById("networkInfo");
+              if (networkInfoElement) {
+                networkInfoElement.innerHTML = `
+                  <div class="small text-muted">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    Unable to detect network. Please check MetaMask connection.
+                  </div>
+                `;
+              }
+            }
+          }
+        }
+
         // Add MetaMask account change detection
         function setupMetaMaskListeners() {
           if (typeof window.ethereum !== "undefined") {
@@ -4321,6 +4689,12 @@
               if (resultBox) {
                 resultBox.innerHTML = "";
               }
+              // Update network configuration
+              getCurrentNetworkConfig().then(config => {
+                currentNetworkConfig = config;
+                console.log('Updated network config:', config);
+                displayNetworkInfo(); // Update network display
+              });
             });
           }
         }
@@ -4341,6 +4715,7 @@
           } else {
             initInvestmentModal();
             setupMetaMaskListeners();
+            displayNetworkInfo(); // Show current network info
           }
         });
 
